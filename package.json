@@ -5,7 +5,7 @@
   "homepage": "https://github.com/KitsuneAkvma/node-project-group-3",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url node-project-group-3"
+    "build": "parcel build src/*.html --public-url ./"
   },
   "repository": {
     "type": "git",
