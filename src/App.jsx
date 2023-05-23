@@ -6,6 +6,10 @@ import './App.css';
 function App() {
   const [count, setCount] = useState(0);
 
+  const test = () => {
+    setCount(count => count + 1);
+  };
+
   return (
     <>
       <div>
@@ -18,7 +22,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>count is {count}</button>
+        <button onClick={test}>count is {count} print state</button>{' '}
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
