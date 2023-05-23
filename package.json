@@ -4,6 +4,7 @@
   "version": "18.16.0",
   "type": "module",
   "scripts": {
+    "start": "vite --host",
     "dev": "vite",
     "server:dev": "cross-env NODE_ENV=development nodemon ./server/server.js",
     "build": "vite build",
