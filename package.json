@@ -1,25 +1,27 @@
 {
-  "name": "node-project-group-3",
-  "version": "1.1.0",
-  "description": "GoIT group project made with React.JS and Node.JS by amazing developers",
-  "homepage": "https://github.com/KitsuneAkvma/node-project-group-3",
+  "name": "wallet",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url ./"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KitsuneAkvma/node-project-group-3.git"
-  },
-  "keywords": [],
-  "author": "group",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/KitsuneAkvma/node-project-group-3/issues"
+  "dependencies": {
+    "prettier": "^2.8.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.3",
-    "parcel": "^2.8.3",
-    "posthtml-include": "^1.7.4"
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "vite": "^4.3.2"
   }
 }
