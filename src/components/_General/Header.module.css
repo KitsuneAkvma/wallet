@@ -1,0 +1,102 @@
+:root {
+  --color__header-background: #ffffff;
+  --color__header-text: #bdbdbd;
+  --color__header-text-logo: #000000;
+  --color__header-hover: #4a56e2;
+  --font__header-primary: 'Hind Siliguri', sans-serif;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+
+  width: 100dvw;
+  height: 3.75rem;
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--color__header-background);
+}
+.header__content {
+  width: 90dvw;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content__logo {
+  width: 7.5rem;
+  height: 1.875rem;
+  display: inline-block;
+}
+
+.logo__text {
+  color: var(--color__header-text-logo);
+}
+.content__user {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.user__name {
+  font-family: var(--font__header-primary);
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color__header-text);
+}
+.user__vertLine {
+  display: none;
+}
+.user__logout {
+  transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+    fill 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+    color 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  cursor: pointer;
+}
+.user__logout:hover {
+  transform: scale(0.98);
+}
+.user__logout path {
+  fill: var(--color__header-text);
+}
+.user__logout:hover path {
+  fill: var(--color__header-hover);
+}
+
+@media (min-width: 768px) {
+  .header {
+    height: 5rem;
+  }
+  .content__logo {
+    width: 11.3125rem;
+    height: 2.5rem;
+  }
+  .user__vertLine {
+    display: block;
+    width: 0.03rem;
+    height: 1.875rem;
+    background-color: var(--color__header-text);
+  }
+  .user__logout {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .user__logout::after {
+    content: 'Exit';
+
+    font-family: var(--font__header-primary);
+    font-size: 1.125rem;
+    color: var(--color__header-text);
+  }
+  .user__logout:hover:after {
+    color: var(--color__header-hover);
+  }
+}
+@media (min-width: 768px) {
+  .header__content {
+    width: 97.5dvw;
+  }
+}
