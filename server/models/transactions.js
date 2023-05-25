@@ -28,6 +28,9 @@ export const transaction = new Schema(
       ],
       default: 'Other expenses',
     },
+    categoryId: {
+      type: String,
+    },
     comment: {
       type: String,
       default: '',
