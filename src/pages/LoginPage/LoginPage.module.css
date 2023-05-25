@@ -8,6 +8,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+.peach,
+.violet,
+.man,
+.name {
+  display: none;
 }
 .form-container {
   width: 280px;
@@ -17,14 +24,18 @@
   height: 30px;
   width: 120px;
   margin: auto auto 60px auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
-.title {
-  font-size: 16px;
-}
-/* .icon {
-  height: 30px;
+.icon {
   width: 30px;
-} */
+  height: 30px;
+}
+.text {
+  width: 73.9px;
+  height: 16.83px;
+}
 .form {
   display: flex;
   flex-direction: column;
@@ -37,10 +48,23 @@
   height: 32px;
   width: 280px;
   margin-bottom: 40px;
+  padding-left: 45px;
 }
 .email::placeholder {
   color: #e0e0e0;
 }
+.email-icon {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 24px;
+  height: 24px;
+}
+.email-container {
+  position: relative;
+}
+
 .password {
   border: none;
   border-bottom: 1px solid #e0e0e0;
@@ -48,9 +72,21 @@
   height: 32px;
   width: 280px;
   margin-bottom: 40px;
+  padding-left: 45px;
 }
 .password::placeholder {
   color: #e0e0e0;
+}
+.password-container {
+  position: relative;
+}
+.password-icon {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 24px;
+  height: 24px;
 }
 .btn {
   margin-bottom: 20px;
@@ -59,7 +95,7 @@
   border-radius: 20px;
   background-color: #24cca7;
   color: #ffffff;
-  font-family: 'Circe';
+  font-family: 'Hind Siliguri', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -68,16 +104,129 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+
 @media (min-width: 768px) {
   .container {
     background-color: #e7eaf2;
-    width: 768px;
+    width: 90vw;
+    height: 1024px;
+    overflow: hidden;
+  }
+  .name {
+    display: block;
+    position: absolute;
+    width: 187px;
+    height: 45px;
+    left: 414.26px;
+    top: 167px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 45px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+  }
+  .peach {
+    display: block;
+    position: absolute;
+    width: 618px;
+    height: 547px;
+    left: 356.41px;
+    top: -120px;
+    transform: rotate(21.94deg);
+  }
+  .violet {
+    display: block;
+    position: absolute;
+    width: 618px;
+    height: 747px;
+    left: -153.33px;
+    top: 635px;
+  }
+  .man {
+    display: block;
+    position: absolute;
+    width: 260.26px;
+    height: 250px;
+    left: 114px;
+    top: 60px;
+  }
+  .title-container {
+    margin: 40px auto 60px auto;
+    width: 181px;
+    height: 40px;
+  }
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+  .text {
+    width: 121px;
+    height: 40px;
+  }
+  .btn {
+    width: 300px;
+  }
+  .form-container {
+    background-color: #ffffff;
+    position: absolute;
+    width: 533px;
+    height: 468px;
+    left: 118px;
+    top: 360px;
+    border-radius: 20px;
+  }
+  .email {
+    width: 410px;
+  }
+
+  .password {
+    width: 410px;
   }
 }
 
 @media (min-width: 1268px) {
   .container {
+    display: flex;
     width: 1268px;
-    background-color: chartreuse;
+    height: 720px;
+  }
+  .blur {
+    position: absolute;
+    background-color: rgb(255 255 255 / 0.3);
+    backdrop-filter: blur(10px);
+    width: 731px;
+    height: 720px;
+    right: 0px;
+  }
+  .man {
+    width: 435.2px;
+    height: 419.5px;
+    left: 76px;
+    top: 150px;
+  }
+  .form-container {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .name {
+    left: 198px;
+    top: 597.5px;
+  }
+  .peach {
+    left: 750px;
+    top: -110px;
+  }
+  .violet {
+    width: 618px;
+    height: 747px;
+    left: -133.33px;
+    top: 435px;
   }
 }
