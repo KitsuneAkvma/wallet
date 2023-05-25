@@ -13,7 +13,7 @@ App.use(cors());
 App.use(express.json());
 App.use(express.static(path.join(process.cwd(), 'public')));
 
-App.use('/api/');
+// App.use('/api/');
 
 App.use((req, res) => {
   res.status(404).json({
