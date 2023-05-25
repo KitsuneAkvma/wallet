@@ -2,13 +2,13 @@ import { useState } from 'react';
 import reactLogo from '/svg/react.svg';
 import viteLogo from '/svg/vite.svg';
 import './App.css';
-import 'sanitize.css'; 
-import 'modern-normalize/modern-normalize.css'; 
+import 'sanitize.css';
+import 'modern-normalize/modern-normalize.css';
 
 function App() {
   const [count, setCount] = useState(0);
 
-  const test = () => {
+  const test = async () => {
     setCount(count => count + 1);
   };
 
