@@ -1,0 +1,232 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background-color: #e7eaf2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 32px 20px;
+  width: 20rem;
+  height: 35.5rem;
+}
+.peach,
+.violet,
+.man,
+.name,
+.scoreWord {
+  display: none;
+}
+.form-container {
+  background-color: #ffffff;
+  padding: 32px 20px;
+  width: 20rem;
+  height: 35.5rem;
+}
+.title-container {
+  height: 1.875rem;
+  width: 7.5rem;
+  margin: auto auto 3.75rem auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.icon {
+  width: 1.875rem;
+  height: 1.875rem;
+}
+.text {
+  width: 4.6188rem;
+  height: 1.0519rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.password-strength-bar {
+  width: 17.5rem;
+}
+.email,
+.password,
+.name-input {
+  border: none;
+  border-bottom: 0.0625rem solid #e0e0e0;
+  outline: none;
+  height: 2rem;
+  width: 17.5rem;
+  padding-left: 2.8125rem;
+  background-color: #ffffff;
+}
+.email::placeholder,
+.password::placeholder,
+.name-input::placeholder {
+  color: #e0e0e0;
+}
+.email-icon,
+.password-icon,
+.name-input-icon {
+  content: '';
+  position: absolute;
+  left: 0.3125rem;
+  top: 0.125rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.email-container,
+.password-container,
+.name-input-container {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.btn {
+  margin-bottom: 1.25rem;
+  width: 17.5rem;
+  height: 3.125rem;
+  border-radius: 1.25rem;
+  background-color: #24cca7;
+  color: #ffffff;
+  font-family: 'Hind Siliguri', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.6875rem;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .container {
+    background-color: #e7eaf2;
+    min-height: 64rem;
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+    padding: 0;
+  }
+  .name {
+    display: block;
+    position: absolute;
+    width: 11.6875rem;
+    height: 2.8125rem;
+    left: 25.8912rem;
+    top: 10.4375rem;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.875rem;
+    line-height: 2.8125rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+  }
+  .peach {
+    display: block;
+    position: absolute;
+    width: 38.625rem;
+    height: 34.1875rem;
+    left: 22.2756rem;
+    top: -7.5rem;
+    transform: rotate(21.94deg);
+  }
+  .violet {
+    display: block;
+    position: absolute;
+    width: 38.625rem;
+    height: 46.6875rem;
+    left: -9.5831rem;
+    top: 39.6875rem;
+  }
+  .woman {
+    display: block;
+    position: absolute;
+    width: 17.1206rem;
+    height: 15.625rem;
+    left: 7.125rem;
+    top: 3.75rem;
+  }
+  .title-container {
+    margin: 2.5rem auto 3.75rem auto;
+    width: 11.3125rem;
+    height: 2.5rem;
+  }
+  .icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .text {
+    width: 7.5625rem;
+    height: 2.5rem;
+  }
+  .btn {
+    width: 18.75rem;
+  }
+  .form-container {
+    background-color: #ffffff;
+    position: absolute;
+    width: 33.3125rem;
+    height: 38.5rem;
+    left: 7.375rem;
+    top: 22.5rem;
+    border-radius: 1.25rem;
+    padding: 0;
+  }
+  .email,
+  .password,
+  .name-input,
+  .password-strength-bar {
+    width: 25.625rem;
+  }
+}
+
+@media (min-width: 1268px) {
+  .container {
+    display: flex;
+    min-height: 45rem;
+    width: 100dvw;
+    height: 100dvh;
+  }
+  .blur {
+    position: absolute;
+    background-color: rgb(255 255 255 / 0.3);
+    backdrop-filter: blur(0.625rem);
+    width: 50dvw;
+    height: 100dvh;
+    transform: translateX(50%);
+  }
+  .woman {
+    width: 27.2rem;
+    height: 26.2188rem;
+    left: 25%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .form-container {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .name {
+    left: 25%;
+    top: 80%;
+    transform: translateX(-50%);
+  }
+  .peach {
+    left: 59.375rem;
+    top: -6.875rem;
+  }
+  .violet {
+    width: 38.625rem;
+    height: 46.6875rem;
+    left: -8.3331rem;
+    top: 27.1875rem;
+  }
+}
