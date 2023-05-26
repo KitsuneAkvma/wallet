@@ -12,22 +12,6 @@ export const transaction = new Schema(
       enum: ['Income', 'Expense'],
       default: 'Expense',
     },
-    categoryOfTransaction: {
-      type: String,
-      enum: [
-        'Main expenses',
-        'Products',
-        'Car',
-        'Self care',
-        'Child care',
-        'Household products',
-        'Education',
-        'Leisure',
-        'Other expenses',
-        'Entertainment',
-      ],
-      default: 'Other expenses',
-    },
     categoryId: {
       type: String,
     },
