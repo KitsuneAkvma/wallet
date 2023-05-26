@@ -2,13 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { logOut, login, refreshUser, signUp } from './operations';
 
 const initialState = {
-  user: { name: null, email: null },
+  user: { id: '', name: '', email: '' },
   loginForm: { email: '', password: '' },
   registerForm: { email: '', password: '', confPassword: '', name: '' },
   token: null,
-  isLoggedIn: false,
-  isLoading: false,
-  isRefreshing: false,
+  isAuth: false,
   error: null,
 };
 
@@ -20,7 +18,7 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-const authSlice = createSlice({
+const sessionSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -96,5 +94,5 @@ export const {
   updateRegisterPassword,
   updateRegisterConfPassword,
   updateRegisterName,
-} = authSlice.actions;
-export const authReducer = authSlice.reducer;
+} = sessionSlice.actions;
+export const sessionReducer = sessionSlice.reducer;

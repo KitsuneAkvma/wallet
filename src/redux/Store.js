@@ -1,22 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
 import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
-
-import utilityReducer from './Slices/utilitySlice';
-
-import { authReducer } from './Slices/auth/authSlice';
 import persistStore from 'redux-persist/es/persistStore';
-import { currenciesReducer } from './Slices/currencies/currenciesSlice';
-import { transactionsReducer } from './Slices/transactions/transactionsSlice';
 
-const authPersistConfig = { key: 'auth', storage };
+import { sessionReducer } from './Slices/session/sessionSlice';
+import { financeReducer } from './Slices/finance/financeSlice';
+import { globalReducer } from './Slices/global/globalSlice';
+
+const sessionPersistConfig = { key: 'session', storage };
 
 const Store = configureStore({
   reducer: {
-    utility: utilityReducer,
-    currencies: currenciesReducer,
-    transactions: transactionsReducer,
-    auth: persistReducer(authPersistConfig, authReducer),
+    global: globalReducer,
+    finance: financeReducer,
+    session: persistReducer(sessionPersistConfig, sessionReducer),
   },
 });
 
