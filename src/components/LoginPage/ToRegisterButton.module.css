@@ -1,23 +1,22 @@
 .btn {
-  margin-bottom: 20px;
-  width: 280px;
-  height: 50px;
-  border-radius: 20px;
-  border: 1px solid #4a56e2;
+  width: 17.5rem;
+  height: 3.125rem;
+  border-radius: 1.25rem;
+  border: 0.0625rem solid #4a56e2;
   background-color: #ffffff;
   color: #4a56e2;
   font-family: 'Hind Siliguri', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
+  font-size: 1.125rem;
+  line-height: 1.6875rem;
   text-align: center;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .btn {
-    width: 300px;
+    width: 18.75rem;
   }
 }
