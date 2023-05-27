@@ -1,0 +1,164 @@
+import jwt from 'jsonwebtoken';
+import passport from 'passport';
+import process from 'node:process';
+import * as dotenv from 'dotenv';
+import sgMail from '@sendgrid/mail';
+import { v4 as uuidv4 } from 'uuid';
+import User from '../../models/users.js';
+import { removeUser, updateUser } from '../dbControllers/users.js';
+dotenv.config();
+const secretWord = process.env.SECRET;
+
+export const registration = async (req, res, next) => {
+  const { email, password, username, doubledPassword } = req.body;
+  const confirmedPassword = password === doubledPassword;
+  if (!email || !password || !confirmedPassword)
+    return res.status(400).json({ status: 'error', message: 'missing field' });
+  const user = await User.findOne({ email });
+  if (user) {
+    return res.status(409).json({
+      status: 'error',
+      code: 409,
+      message: 'Bad credencials',
+      data: 'Conflict',
+    });
+  }
+  try {
+    const { id, email } = user;
+    const payload = { id: id };
+    const token = jwt.sign(payload, secretWord, { expiresIn: '1d' });
+    const verificationToken = uuidv4();
+    const newUser = new User({
+      email,
+      username,
+      token,
+      verificationToken: verificationToken,
+    });
+    newUser.setPassword(password);
+    await newUser.save();
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const myEmail = process.env.MY_EMAIL;
+    const verificationEmail = {
+      to: [myEmail, { email }],
+      from: myEmail,
+      subject: 'Wallet app verification email',
+      text: `Please confirm your email address at http://localhost3000/api/users/verify/${verificationToken}`,
+      html: `Please confirm your email address at <strong><a href="http://localhost3000/api/users/verify/${verificationToken}">www.localhost3000/api/users/verify/${verificationToken}</a></strong>`,
+    };
+    await sgMail.send(verificationEmail);
+    res.status(201).json({
+      status: 'Success',
+      code: 201,
+      message:
+        'Registration successful! Verification e-mail has just been sent, please verify your e-mail',
+      data: { user: { id, username, email, balance: 0 }, token: token },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const verifyEmail = async (req, res, next) => {
+  const { verificationToken } = req.params;
+  const user = await User.findOne({ verificationToken });
+  if (!user) return res.status(404).json({ status: 'error', message: 'User not found' });
+  try {
+    await updateUser(user.id, { verificationToken: null, verify: true });
+    res.json({
+      status: 'Verification successful',
+      code: 200,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const secondVerifyEmail = async (req, res, next) => {
+  const { email } = req.body;
+  if (!email)
+    return res.status(400).json({ status: 'error', message: 'missing required field email' });
+  const user = await User.findOne({ email });
+  if (user.verify) return res.status(400).json({ message: 'Verification has already been passed' });
+  try {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const myEmail = process.env.MY_EMAIL;
+    const verificationEmail = {
+      to: [myEmail, { email }],
+      from: myEmail,
+      subject: 'Wallet app verification email',
+      text: `Please confirm your email address at http://localhost3000/api/users/verify/${user.verificationToken}`,
+      html: `Please confirm your email address at <strong><a href="http://localhost3000/api/users/verify/${user.verificationToken}">www.localhost3000/api/users/verify/${user.verificationToken}</a></strong>`,
+    };
+    await sgMail.send(verificationEmail);
+    res.json({ code: 200, message: 'Verification email sent' });
+  } catch (error) {
+    next(error);
+  }
+};
+export const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({ status: 'error', message: 'missing field' });
+  const user = await User.findOne({ email });
+  if (!user || !user.validPassword(password) || !user.verify) {
+    return res.status(401).json({
+      status: 'Unathorized',
+      code: 401,
+      message:
+        "Incorrect login or password or you are not verified your email yet. If you have not verified yet, please check your e-mail box or go to 'api/users/verify' to get second verify email",
+      data: 'Bad credentials',
+    });
+  }
+  try {
+    const { id, email, username, balance } = user;
+    const payload = { id: id };
+    const token = jwt.sign(payload, secretWord, { expiresIn: '1d' });
+    await updateUser(id, { token: token });
+    res.header('Authorization', `Bearer ${token}`);
+    res.json({
+      status: 'Success',
+      code: 200,
+      data: { token: token, user: { id, username, email, balance } },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const logout = async (req, res, next) => {
+  try {
+    await updateUser(req.user.id, { token: null });
+    res.json({
+      status: 'No content',
+      code: 204,
+      data: 'Not found',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const signout = async (req, res, next) => {
+  if (!req.user.id) return res.status(404).json({ status: 'error', message: 'User not found' });
+  try {
+    await removeUser(req.user.id);
+    res.json({
+      status: 'No content',
+      code: 204,
+      data: 'Not found',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const auth = (req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (err, user) => {
+    const token = req.headers.authorization.split(' ')[1];
+    if (!user || err || user.token !== token) {
+      return res.status(401).json({
+        status: 'error',
+        code: 401,
+        message: 'Unauthorized',
+        data: 'Unauthorized',
+      });
+    }
+    req.user = user;
+    next();
+  })(req, res, next);
+};
