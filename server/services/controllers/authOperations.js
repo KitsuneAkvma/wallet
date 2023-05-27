@@ -24,31 +24,32 @@ export const registration = async (req, res, next) => {
     });
   }
   try {
-    const { id, email } = user;
     const verificationToken = uuidv4();
     const newUser = new User({
       email,
       username,
       verificationToken: verificationToken,
+      balance: 0,
     });
     newUser.setPassword(password);
     await newUser.save();
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    const myEmail = process.env.MY_EMAIL;
-    const verificationEmail = {
-      to: [myEmail, { email }],
-      from: myEmail,
-      subject: 'Wallet app verification email',
-      text: `Please confirm your email address at http://localhost3000/api/users/verify/${verificationToken}`,
-      html: `Please confirm your email address at <strong><a href="http://localhost3000/api/users/verify/${verificationToken}">www.localhost3000/api/users/verify/${verificationToken}</a></strong>`,
-    };
-    await sgMail.send(verificationEmail);
+    const { id, balance } = newUser;
+    // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    // const myEmail = process.env.MY_EMAIL;
+    // const verificationEmail = {
+    //   to: [myEmail, { email }],
+    //   from: myEmail,
+    //   subject: 'Wallet app verification email',
+    //   text: `Please confirm your email address at http://localhost3000/api/users/verify/${verificationToken}`,
+    //   html: `Please confirm your email address at <strong><a href="http://localhost3000/api/users/verify/${verificationToken}">www.localhost3000/api/users/verify/${verificationToken}</a></strong>`,
+    // };
+    // await sgMail.send(verificationEmail);
     res.status(201).json({
       status: 'Success',
       code: 201,
       message:
         'Registration successful! Verification e-mail has just been sent, please verify your e-mail',
-      data: { user: { id, username, email, balance: 0 } },
+      data: { newUser: { id, email, username, balance } },
     });
   } catch (error) {
     next(error);
@@ -61,10 +62,9 @@ export const verifyEmail = async (req, res, next) => {
   try {
     await updateUser(user.id, { verificationToken: null, verify: true });
     res.json({
-      status: 'Verification successful',
+      status: 'Verification successful, please log-in',
       code: 200,
     });
-    res.redirect('/auth/log-in');
   } catch (error) {
     next(error);
   }
@@ -74,7 +74,8 @@ export const secondVerifyEmail = async (req, res, next) => {
   if (!email)
     return res.status(400).json({ status: 'error', message: 'missing required field email' });
   const user = await User.findOne({ email });
-  if (user.verify) return res.status(400).json({ message: 'Verification has already been passed' });
+  if (user.verify)
+    return res.status(400).json({ message: 'Verification has already been passed, please log-in' });
   try {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const myEmail = process.env.MY_EMAIL;
@@ -87,7 +88,6 @@ export const secondVerifyEmail = async (req, res, next) => {
     };
     await sgMail.send(verificationEmail);
     res.json({ code: 200, message: 'Verification email sent' });
-    res.redirect('/auth/log-in');
   } catch (error) {
     next(error);
   }
