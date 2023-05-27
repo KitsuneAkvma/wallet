@@ -1,0 +1,28 @@
+:root {
+  --color-bg-primary: #e7eaf2;
+  --color-bg-secondary: #ffffff;
+  --color-text-primary: #000000;
+
+  --color-Gray1: #bdbdbd;
+  --color-Gray2: #e0e0e0;
+  --color-gray3: #a6a6a6;
+
+  --color-blue: #4a56e2;
+  --color-green: #24cca7;
+  --color-pink: #ff6596;
+
+  --color-category-main: #fed057;
+  --color-category-products: #ffd8d0;
+  --color-category-car: #fd9498;
+  --color-category-selfcare: #c5baff;
+  --color-category-childcare: #6e78e8;
+  --color-category-household: #4a56e2;
+  --color-category-education: #81e1ff;
+  --color-category-Leisure: #24cca7;
+  --color-category-other: #00ad84;
+
+  --color-backdrop: rgba(0, 0, 0, 0.25);
+
+  --font-primary: 'Poppins';
+  --font-secondary: 'Hind Siliguri', sans-serif;
+}
