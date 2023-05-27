@@ -116,7 +116,7 @@
     transform-origin: center;
     transform: translateX(65%);
     top: 10.4375rem;
-    font-family: 'Hind Siliguri', sans-serif;
+    font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-size: 1.875rem;
@@ -205,9 +205,9 @@
   .woman {
     width: 27.2rem;
     height: 26.2188rem;
+    top: 9.375rem;
     left: 25%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
   }
   .form-container {
     position: absolute;
@@ -218,7 +218,7 @@
   }
   .name {
     left: 25%;
-    top: 80%;
+    top: 37.3438rem;
     transform: translateX(-50%);
   }
   .peach {
