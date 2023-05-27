@@ -1,5 +1,22 @@
+.transactionBtn {
+  position: absolute;
+  content: '+';
+  color: white;
+  font-size: 2.5rem;
+  height: 2.75rem;
+  width: 2.75rem;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  background-color: #24cca7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .modal {
   position: fixed;
+  color: black;
   top: 0;
   left: 0;
   width: 100%;
@@ -133,6 +150,7 @@ input:checked + .slider:before {
 
 .valueAndTime {
   display: flex;
+  color: black;
   flex-direction: column;
   gap: 2.5rem;
   align-items: center;
@@ -161,6 +179,7 @@ input:checked + .slider:before {
 }
 
 .transactionDate {
+  color: black;
   border: none;
   width: 17.5rem;
   height: 2rem;
@@ -223,6 +242,7 @@ input:checked + .slider:before {
 }
 
 .addBtn {
+  font-family: 'Hind Siliguri';
   margin-top: 2.5rem;
   display: flex;
   font-weight: 400;
@@ -237,6 +257,7 @@ input:checked + .slider:before {
 }
 
 .cancelBtn {
+  font-family: 'Hind Siliguri';
   margin-top: 1.25rem;
   display: flex;
   color: #4a56e2;
@@ -284,6 +305,7 @@ select.categorySelect option {
   }
 
   .modalTitle {
+    margin-top: 2.5rem;
     font-size: 1.875rem;
     line-height: 2.8125rem;
   }

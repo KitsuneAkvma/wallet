@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import styles from './Transaction.module.css';
@@ -52,9 +52,35 @@ export const TransactionModal = () => {
     },
   });
 
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    const handleClickOutside = event => {
+      if (event.target.classList.contains(styles.modal)) {
+        closeModal();
+      }
+    };
+
+    if (showModal) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showModal]);
+
   return (
     <div>
-      <button onClick={addTransaction}>Click me</button>
+      <button className={styles.transactionBtn} onClick={addTransaction}>
+        +
+      </button>
 
       {showModal && (
         <div className={styles.modal}>
