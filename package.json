@@ -21,9 +21,9 @@
     "mongoose": "^7.2.0",
     "node": "^18.16.0",
     "nodemon": "^2.0.22",
-    "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-media": "^1.10.0",
     "react-redux": "^8.0.5"
   },
   "devDependencies": {
@@ -34,6 +34,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "prettier": "^2.8.8",
     "vite": "^4.3.2"
   }
 }
