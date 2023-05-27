@@ -4,6 +4,8 @@ import cors from 'cors';
 import path from 'node:path';
 import process from 'node:process';
 import * as dotenv from 'dotenv';
+import passport from 'passport';
+import passportConfig from './services/config/passportConfig';
 import { usersRouter } from './routes/users.js';
 dotenv.config();
 
@@ -13,7 +15,7 @@ App.use(morgan(`${formatsLogger}`));
 App.use(cors());
 App.use(express.json());
 App.use(express.static(path.join(process.cwd(), 'public')));
-
+passportConfig(passport);
 App.use('/api/users', usersRouter);
 
 App.use((req, res) => {

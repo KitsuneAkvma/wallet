@@ -11,7 +11,9 @@ connection
   .then(() => {
     console.log(colors.yellow('Database connecting...'));
     App.listen(3000, () => {
-      console.log(colors.green('Database connection successful'));
+      console.log(
+        colors.green('Database connection successful and server is running on port 3000'),
+      );
     });
   })
   .catch(error => {

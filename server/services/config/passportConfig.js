@@ -2,7 +2,7 @@ import passport from 'passport';
 import passportJWT from 'passport-jwt';
 import process from 'node:process';
 import * as dotenv from 'dotenv';
-import User from '../../models/users.js';
+import { User } from '../../models/users.js';
 dotenv.config();
 
 const secretWord = process.env.SECRET;
@@ -14,7 +14,7 @@ const params = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
 };
 
-passport.use(
+export default passport.use(
   new Strategy(params, function (payload, done) {
     User.findById(payload.id)
       .then(user => {

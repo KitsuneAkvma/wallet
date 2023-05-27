@@ -4,7 +4,7 @@ import process from 'node:process';
 import * as dotenv from 'dotenv';
 import sgMail from '@sendgrid/mail';
 import { v4 as uuidv4 } from 'uuid';
-import User from '../../models/users.js';
+import { User } from '../../models/users.js';
 import { removeUser, updateUser } from '../dbControllers/users.js';
 dotenv.config();
 const secretWord = process.env.SECRET;
@@ -25,13 +25,10 @@ export const registration = async (req, res, next) => {
   }
   try {
     const { id, email } = user;
-    const payload = { id: id };
-    const token = jwt.sign(payload, secretWord, { expiresIn: '1d' });
     const verificationToken = uuidv4();
     const newUser = new User({
       email,
       username,
-      token,
       verificationToken: verificationToken,
     });
     newUser.setPassword(password);
@@ -51,7 +48,7 @@ export const registration = async (req, res, next) => {
       code: 201,
       message:
         'Registration successful! Verification e-mail has just been sent, please verify your e-mail',
-      data: { user: { id, username, email, balance: 0 }, token: token },
+      data: { user: { id, username, email, balance: 0 } },
     });
   } catch (error) {
     next(error);
@@ -67,6 +64,7 @@ export const verifyEmail = async (req, res, next) => {
       status: 'Verification successful',
       code: 200,
     });
+    res.redirect('/auth/log-in');
   } catch (error) {
     next(error);
   }
@@ -89,6 +87,7 @@ export const secondVerifyEmail = async (req, res, next) => {
     };
     await sgMail.send(verificationEmail);
     res.json({ code: 200, message: 'Verification email sent' });
+    res.redirect('/auth/log-in');
   } catch (error) {
     next(error);
   }

@@ -22,7 +22,7 @@ export const user = new Schema(
       maxlength: 12,
     },
     token: {
-      type: String | null,
+      type: String,
       default: null,
     },
     verify: {
@@ -30,7 +30,7 @@ export const user = new Schema(
       default: false,
     },
     verificationToken: {
-      type: String | null,
+      type: String,
       required: [validationOfVerificationToken, 'Verify token is required'],
       default: null,
     },
