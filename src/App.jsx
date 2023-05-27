@@ -1,11 +1,10 @@
 import './App.css';
 import 'sanitize.css';
 import 'modern-normalize/modern-normalize.css';
-
-import Loader from './components/_General/Loader/Loader';
+import { LazyRouter } from './utility/lazyComponents/lazyComponents';
 
 function App() {
-  return <Loader />;
+  return <LazyRouter />;
 }
 
 export default App;
