@@ -24,13 +24,14 @@ const financeSlice = createSlice({
       state.totalBalance = action.payload;
     },
   },
-  extraReducers: {
-    [getFinanceData.pending]: handlePending,
-    [getFinanceData.rejected]: handleRejected,
-    [getFinanceData.fulfilled]: (state, action) => {
-      state.data = action.payload;
-      state.isLoading = false;
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(getFinanceData.pending, handlePending)
+      .addCase(getFinanceData.rejected, handleRejected)
+      .addCase(getFinanceData.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.isLoading = false;
+      });
   },
 });
 
