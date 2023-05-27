@@ -1,0 +1,266 @@
+.modal {
+  color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  position: relative;
+  background-color: #fff;
+  width: 20rem;
+  padding: 0rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+  text-align: -webkit-center;
+}
+.optionContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+  margin-bottom: 3.75rem;
+}
+
+.modalTitle {
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  margin: 0rem;
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.greyedText {
+  font-family: 'Hind Siliguri';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #e0e0e0;
+  margin-left: 0.6875rem;
+  margin-right: 0.6875rem;
+}
+
+.expenseColor {
+  font-family: 'Hind Siliguri';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #ff6596;
+  margin-left: 0.6875rem;
+}
+
+.incomeColor {
+  font-family: 'Hind Siliguri';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #24cca7;
+  margin-right: 0.6875rem;
+}
+
+.valueAndTime {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.transactionValue {
+  background-color: #ffffff;
+  border: none;
+  font-weight: 700;
+  width: 17.5rem;
+  height: 2rem;
+  font-size: 1.125rem;
+  line-height: 1.6875rem;
+  text-align: center;
+  border-bottom: 0.0625rem solid #bdbdbd;
+  margin: 0;
+}
+
+.transactionValue::placeholder {
+  color: #bdbdbd;
+}
+
+.transactionValue:focus {
+  outline: none;
+}
+
+.transactionDate {
+  border: none;
+  width: 17.5rem;
+  height: 2rem;
+  border-bottom: 0.0625rem solid #bdbdbd;
+}
+
+.closeBtn {
+  display: none;
+}
+
+.transactionComment {
+  font-weight: 400;
+  font-size: 1.125rem;
+  background-color: #ffffff;
+  line-height: 1.6875rem;
+  width: 17.5rem;
+  height: 2rem;
+  border: none;
+  background-color: #ffffff;
+  border-bottom: 0.0625rem solid #bdbdbd;
+}
+.transactionComment::placeholder {
+  color: #bdbdbd;
+}
+
+.transactionComment:focus {
+  outline: none;
+}
+
+.datetimePicker input {
+  background-color: #ffffff;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.6875rem;
+}
+
+.datetimePicker .rdtPicker {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+}
+
+.datetimePicker .rdtDay {
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 0.875rem;
+}
+
+.datetimePicker .rdtSwitch {
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #007bff;
+}
+
+.datetimePicker .rdtSwitch:hover {
+  background-color: #0056b3;
+}
+
+.addBtn {
+  font-family: 'Hind Siliguri';
+  margin-top: 2.5rem;
+  display: flex;
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: #ffffff;
+  line-height: 1.6875rem;
+  width: 18.75rem;
+  height: 3.125rem;
+  justify-content: center;
+  background-color: #24cca7;
+  border-radius: 1.25rem;
+}
+
+.cancelBtn {
+  font-family: 'Hind Siliguri';
+  margin-top: 1.25rem;
+  display: flex;
+  color: #4a56e2;
+  background: #ffffff;
+  border: 0.0625rem solid #4a56e2;
+  border-radius: 1.25rem;
+  width: 18.75rem;
+  height: 3.125rem;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.6875rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.categorySelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0;
+  border: none;
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: #bdbdbd;
+  line-height: 1.6875rem;
+  outline: none;
+  background-color: transparent;
+  width: 17.5rem;
+  height: 2rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 0.0625rem solid #bdbdbd;
+}
+
+select.categorySelect option {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0rem 0.375rem 0.9375rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(1.5625rem);
+  border-radius: 1.25rem;
+  color: black;
+}
+
+@media screen and (min-width: 768px) {
+  .modalContent {
+    width: 33.75rem;
+  }
+
+  .modalTitle {
+    margin-top: 2.5rem;
+    font-size: 1.875rem;
+    line-height: 2.8125rem;
+  }
+
+  .closeBtn {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .valueAndTime {
+    gap: 2rem;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .transactionValue {
+    width: 11.3125rem;
+  }
+
+  .transactionDate {
+    width: 11.3125rem;
+  }
+
+  .transactionComment {
+    width: 24.625rem;
+  }
+
+  .categorySelect {
+    width: 24.625rem;
+  }
+}
