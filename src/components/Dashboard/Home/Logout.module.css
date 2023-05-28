@@ -1,0 +1,45 @@
+.modal {
+  position: fixed;
+  color: black;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalContent {
+  position: relative;
+  background-color: #fff;
+  width: 20rem;
+  padding: 0rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+  text-align: -webkit-center;
+}
+
+.logoutBtn {
+  display: flex;
+  gap: 5rem;
+  justify-content: center;
+}
+
+.logoutBtn button {
+  margin: 0;
+  padding: 0.625rem;
+  background: none;
+  margin-bottom: 0.625rem;
+  outline: none;
+}
+
+.yesBtn:hover {
+  border-color: #24cca7;
+  color: #24cca7;
+}
+
+.noBtn:hover {
+  border-color: #ff6596;
+  color: #ff6596;
+}
