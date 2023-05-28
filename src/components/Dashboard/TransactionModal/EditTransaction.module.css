@@ -72,6 +72,7 @@
 }
 
 .valueAndTime {
+  color: black;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
@@ -112,6 +113,7 @@
 }
 
 .transactionComment {
+  color: black;
   font-weight: 400;
   font-size: 1.125rem;
   background-color: #ffffff;
@@ -131,6 +133,7 @@
 }
 
 .datetimePicker input {
+  color: black;
   background-color: #ffffff;
   border: none;
   background-color: transparent;
