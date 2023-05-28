@@ -3,8 +3,9 @@ import css from './MobileTransaction.module.css';
 
 export const MobileTransaction = ({ date, type, category, comment, sum }) => {
   const sumColor = type === '+' ? css.greenSum : css.redSum;
+  const borderColor = type === '+' ? css.greenBorder : css.redBorder;
   return (
-    <li className={css.transactionBox}>
+    <li className={`${css.transactionBox} ${borderColor}`}>
       <div className={css.transactionSubBox}>
         <span className={css.transactionDetailName}>Date</span>
         <span className={css.transactionDetailValue}>{date}</span>
