@@ -1,6 +1,11 @@
+import { Outlet } from 'react-router-dom';
 
-
- const DashboardPage = () => {
-  return <div>DashboardPage</div>;
+const DashboardPage = () => {
+  return (
+    <section>
+      <div>DashboardPage</div>
+      <Outlet />
+    </section>
+  );
 };
-export default DashboardPage
+export default DashboardPage;
