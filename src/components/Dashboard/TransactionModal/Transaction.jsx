@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import styles from './Transaction.module.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateIsModalAddTransactionOpen } from '../../../redux/Slices/global/globalSlice';
 
 export const TransactionModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -13,13 +15,19 @@ export const TransactionModal = () => {
   const [selectedExpense, setSelectedExpense] = useState([]);
   const [category, setCategory] = useState('');
 
+  const open = useSelector(state => state.global.isModalAddTransactionOpen);
+
+  const dispatch = useDispatch();
+
   const addTransaction = () => {
     setSelectedDate(new Date());
     setShowModal(true);
+    dispatch(updateIsModalAddTransactionOpen(true));
   };
 
   const closeModal = () => {
     setShowModal(false);
+    dispatch(updateIsModalAddTransactionOpen(false));
   };
 
   const handleSwitchToggle = () => {
@@ -49,6 +57,8 @@ export const TransactionModal = () => {
     validationSchema,
     onSubmit: values => {
       console.log(values);
+      formik.resetForm();
+      closeModal();
     },
   });
 
