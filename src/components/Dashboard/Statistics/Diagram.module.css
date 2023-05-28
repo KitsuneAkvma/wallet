@@ -1,0 +1,29 @@
+.statistic {
+  display: flex;
+}
+
+.optionSelect {
+  width: 100px;
+  color: black;
+}
+
+.Chart {
+  width: 336px;
+  height: 336px;
+}
+
+.chartContainer {
+  position: relative;
+}
+
+.centerText {
+  position: absolute;
+  font-family: 'Hind Siliguri';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+  color: #000000;
+}
