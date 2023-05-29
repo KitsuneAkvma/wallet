@@ -6,7 +6,7 @@ const initialState = {
   loginForm: { email: '', password: '' },
   registerForm: { email: '', password: '', confPassword: '', name: '' },
   token: null,
-  isAuth: true,
+  isAuth: false,
   error: null,
 };
 
