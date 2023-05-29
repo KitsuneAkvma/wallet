@@ -1,11 +1,12 @@
+@import '../../utility/css-variables.css';
 .btn {
   width: 17.5rem;
   height: 3.125rem;
   border-radius: 1.25rem;
-  border: 0.0625rem solid #4a56e2;
-  background-color: #ffffff;
-  color: #4a56e2;
-  font-family: 'Hind Siliguri', sans-serif;
+  border: 0.0625rem solid var(--color-blue);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-blue);
+  font-family: var(--font-secondary);
   font-style: normal;
   font-weight: 400;
   font-size: 1.125rem;
@@ -13,6 +14,7 @@
   text-align: center;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 @media (min-width: 48rem) {

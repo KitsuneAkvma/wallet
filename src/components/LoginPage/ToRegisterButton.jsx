@@ -1,11 +1,11 @@
-import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+// import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import css from './ToRegisterButton.module.css';
 
 const ToRegisterButton = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const navigateToRegister = () => {
-    // navigate('/signup');
+    navigate('/register');
   };
   return (
     <div>

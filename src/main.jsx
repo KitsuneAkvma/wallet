@@ -7,14 +7,20 @@ import './index.css';
 import Store, { persistor } from './redux/Store.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter } from 'react-router-dom';
+import React from 'react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
-    <Provider store={Store}>
-      <PersistGate loading="null" persistor={persistor}>
-        <App />
-        <ToastContainer />
-      </PersistGate>
-    </Provider>
+    <React.StrictMode>
+      <BrowserRouter basename="/wallet/">
+        <Provider store={Store}>
+          <PersistGate loading="null" persistor={persistor}>
+            <App />
+            <ToastContainer />
+          </PersistGate>
+        </Provider>
+      </BrowserRouter>
+    </React.StrictMode>
   </>,
 );

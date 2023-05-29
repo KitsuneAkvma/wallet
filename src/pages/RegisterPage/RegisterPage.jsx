@@ -1,14 +1,109 @@
 // import React from 'react'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ToLoginButton from '../../components/RegisterPage/ToLoginButton';
 import css from './RegisterPage.module.css';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { ReactSVG } from 'react-svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { signUp } from '../../redux/Slices/session/operations';
+import { toast } from 'react-toastify';
+import { object, string, ref } from 'yup';
+import { useNavigate } from 'react-router';
+import {
+  resetRegisterForm,
+  updateRegisterConfPassword,
+  updateRegisterEmail,
+  updateRegisterName,
+  updateRegisterPassword,
+} from '../../redux/Slices/session/sessionSlice';
+
+const userSchema = object({
+  email: string().email('Invalid email').required('Email is required'),
+  password: string()
+    .min(6, 'Password must be at least 6 characters')
+    .max(12, 'Password can not be longer than 12 characters')
+    .required('Password is required'),
+  confirmPassword: string()
+    .oneOf([ref('password'), null], 'Passwords must match.')
+    .required(),
+  name: string()
+    .min(1, 'Your name must be at least 1 characters')
+    .max(12, 'Your name can not be longer than 12 characters')
+    .required('Name is required'),
+});
 
 const RegisterPage = () => {
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isAuth = useSelector(state => state.session.isAuth);
+  const email = useSelector(state => state.session.registerForm.email);
+  const password = useSelector(state => state.session.registerForm.password);
+  const confirmPassword = useSelector(state => state.session.registerForm.confPassword);
+  const name = useSelector(state => state.session.registerForm.name);
+
+  const handleEmailChange = event => {
+    dispatch(updateRegisterEmail(event.target.value));
+  };
+
   const handlePasswordChange = event => {
-    setPassword(event.target.value);
+    dispatch(updateRegisterPassword(event.target.value));
+    setPasswordStrength(event.target.value);
+  };
+
+  const handleConfirmPasswordChange = event => {
+    dispatch(updateRegisterConfPassword(event.target.value));
+  };
+
+  const handleNameChange = event => {
+    dispatch(updateRegisterName(event.target.value));
+  };
+
+  const handleRegisterFormReset = () => {
+    dispatch(resetRegisterForm());
+  };
+  const [passwordStrength, setPasswordStrength] = useState('');
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/home');
+    }
+  }, [isAuth, navigate]);
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const formValidationData = {
+      email: data.get('email'),
+      password: data.get('password'),
+      confirmPassword: data.get('confirmPassword'),
+      name: data.get('name'),
+    };
+    try {
+      await userSchema.validate(formValidationData, { abortEarly: false });
+
+      dispatch(
+        signUp({
+          name: data.get('name'),
+          email: data.get('email'),
+          password: data.get('password'),
+        }),
+      );
+      form.reset();
+      handleRegisterFormReset();
+    } catch (error) {
+      error.inner.forEach(validationError => {
+        toast.warn(validationError.message, {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+        });
+      });
+    }
   };
 
   return (
@@ -29,7 +124,7 @@ const RegisterPage = () => {
               }}
             />
           </div>
-          <form className={css.form}>
+          <form className={css.form} onSubmit={handleSubmit}>
             <div className={css['email-container']}>
               <ReactSVG className={css['email-icon']} src="../../public/svg/email_icon.svg" />
               <input
@@ -38,6 +133,8 @@ const RegisterPage = () => {
                 id="email"
                 name="email"
                 placeholder="E-mail"
+                value={email}
+                onChange={handleEmailChange}
                 required
               ></input>
             </div>
@@ -50,6 +147,7 @@ const RegisterPage = () => {
                 name="password"
                 placeholder="Password"
                 onChange={handlePasswordChange}
+                value={password}
                 required
               ></input>
             </div>
@@ -61,11 +159,13 @@ const RegisterPage = () => {
                 id="confirmPassword"
                 name="confirmPassword"
                 placeholder="Confirm password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
                 required
               ></input>
               <PasswordStrengthBar
                 className={css['password-strength-bar']}
-                password={password}
+                password={passwordStrength}
                 scoreWordClassName={css.scoreWord}
                 barColors={['#ddd', '#24cca7', '#24cca7', '#24cca7', '#24cca7']}
               />
@@ -78,7 +178,9 @@ const RegisterPage = () => {
                 type="text"
                 id="name"
                 name="name"
-                placeholder="Firs name"
+                placeholder="First name"
+                value={name}
+                onChange={handleNameChange}
                 required
               ></input>
             </div>

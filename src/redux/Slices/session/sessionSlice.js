@@ -28,6 +28,9 @@ const sessionSlice = createSlice({
     updateLoginPassword: (state, action) => {
       state.loginForm.password = action.payload;
     },
+    resetLoginForm: state => {
+      state.loginForm = initialState.loginForm;
+    },
     updateRegisterEmail: (state, action) => {
       state.registerForm.email = action.payload;
     },
@@ -39,6 +42,9 @@ const sessionSlice = createSlice({
     },
     updateRegisterName: (state, action) => {
       state.registerForm.name = action.payload;
+    },
+    resetRegisterForm: state => {
+      state.registerForm = initialState.registerForm;
     },
   },
   extraReducers: builder => {
@@ -87,9 +93,11 @@ const sessionSlice = createSlice({
 export const {
   updateLoginEmail,
   updateLoginPassword,
+  resetLoginForm,
   updateRegisterEmail,
   updateRegisterPassword,
   updateRegisterConfPassword,
   updateRegisterName,
+  resetRegisterForm,
 } = sessionSlice.actions;
 export const sessionReducer = sessionSlice.reducer;
