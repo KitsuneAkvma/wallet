@@ -1,58 +1,59 @@
+@import '../../../../utility/css-variables.css';
+
 .transactionListHeader {
-    background-color: #ffffff;
-    border-radius: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 14px 20px;
-    margin-top: 10px;
-  }
+  background-color: var(--color-bg-secondary);
+  border-radius: 1.875rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.875rem 1.25rem;
+  margin-top: 0.625rem;
+}
 
-  .transactionDetailName {
-    font-family: 'Hind Siliguri', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.5;
-    letter-spacing: 0em;
-    color: #000000;
-  }
+.transactionDetailName {
+  font-family: var(--font-secondary);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  color: var(--color-text-primary);
+}
 
-  .dateBox {
-    width: 11.66%;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-  }
+.dateBox {
+  width: 11.66%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
 
-  .typeBox {
-    width: 11.66%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.typeBox {
+  width: 11.66%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .categoryBox {
-    width: 16.66%;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-  }
+.categoryBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
 
-  .commentBox {
-    width: 16.66%;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-  }
+.commentBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
 
-  .sumBox {
-    width: 16.66%;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-  }
-  
-  .dummyBox {
-    width: 16.66%;
-  }
-  
+.sumBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.dummyBox {
+  width: 16.66%;
+}

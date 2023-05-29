@@ -1,9 +1,11 @@
+@import '../../../../utility/css-variables.css';
+
 .transactionBox {
   display: flex;
-  padding: 9px 20px;
-  border-bottom: 1px solid #dcdcdf;
-  font-family: 'Hind Siliguri', sans-serif;
-  font-size: 16px;
+  padding: 0.5625rem 1.25rem;
+  border-bottom: 0.0625rem solid var(--color-transaction-border);
+  font-family: var(--font-secondary);
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0em;
@@ -11,22 +13,22 @@
 }
 
 .deleteButton {
-  font-family: 'Hind Siliguri', sans-serif;
-  font-size: 14px;
+  font-family: var(--font-secondary);
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0em;
   text-align: center;
-  padding: 4px 12px;
-  background-color: #24cca7;
-  border-radius: 18px;
-  color: #ffffff;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--color-green);
+  border-radius: 1.125rem;
+  color: var(--color-delete-btn-font);
   border: none;
   transition: 200ms;
 }
 
 .deleteButton:hover {
-  background-color: #1ea487;
+  background-color: var(--color-bg-delete-btn-hover);
 }
 
 .deleteButton:focus {
@@ -77,9 +79,9 @@
 }
 
 .greenSum {
-  color: #24cca7;
+  color: var(--color-green);
 }
 
 .redSum {
-  color: #ff6596;
+  color: var(--color-pink);
 }

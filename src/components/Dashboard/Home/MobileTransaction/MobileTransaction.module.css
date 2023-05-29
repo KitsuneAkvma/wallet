@@ -1,62 +1,64 @@
+@import '../../../../utility/css-variables.css';
+
 .transactionBox {
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding-top: 8px;
-  border-left: 5px solid; 
+  background-color: var(--color-bg-secondary);
+  border-radius: 0.625rem;
+  padding-top: 0.5rem;
+  border-left: 0.3125rem solid;
 }
 
 .greenBorder {
-  border-color: #24CCA7;
+  border-color: var(--color-green);
 }
 
 .redBorder {
-  border-color: #ff6596;
+  border-color: var(--color-pink);
 }
 
 .transactionSubBox {
   display: flex;
   justify-content: space-between;
-  padding: 8px 20px;
-  border-bottom: 1px solid #dcdcdf;
+  padding: 0.5rem 1.25rem;
+  border-bottom: 0.0625rem solid var(--color-transaction-border);
 }
 
 .transactionDetailName {
-  font-family: 'Hind Siliguri', sans-serif;
-  font-size: 18px;
+  font-family: var(--font-secondary);
+  font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: 0em;
   display: inline-block;
-  margin-right: 10px;
-  color: #000000;
+  margin-right: 0.625rem;
+  color: var(--color-text-primary);
 }
 
 .transactionDetailValue {
-  font-family: 'Hind Siliguri', sans-serif;
-  font-size: 16px;
+  font-family: var(--font-secondary);
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0em;
-  color: #000000;
+  color: var(--color-text-primary);
 }
 
 .deleteButton {
-  font-family: 'Hind Siliguri', sans-serif;
-  font-size: 14px;
+  font-family: var(--font-secondary);
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0em;
   text-align: center;
-  padding: 4px 12px;
-  background-color: #24cca7;
-  border-radius: 18px;
-  color: #ffffff;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--color-green);
+  border-radius: 1.125rem;
+  color: var(--color-delete-btn-font);
   border: none;
   transition: 200ms;
 }
 
 .deleteButton:hover {
-  background-color: #1ea487;
+  background-color: var(--color-bg-delete-btn-hover);
 }
 
 .deleteButton:focus {
@@ -65,13 +67,13 @@
 
 .editTransaction {
   cursor: pointer;
-  color: #000000;
+  color: var(--color-text-primary);
 }
 
 .greenSum {
-  color: #24cca7;
+  color: var(--color-green);
 }
 
 .redSum {
-  color: #ff6596;
+  color: var(--color-pink);
 }

@@ -1,6 +1,7 @@
 :root {
   --color-bg-primary: #e7eaf2;
   --color-bg-secondary: #ffffff;
+  --color-bg-delete-btn-hover: #1ea487;
   --color-text-primary: #000000;
 
   --color-Gray1: #bdbdbd;
@@ -20,6 +21,9 @@
   --color-category-education: #81e1ff;
   --color-category-Leisure: #24cca7;
   --color-category-other: #00ad84;
+
+  --color-transaction-border: #dcdcdf;
+  --color-delete-btn-font: #ffffff;
 
   --color-blur: #ffffff4d;
   --color-backdrop: rgba(0, 0, 0, 0.25);
