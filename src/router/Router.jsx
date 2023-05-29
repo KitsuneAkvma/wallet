@@ -1,30 +1,29 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import RestrictedRoutes from './RestrictedRoutes';
+import PrivateRoutes from './PrivateRoutes';
+import NotFound from '../pages/NotFound/NotFound';
+import DashboardPage from '../pages/DashboardPage/DashboardPage';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
-import DashboardPage from '../pages/DashboardPage/DashboardPage';
-import NotFound from '../pages/NotFound/NotFound';
-
-
-const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <DashboardPage />,
-      children: [
-        { path: 'home', element: <div>HOME</div> },
-        { path: 'statistics', element: <div>STATS</div> },
-        { path: 'currency', element: <div>CURRENCY</div> },
-      ],
-    },
-    { path: '/login', element: <LoginPage /> },
-    { path: '/sign-up', element: <RegisterPage /> },
-    { path: '*', element: <NotFound /> },
-  ],
-  { basename: '/wallet' },
-);
 
 const Router = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<DashboardPage />} />
+        </Route>
+
+        <Route element={<RestrictedRoutes />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/sign-up" element={<RegisterPage />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
+// Restricted and private routes don't work correctly. There is problem with getting state "isAuth". Change variable isLoggedIn in useAuth manually to test.
 
 export default Router;

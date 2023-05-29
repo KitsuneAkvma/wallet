@@ -15,7 +15,6 @@
     "defaults"
   ],
   "dependencies": {
-    "moment": "^2.29.4",
     "@reduxjs/toolkit": "^1.9.5",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
@@ -29,6 +28,7 @@
     "formik": "^2.2.9",
     "jsonwebtoken": "^9.0.0",
     "modern-normalize": "^2.0.0",
+    "moment": "^2.29.4",
     "mongoose": "^7.2.0",
     "morgan": "^1.10.0",
     "node": "^18.16.0",
