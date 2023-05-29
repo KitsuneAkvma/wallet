@@ -1,11 +1,11 @@
 // import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import css from './ToLoginButton.module.css';
 
 const ToLoginButton = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const navigateToLogin = () => {
-    // navigate('/signup');
+    navigate('/login');
   };
   return (
     <div>

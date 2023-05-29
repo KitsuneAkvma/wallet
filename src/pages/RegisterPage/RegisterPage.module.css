@@ -1,10 +1,12 @@
+@import '../../utility/css-variables.css';
+
 * {
   margin: 0;
   padding: 0;
 }
 
 .container {
-  background-color: #ffffff;
+  background-color: var(--color-bg-secondary);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +22,7 @@
   display: none;
 }
 .form-container {
-  background-color: #ffffff;
+  background-color: var(--color-bg-secondary);
   padding: 32px 20px;
   width: 20rem;
   height: 35.5rem;
@@ -53,17 +55,17 @@
 .password,
 .name-input {
   border: none;
-  border-bottom: 0.0625rem solid #e0e0e0;
+  border-bottom: 0.0625rem solid var(--color-Gray2);
   outline: none;
   height: 2rem;
   width: 17.5rem;
   padding-left: 2.8125rem;
-  background-color: #ffffff;
+  background-color: var(--color-bg-secondary);
 }
 .email::placeholder,
 .password::placeholder,
 .name-input::placeholder {
-  color: #e0e0e0;
+  color: var(--color-Gray2);
 }
 .email-icon,
 .password-icon,
@@ -87,9 +89,10 @@
   width: 17.5rem;
   height: 3.125rem;
   border-radius: 1.25rem;
-  background-color: #24cca7;
-  color: #ffffff;
-  font-family: 'Hind Siliguri', sans-serif;
+  background-color: var(--color-green);
+  border: none;
+  color: var(--color-bg-secondary);
+  font-family: var(--font-secondary);
   font-style: normal;
   font-weight: 400;
   font-size: 1.125rem;
@@ -97,11 +100,12 @@
   text-align: center;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
   .container {
-    background-color: #e7eaf2;
+    background-color: var(--color-bg-primary);
     min-height: 64rem;
     width: 100dvw;
     height: 100dvh;
@@ -116,7 +120,7 @@
     transform-origin: center;
     transform: translateX(65%);
     top: 10.4375rem;
-    font-family: 'Hind Siliguri', sans-serif;
+    font-family: var(--font-primary);
     font-style: normal;
     font-weight: 400;
     font-size: 1.875rem;
@@ -124,7 +128,7 @@
     display: flex;
     align-items: center;
     text-align: center;
-    color: #000000;
+    color: var(--color-text-primary);
   }
   .peach {
     display: block;
@@ -169,7 +173,7 @@
     width: 18.75rem;
   }
   .form-container {
-    background-color: #ffffff;
+    background-color: var(--color-bg-secondary);
     position: absolute;
     width: 33.3125rem;
     height: 38.5rem;
@@ -196,7 +200,7 @@
   }
   .blur {
     position: absolute;
-    background-color: rgb(255 255 255 / 0.3);
+    background-color: var(--color-blur);
     backdrop-filter: blur(0.625rem);
     width: 50dvw;
     height: 100dvh;
@@ -205,9 +209,9 @@
   .woman {
     width: 27.2rem;
     height: 26.2188rem;
+    top: 9.375rem;
     left: 25%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
   }
   .form-container {
     position: absolute;
@@ -218,7 +222,7 @@
   }
   .name {
     left: 25%;
-    top: 80%;
+    top: 37.3438rem;
     transform: translateX(-50%);
   }
   .peach {
