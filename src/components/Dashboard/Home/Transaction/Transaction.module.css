@@ -1,0 +1,85 @@
+.transactionBox {
+  display: flex;
+  padding: 9px 20px;
+  border-bottom: 1px solid #dcdcdf;
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  justify-content: space-between;
+}
+
+.deleteButton {
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  text-align: center;
+  padding: 4px 12px;
+  background-color: #24cca7;
+  border-radius: 18px;
+  color: #ffffff;
+  border: none;
+  transition: 200ms;
+}
+
+.deleteButton:hover {
+  background-color: #1ea487;
+}
+
+.deleteButton:focus {
+  outline: none;
+}
+
+.dateBox {
+  width: 11.66%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.typeBox {
+  width: 11.66%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.commentBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  text-align: left;
+}
+
+.sumBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.editDeleteBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.greenSum {
+  color: #24cca7;
+}
+
+.redSum {
+  color: #ff6596;
+}
