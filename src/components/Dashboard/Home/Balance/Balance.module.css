@@ -1,0 +1,24 @@
+.balanceBox {
+  background-color: #ffffff;
+  padding: 10px 40px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.balanceTitle {
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  color: #a6a6a6;
+}
+
+.balanceAmount {
+  font-family: Poppins;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0em;
+}
