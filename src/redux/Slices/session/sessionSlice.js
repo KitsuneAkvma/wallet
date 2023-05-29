@@ -19,7 +19,7 @@ const handleRejected = (state, action) => {
 };
 
 const sessionSlice = createSlice({
-  name: 'auth',
+  name: 'session',
   initialState,
   reducers: {
     updateLoginEmail: (state, action) => {
@@ -67,24 +67,24 @@ const sessionSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
-        state.isLoggedIn = true;
+        state.isAuth = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.token = action.payload.token;
         state.user = action.payload.user;
-        state.isLoggedIn = true;
+        state.isAuth = true;
       })
       .addCase(logOut.fulfilled, state => {
         state.isLoading = false;
         state.user = { name: null, email: null };
         state.token = null;
-        state.isLoggedIn = false;
+        state.isAuth = false;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
-        state.isLoggedIn = true;
+        state.isAuth = true;
         state.isRefreshing = false;
       });
   },
