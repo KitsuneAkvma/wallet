@@ -1,0 +1,13 @@
+.container {
+  position: relative;
+  padding-top: 75px;
+  height: 100vh;
+}
+
+.box {
+  padding: 0 20px;
+}
+
+.box > ul {
+  margin-bottom: 31px;
+}
