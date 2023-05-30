@@ -91,55 +91,61 @@ export const Diagram = () => {
 
   return (
     <div className={styles.statistic}>
-      <div>
-        <p className={styles.chartTitle}>Statistics</p>
-        <div className={styles.chartContainer}>
-          <Doughnut data={chartData} options={chartOptions} />
-          <div className={styles.centerText}>{centerText}</div>
-        </div>
-      </div>
-      <div>
-        <div className={styles.select}>
-          <select className={styles.optionSelect} value={selectedYear} onChange={handleYearChange}>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-          </select>
-          <select
-            className={styles.optionSelect}
-            value={selectedMonth}
-            onChange={handleMonthChange}
-          >
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-          </select>
-        </div>
-        <div className={styles.dataTitle}>
-          <p>Category</p>
-          <p>Sum</p>
+      <p className={styles.chartTitle}>Statistics</p>
+      <div className={styles.statisticContent}>
+        <div>
+          <div className={styles.chartContainer}>
+            <Doughnut data={chartData} options={chartOptions} />
+            <div className={styles.centerText}>{centerText}</div>
+          </div>
         </div>
         <div>
-          {selectedData.map((item, index) => (
-            <div className={styles.data} key={item.category}>
-              <div
-                className={styles.dataColor}
-                style={{ backgroundColor: chartData.datasets[0].backgroundColor[index] }}
-              ></div>
-              <p className={styles.categoryData}>{item.category}</p>
-              <p className={styles.valueData}>{item.value.toFixed(2)}</p>
-            </div>
-          ))}
-        </div>
-        <div className={styles.expense}>
-          <p>Expense:</p>
-          <p>{expense}</p>
-        </div>
-        <div className={styles.income}>
-          <p>Income:</p>
-          <p>{income}</p>
+          <div className={styles.select}>
+            <select
+              className={styles.optionSelect}
+              value={selectedMonth}
+              onChange={handleMonthChange}
+            >
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+            </select>
+            <select
+              className={styles.optionSelect}
+              value={selectedYear}
+              onChange={handleYearChange}
+            >
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+            </select>
+          </div>
+          <div className={styles.dataTitle}>
+            <p>Category</p>
+            <p>Sum</p>
+          </div>
+          <div>
+            {selectedData.map((item, index) => (
+              <div className={styles.data} key={item.category}>
+                <div
+                  className={styles.dataColor}
+                  style={{ backgroundColor: chartData.datasets[0].backgroundColor[index] }}
+                ></div>
+                <p className={styles.categoryData}>{item.category}</p>
+                <p className={styles.valueData}>{item.value.toFixed(2)}</p>
+              </div>
+            ))}
+          </div>
+          <div className={styles.expense}>
+            <p>Expense:</p>
+            <p>{expense}</p>
+          </div>
+          <div className={styles.income}>
+            <p>Income:</p>
+            <p>{income}</p>
+          </div>
         </div>
       </div>
     </div>
