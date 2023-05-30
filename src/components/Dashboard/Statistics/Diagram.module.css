@@ -16,18 +16,18 @@
 .optionSelect {
   width: 17.5rem;
   height: 3.125rem;
-  border: 0.0625rem solid #000000;
+  border: 0.0625rem solid var(--color-text-primary);
   border-radius: 1.875rem;
   background: none;
 }
 
 .chartTitle {
   display: flex;
-  font-family: 'Poppins';
+  font-family: var(--font-primary);
   font-weight: 400;
   font-size: 1.875rem;
   line-height: 2.8125rem;
-  color: #000000;
+  color: var(--color-text-primary);
   margin: 0;
   margin-bottom: 0.5rem;
   display: flex;
@@ -43,38 +43,38 @@
 
 .centerText {
   position: absolute;
-  font-family: 'Hind Siliguri';
+  font-family: var(--font-secondary);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: 700;
   font-size: 1.125rem;
   line-height: 1.6875rem;
-  color: #000000;
+  color: var(--color-text-primary);
 }
 
 .dataTitle {
-  font-family: 'Hind Siliguri';
+  font-family: var(--font-secondary);
   display: flex;
   gap: 8.4375rem;
   justify-content: center;
   font-weight: 700;
   font-size: 1.125rem;
   line-height: 1.6875rem;
-  background: #ffffff;
+  background: var(--color-bg-secondary);
   border-radius: 1.875rem;
   margin-bottom: 1rem;
   margin-top: 1.25rem;
 }
 
 .data {
-  font-family: 'Hind Siliguri';
+  font-family: var(--font-secondary);
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.5rem;
   display: flex;
   width: 17.5rem;
-  border-bottom: 0.0625rem solid #dcdcdf;
+  border-bottom: 0.0625rem solid var(--color-gray4);
   box-shadow: 0rem 0.0625rem 0rem rgba(255, 255, 255, 0.6);
   align-items: center;
   margin-bottom: 0.875rem;
@@ -103,11 +103,11 @@
 }
 
 .greenText {
-  color: #24cca7;
+  color: var(--color-green);
 }
 
 .redText {
-  color: #ff6596;
+  color: var(--color-pink);
 }
 
 .expense {
@@ -129,7 +129,7 @@
 }
 
 .expense p:last-child {
-  color: #ff6596;
+  color: var(--color-pink);
   line-height: 24px;
   justify-content: flex-end;
   margin-right: 1.25rem;
@@ -154,7 +154,7 @@
 
 .income p:last-child {
   justify-content: flex-end;
-  color: #24cca7;
+  color: var(--color-green);
   line-height: 24px;
   margin-right: 1.25rem;
 }
