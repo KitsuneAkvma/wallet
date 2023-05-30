@@ -5,7 +5,7 @@ const initialState = {
   user: { id: '', name: '', email: '' },
   loginForm: { email: '', password: '' },
   registerForm: { email: '', password: '', confPassword: '', name: '' },
-  transactionForm: { type: '', name: '', amount: '', date: '', comment: '' },
+  transactionForm: { type: '', name: '', amount: '', date: '', category: '', comment: '' },
   token: null,
   isAuth: false,
   error: null,
@@ -46,6 +46,27 @@ const sessionSlice = createSlice({
     },
     resetRegisterForm: state => {
       state.registerForm = initialState.registerForm;
+    },
+    updateTransactionType: (state, action) => {
+      state.transactionForm.type = action.payload;
+    },
+    updateTransactionName: (state, action) => {
+      state.transactionForm.name = action.payload;
+    },
+    updateTransactionAmount: (state, action) => {
+      state.transactionForm.amount = action.payload;
+    },
+    updateTransactionDate: (state, action) => {
+      state.transactionForm.date = action.payload;
+    },
+    updateTransactionCategory: (state, action) => {
+      state.transactionForm.category = action.payload;
+    },
+    updateTransactionComment: (state, action) => {
+      state.transactionForm.comment = action.payload;
+    },
+    resetTransactionType: state => {
+      state.transactionForm = initialState.transactionForm;
     },
   },
   extraReducers: builder => {
@@ -100,5 +121,12 @@ export const {
   updateRegisterConfPassword,
   updateRegisterName,
   resetRegisterForm,
+  updateTransactionType,
+  updateTransactionName,
+  updateTransactionAmount,
+  updateTransactionDate,
+  updateTransactionCategory,
+  updateTransactionComment,
+  resetTransactionType,
 } = sessionSlice.actions;
 export const sessionReducer = sessionSlice.reducer;
