@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import styles from './Transaction.module.css';
@@ -7,6 +6,8 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateIsModalAddTransactionOpen } from '../../../redux/Slices/global/globalSlice';
+import axios from 'axios';
+import categories from '../../../../server/models/categories.json';
 
 export const TransactionModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,7 +17,6 @@ export const TransactionModal = () => {
   const [category, setCategory] = useState('');
 
   const open = useSelector(state => state.global.isModalAddTransactionOpen);
-
   const dispatch = useDispatch();
 
   const addTransaction = () => {
@@ -55,10 +55,30 @@ export const TransactionModal = () => {
       transactionValue: '',
     },
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
-      formik.resetForm();
-      closeModal();
+    onSubmit: async values => {
+      try {
+        const transactionData = {
+          amountOfTransaction: values.transactionValue,
+          transactionDate: selectedDate.toString(),
+        };
+        console.log(transactionData);
+
+        if (selectedOption === 'expense') {
+          transactionData.categoryId = category;
+          await axios.post('/api/transactions/expense', transactionData);
+        } else {
+          await axios.post('/api/transactions/income', transactionData);
+        }
+
+        formik.resetForm();
+        closeModal();
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          console.log('Requested resource not found');
+        } else {
+          console.error(error);
+        }
+      }
     },
   });
 
@@ -119,17 +139,21 @@ export const TransactionModal = () => {
 
             {selectedOption === 'expense' && (
               <div>
-                <select className={styles.categorySelect} defaultValue="">
+                <select
+                  className={styles.categorySelect}
+                  defaultValue="Select your option"
+                  onChange={e => setCategory(e.target.value)}
+                >
                   {category ? null : (
                     <option value="" hidden>
                       Select your option
                     </option>
                   )}
-                  <option value="Tutaj">Tutaj</option>
-                  <option value="Będą">Będą</option>
-                  <option value="Dodane">Dodane</option>
-                  <option value="Opcje">Opcje</option>
-                  <option value="ZBackendu">z Backendu</option>
+                  {categories.map(category => (
+                    <option key={category.name} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             )}

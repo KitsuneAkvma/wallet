@@ -1,18 +1,20 @@
+@import '../../../utility/css-variables.css';
+
 .transactionBtn {
   position: absolute;
-  color: white;
+  color: var(--color-bg-secondary);
   font-size: 2.5rem;
   line-height: 0;
   padding: 0;
-  padding-bottom: 0.625rem;
   height: 2.75rem;
   width: 2.75rem;
-  background-color: white;
+  background-color: var(--color-bg-secondary);
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  background-color: #24cca7;
+  background-color: var(--color-green);
   display: flex;
   justify-content: center;
+  border: none;
   align-items: center;
   border-radius: 50%;
 }
@@ -23,12 +25,12 @@
 }
 .modal {
   position: fixed;
-  color: black;
+  color: var(--color-text-primary);
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--color-backdrop);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,11 +38,10 @@
 
 .modalContent {
   position: relative;
-  background-color: #fff;
+  background-color: var(--color-bg-secondary);
   width: 20rem;
   padding: 0rem;
   border-radius: 0.5rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
   text-align: -webkit-center;
 }
 .optionContainer {
@@ -50,7 +51,7 @@
 }
 
 .modalTitle {
-  font-family: 'Poppins';
+  font-family: var(--font-primary);
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 2.25rem;
@@ -81,7 +82,7 @@
 .slider {
   position: absolute;
   cursor: pointer;
-  border: 0.0625rem solid Gray 5;
+  border: 0.0625rem solid var(--color-Gray2);
   top: 0;
   left: 0;
   right: 0;
@@ -95,28 +96,24 @@
 .slider:before {
   position: absolute;
   content: '+';
-  color: white;
+  color: var(--color-bg-secondary);
   font-size: 2.5rem;
   padding: 0;
-  padding-bottom: 0.625rem;
   height: 2.75rem;
   width: 2.75rem;
-  background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  background-color: #24cca7;
+  background-color: var(--color-green);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 0.0625rem #2196f3;
-}
-
 input:checked + .slider:before {
-  background-color: #ff6596;
-  content: '-';
+  background-color: var(--color-pink);
+  content: '_';
+  font-size: 40px;
+  padding-bottom: 40px;
   -webkit-transform: translateX(2.5rem);
   -ms-transform: translateX(2.5rem);
   transform: translateX(2.5rem);
@@ -131,35 +128,35 @@ input:checked + .slider:before {
 }
 
 .greyedText {
-  font-family: 'Hind Siliguri';
+  font-family: var(--font-secondary);
   font-style: normal;
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #e0e0e0;
+  color: var(--color-Gray2);
 }
 
 .expenseColor {
-  font-family: 'Hind Siliguri';
+  font-family: var(--font-secondary);
   font-style: normal;
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #ff6596;
+  color: var(--color-pink);
 }
 
 .incomeColor {
-  font-family: 'Hind Siliguri';
+  font-family: var(--font-secondary);
   font-style: normal;
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #24cca7;
+  color: var(--color-green);
 }
 
 .valueAndTime {
   display: flex;
-  color: black;
+  color: var(--color-text-primary);
   flex-direction: column;
   gap: 2.5rem;
   align-items: center;
@@ -167,7 +164,7 @@ input:checked + .slider:before {
 }
 
 .transactionValue {
-  background-color: #ffffff;
+  background-color: var(--color-bg-secondary);
   border: none;
   font-weight: 700;
   width: 17.5rem;
@@ -175,12 +172,12 @@ input:checked + .slider:before {
   font-size: 1.125rem;
   line-height: 1.6875rem;
   text-align: center;
-  border-bottom: 0.0625rem solid #bdbdbd;
+  border-bottom: 0.0625rem solid var(--color-Gray1);
   margin: 0;
 }
 
 .transactionValue::placeholder {
-  color: #bdbdbd;
+  color: var(--color-Gray1);
 }
 
 .transactionValue:focus {
@@ -188,11 +185,11 @@ input:checked + .slider:before {
 }
 
 .transactionDate {
-  color: black;
+  color: var(--color-text-primary);
   border: none;
   width: 17.5rem;
   height: 2rem;
-  border-bottom: 0.0625rem solid #bdbdbd;
+  border-bottom: 0.0625rem solid var(--color-Gray1);
 }
 
 .closeBtn {
@@ -202,16 +199,16 @@ input:checked + .slider:before {
 .transactionComment {
   font-weight: 400;
   font-size: 1.125rem;
-  background-color: #ffffff;
+  background-color: var(--color-bg-secondary);
   line-height: 1.6875rem;
   width: 17.5rem;
   height: 2rem;
   border: none;
-  background-color: #ffffff;
-  border-bottom: 0.0625rem solid #bdbdbd;
+  background-color: var(--color-bg-secondary);
+  border-bottom: 0.0625rem solid var(--color-Gray1);
 }
 .transactionComment::placeholder {
-  color: #bdbdbd;
+  color: var(--color-Gray1);
 }
 
 .transactionComment:focus {
@@ -219,7 +216,7 @@ input:checked + .slider:before {
 }
 
 .datetimePicker input {
-  background-color: #ffffff;
+  background-color: var(--color-bg-secondary);
   border: none;
   background-color: transparent;
   outline: none;
@@ -243,41 +240,40 @@ input:checked + .slider:before {
 .datetimePicker .rdtSwitch {
   padding: 0.25rem;
   border-radius: 0.25rem;
-  background-color: #007bff;
-}
-
-.datetimePicker .rdtSwitch:hover {
-  background-color: #0056b3;
+  background-color: var(--color-blue);
 }
 
 .addBtn {
-  font-family: 'Hind Siliguri';
+  font-family: var(--font-secondary);
   margin-top: 2.5rem;
   display: flex;
   font-weight: 400;
   font-size: 1.125rem;
-  color: #ffffff;
+  color: var(--color-bg-secondary);
   line-height: 1.6875rem;
   width: 18.75rem;
   height: 3.125rem;
+  align-items: center;
   justify-content: center;
-  background-color: #24cca7;
+  border: none;
+  background-color: var(--color-green);
   border-radius: 1.25rem;
 }
 
 .cancelBtn {
-  font-family: 'Hind Siliguri';
+  font-family: var(--font-secondary);
   margin-top: 1.25rem;
   display: flex;
-  color: #4a56e2;
-  background: #ffffff;
-  border: 0.0625rem solid #4a56e2;
+  color: var(--color-blue);
+  background: var(--color-bg-secondary);
+  border: 0.0625rem solid var(--color-blue);
   border-radius: 1.25rem;
   width: 18.75rem;
   height: 3.125rem;
   font-weight: 400;
   font-size: 1.125rem;
   line-height: 1.6875rem;
+  align-items: center;
   justify-content: center;
   margin-bottom: 2.5rem;
 }
@@ -290,14 +286,14 @@ input:checked + .slider:before {
   border: none;
   font-weight: 400;
   font-size: 1.125rem;
-  color: #bdbdbd;
+  color: var(--color-text-primary);
   line-height: 1.6875rem;
   outline: none;
   background-color: transparent;
   width: 17.5rem;
   height: 2rem;
   margin-bottom: 2.5rem;
-  border-bottom: 0.0625rem solid #bdbdbd;
+  border-bottom: 0.0625rem solid var(--color-Gray1);
 }
 
 select.categorySelect option {
@@ -305,7 +301,7 @@ select.categorySelect option {
   box-shadow: 0rem 0.375rem 0.9375rem rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(1.5625rem);
   border-radius: 1.25rem;
-  color: black;
+  color: var(--color-text-primary);
 }
 
 @media screen and (min-width: 768px) {
