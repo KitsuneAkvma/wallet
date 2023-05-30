@@ -1,32 +1,46 @@
 [
   {
-    "name": "Main expenses"
+    "name": "Main expenses",
+    "color": "#fed057"
   },
   {
-    "name": "Products"
+    "name": "Products",
+    "color": "#ffd8d0"
   },
   {
-    "name": "Car"
+    "name": "Car",
+    "color": "#fd9498"
   },
   {
-    "name": "Self care"
+    "name": "Self care",
+    "color": "#c5baff"
   },
   {
-    "name": "Child care"
+    "name": "Child care",
+    "color": "#6e78e8"
   },
   {
-    "name": "Household products"
+    "name": "Household products",
+    "color": "#4a56e2"
   },
   {
-    "name": "Education"
+    "name": "Education",
+    "color": "#81e1ff"
   },
   {
-    "name": "Leisure"
+    "name": "Leisure",
+    "color": "#24cca7"
   },
   {
-    "name": "Other expenses"
+    "name": "Other expenses",
+    "color": "#00ad84"
   },
   {
-    "name": "Entertainment"
+    "name": "Entertainment",
+    "color": ""
+  },
+  {
+    "name": "Income",
+    "color": " #24cca7"
   }
 ]
