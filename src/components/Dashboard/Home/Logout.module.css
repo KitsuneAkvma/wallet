@@ -1,6 +1,6 @@
 .modal {
   position: fixed;
-  color: black;
+  color: var(--color-text-primary);
   top: 0;
   left: 0;
   width: 100%;
@@ -12,11 +12,11 @@
 }
 .modalContent {
   position: relative;
-  background-color: #fff;
+  background-color: var(--color-bg-secondary);
   width: 20rem;
   padding: 0rem;
   border-radius: 0.5rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.125rem 0.5rem var(--color-backdrop);
   text-align: -webkit-center;
 }
 
@@ -35,11 +35,11 @@
 }
 
 .yesBtn:hover {
-  border-color: #24cca7;
-  color: #24cca7;
+  border-color: var(--color-green);
+  color: var(--color-green);
 }
 
 .noBtn:hover {
-  border-color: #ff6596;
-  color: #ff6596;
+  border-color: var(--color-pink);
+  color: var(--color-pink);
 }
