@@ -1,6 +1,7 @@
 const selectSessionUser = state => state.session.user;
 const selectSessionLoginFormData = state => state.session.loginForm;
 const selectSessionRegisterFormData = state => state.session.registerForm;
+const selectSessionTransactionFormData = state => state.session.registerForm;
 const selectSessionToken = state => state.session.token;
 const selectSessionIsAuth = state => state.session.isAuth;
 const selectSessionError = state => state.session.error;
@@ -17,6 +18,7 @@ export {
   selectSessionUser,
   selectSessionLoginFormData,
   selectSessionRegisterFormData,
+  selectSessionTransactionFormData,
   selectSessionToken,
   selectSessionIsAuth,
   selectSessionError,

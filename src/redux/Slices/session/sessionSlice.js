@@ -5,6 +5,7 @@ const initialState = {
   user: { id: '', name: '', email: '' },
   loginForm: { email: '', password: '' },
   registerForm: { email: '', password: '', confPassword: '', name: '' },
+  transactionForm: { type: '', name: '', amount: '', date: '', comment: '' },
   token: null,
   isAuth: false,
   error: null,
