@@ -1,7 +1,11 @@
 import { Transaction } from '../../models/transactions.js';
 
-export const listTransactions = async () => {
-  return Transaction.find().sort({ transactionDate: 1 });
+export const listTransactions = async query => {
+  const { page, limit } = query;
+  return Transaction.find()
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .sort({ transactionDate: 1 });
 };
 export const countTransaction = async () => {
   return Transaction.countDocuments();

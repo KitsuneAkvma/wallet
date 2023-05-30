@@ -1,6 +1,8 @@
 import {
   addTransaction,
+  countTransaction,
   getTransactionById,
+  listTransactions,
   removeTransaction,
   updateTransaction,
 } from '../dbControllers/transactions.js';
@@ -158,6 +160,26 @@ export const remove = async (req, res, next) => {
         data: 'Not Found',
       });
     }
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+};
+export const get = async (req, res, next) => {
+  const { page, limit = 15 } = req.query;
+  try {
+    const transactions = await listTransactions(req.query);
+    const countTransactions = await countTransaction();
+    const { id, balance } = req.user;
+    res.json({
+      status: 'success',
+      code: 200,
+      countTransactions,
+      totalPages: Math.ceil(countTransactions / limit),
+      currentPage: page,
+      limit,
+      data: { balance, userId: id, transactions },
+    });
   } catch (e) {
     console.error(e);
     next(e);
