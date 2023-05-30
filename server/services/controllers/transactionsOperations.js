@@ -20,13 +20,13 @@ export const add = async (req, res, next) => {
   if (!amountOfTransaction || !transactionDate || !typeOfTransaction)
     return res.status(400).json({ status: 'error', message: 'missing field' });
   try {
-    const { id, balance } = req.user;
+    const { balance } = req.user;
     const income = (balance + amountOfTransaction).toFixed(2);
     const newBalanceIncome = Number(income);
     const expense = (balance - amountOfTransaction).toFixed(2);
     const newBalanceExpense = Number(expense);
     const newBalance = typeOfTransaction === 'Income' ? newBalanceIncome : newBalanceExpense;
-    const updatedUser = await updateUserBalance(id, newBalance);
+    const updatedUser = await updateUserBalance(req.user.id, newBalance);
     const updatedBalance = updatedUser.balance;
     if (typeOfTransaction === 'Income' && category !== 'Income')
       return res.status(400).json({
@@ -41,9 +41,8 @@ export const add = async (req, res, next) => {
         message: 'Bad request',
       });
     const baseId = await getCategoryByName(category);
-    const { _id } = baseId;
-    const categoryId = _id.toString();
-    await addTransaction({
+    const categoryId = baseId.id.toString();
+    const newTransaction = await addTransaction({
       typeOfTransaction,
       categoryId,
       amountOfTransaction,
@@ -53,17 +52,7 @@ export const add = async (req, res, next) => {
     res.status(201).json({
       status: 'created',
       code: 201,
-      data: {
-        newTransaction: {
-          _id,
-          typeOfTransaction,
-          categoryId,
-          amountOfTransaction,
-          transactionDate,
-          comment,
-        },
-        updatedBalance,
-      },
+      data: { newTransaction, updatedBalance },
     });
   } catch (e) {
     console.error(e);
@@ -74,13 +63,13 @@ export const edit = async (req, res, next) => {
   const { transactionId } = req.params;
   const { typeOfTransaction, category, amountOfTransaction, transactionDate, comment } = req.body;
   try {
-    const { id, balance } = req.user;
+    const { balance } = req.user;
     const income = (balance + amountOfTransaction).toFixed(2);
     const newBalanceIncome = Number(income);
     const expense = (balance - amountOfTransaction).toFixed(2);
     const newBalanceExpense = Number(expense);
     const newBalance = typeOfTransaction === 'Income' ? newBalanceIncome : newBalanceExpense;
-    const updatedUser = await updateUserBalance(id, newBalance);
+    const updatedUser = await updateUserBalance(req.user.id, newBalance);
     const updatedBalance = updatedUser.balance;
     if (typeOfTransaction === 'Income' && category !== 'Income')
       return res.status(400).json({
@@ -95,8 +84,7 @@ export const edit = async (req, res, next) => {
         message: 'Bad request',
       });
     const baseId = await getCategoryByName(category);
-    const { _id } = baseId;
-    const categoryId = _id.toString();
+    const categoryId = baseId.id.toString();
     const updatedTransaction = await updateTransaction(transactionId, {
       typeOfTransaction,
       categoryId,
@@ -108,17 +96,7 @@ export const edit = async (req, res, next) => {
       res.json({
         status: 'success',
         code: 200,
-        data: {
-          updatedTransaction: {
-            _id,
-            typeOfTransaction,
-            categoryId,
-            amountOfTransaction,
-            transactionDate,
-            comment,
-          },
-          updatedBalance,
-        },
+        data: { updatedTransaction, updatedBalance },
       });
     } else {
       res.status(404).json({
