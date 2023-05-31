@@ -24,5 +24,3 @@ process.on('SIGINT', () => {
   mongoose.disconnect();
   console.log(colors.magenta('Database disconnected'));
 });
-
-console.log(colors.white('Server test'));
