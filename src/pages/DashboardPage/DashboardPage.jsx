@@ -1,11 +1,17 @@
 import { Outlet } from 'react-router-dom';
 
+import Header from '../../components/_General/Header/Header';
+
 const DashboardPage = () => {
+
   return (
-    <section>
-      <div>DashboardPage</div>
-      <Outlet />
-    </section>
+    <>
+      <Header />
+      <section>
+        <div>DashboardPage</div>
+        <Outlet />
+      </section>
+    </>
   );
 };
 export default DashboardPage;
