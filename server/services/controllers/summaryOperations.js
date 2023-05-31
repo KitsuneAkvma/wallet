@@ -36,7 +36,7 @@ export const monthlyBalance = async (req, res, next) => {
     res.json({
       status: 'success',
       code: 200,
-      data: { incomeValue, expenseValue, balanceForMonth, usedCategoryIds, expenseTransactions },
+      data: { incomeValue, expenseValue, balanceForMonth, usedCategoryIds },
     });
   } catch (e) {
     console.error(e);
