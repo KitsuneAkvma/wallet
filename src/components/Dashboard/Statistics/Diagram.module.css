@@ -1,0 +1,257 @@
+@import '../../../utility/css-variables.css';
+
+.statistic {
+  display: flex;
+  flex-direction: column;
+}
+
+.select {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.select select {
+  padding-left: 1.25rem;
+}
+
+.optionSelect {
+  width: 17.5rem;
+  height: 3.125rem;
+  border: 0.0625rem solid var(--color-text-primary);
+  border-radius: 1.875rem;
+  background: none;
+}
+
+.chartTitle {
+  display: flex;
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 1.875rem;
+  line-height: 2.8125rem;
+  color: var(--color-text-primary);
+  margin: 0;
+  margin-bottom: 0.5rem;
+  display: flex;
+}
+
+.chartContainer {
+  position: relative;
+  width: 17.5rem;
+  height: 17.5rem;
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+.centerText {
+  position: absolute;
+  font-family: var(--font-secondary);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.6875rem;
+  color: var(--color-text-primary);
+}
+
+.dataTitle {
+  font-family: var(--font-secondary);
+  display: flex;
+  gap: 8.4375rem;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.6875rem;
+  background: var(--color-bg-secondary);
+  border-radius: 1.875rem;
+  margin-bottom: 1rem;
+  margin-top: 1.25rem;
+}
+
+.data {
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  display: flex;
+  width: 17.5rem;
+  border-bottom: 0.0625rem solid var(--color-gray4);
+  box-shadow: 0rem 0.0625rem 0rem rgba(255, 255, 255, 0.6);
+  align-items: center;
+  margin-bottom: 0.875rem;
+  padding-bottom: 0.875rem;
+}
+
+.dataColor {
+  width: 1.9063rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+  margin-left: 0.9375rem;
+  border-radius: 0.125rem;
+}
+.categoryData {
+  width: 10rem;
+  margin: 0;
+  display: flex;
+}
+
+.valueData {
+  margin: 0;
+  margin-right: 1.25rem;
+  width: 6.3125rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.greenText {
+  color: var(--color-green);
+}
+
+.redText {
+  color: var(--color-pink);
+}
+
+.expense {
+  display: flex;
+  padding-left: 0.9375rem;
+  width: 17.5rem;
+  align-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 18px;
+  gap: 7.5625rem;
+  margin-bottom: 0.875rem;
+}
+
+.expense p {
+  display: flex;
+  width: 6.25rem;
+  margin: 0;
+}
+
+.expense p:last-child {
+  color: var(--color-pink);
+  line-height: 24px;
+  justify-content: flex-end;
+  margin-right: 1.25rem;
+}
+
+.income {
+  display: flex;
+  padding-left: 0.9375rem;
+  width: 17.5rem;
+  align-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 18px;
+  gap: 7.5625rem;
+  margin-bottom: 1.5rem;
+}
+.income p {
+  display: flex;
+  width: 6.25rem;
+  margin: 0;
+}
+
+.income p:last-child {
+  justify-content: flex-end;
+  color: var(--color-green);
+  line-height: 24px;
+  margin-right: 1.25rem;
+}
+
+@media screen and (min-width: 768px) {
+  .statisticContent {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .select {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .optionSelect {
+    width: 10rem;
+  }
+
+  .chartContainer {
+    position: relative;
+    margin: 0;
+    width: 21rem;
+    height: 21rem;
+    margin-right: 2rem;
+  }
+
+  .dataTitle {
+    gap: 11.9375rem;
+  }
+
+  .data {
+    width: 21rem;
+  }
+
+  .dataColor {
+    width: 24px;
+    height: 24px;
+  }
+
+  .expense {
+    width: 21rem;
+  }
+
+  .income {
+    width: 21rem;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .statisticContent {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .select {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .optionSelect {
+    width: 11.375rem;
+  }
+
+  .chartContainer {
+    position: relative;
+    width: 18rem;
+    height: 18rem;
+    margin: 0;
+    margin-right: 2rem;
+  }
+
+  .dataTitle {
+    gap: 15.625rem;
+  }
+
+  .data {
+    width: 24.6875rem;
+  }
+
+  .valueData {
+    margin: 0;
+    margin-right: 1.25rem;
+    width: 10rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .expense {
+    width: 24.6875rem;
+    gap: 11.25rem;
+  }
+
+  .income {
+    width: 24.6875rem;
+    gap: 11.25rem;
+  }
+}
