@@ -6,6 +6,7 @@ import process from 'node:process';
 import * as dotenv from 'dotenv';
 import passportConfig from './services/config/passportConfig.js';
 import { usersRouter } from './routes/users.js';
+import { transactionsRouter } from './routes/transactions.js';
 dotenv.config();
 
 export const App = express();
@@ -16,6 +17,7 @@ App.use(express.json());
 App.use(express.static(path.join(process.cwd(), 'public')));
 passportConfig;
 App.use('/api/users', usersRouter);
+App.use('/api/transactions', transactionsRouter);
 
 App.use((req, res) => {
   res.status(404).json({
