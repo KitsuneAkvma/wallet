@@ -1,13 +1,17 @@
 import { ReactSVG } from 'react-svg';
 import styles from './Header.module.css';
 
-
 const Header = () => {
   const userName = 'Heniu69';
   return (
     <header className={styles.header}>
       <div className={styles.header__content}>
-        <img className={styles.content__logo} src="/svg/logo.svg" alt="logo" />
+        <div className={styles.content__logo}>
+          {' '}
+          <img className={styles.logo__icon} src="/svg/wallet_icon.svg" alt="logo" />{' '}
+          <img className={styles.logo__text} src="/svg/wallet_text.svg" alt="logo" />
+        </div>
+      
 
         <div className={styles.content__user}>
           <span className={styles.user__name}>{userName}</span>
