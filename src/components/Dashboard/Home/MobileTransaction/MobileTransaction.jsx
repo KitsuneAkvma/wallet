@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './MobileTransaction.module.css';
+import { ReactSVG } from 'react-svg';
 
 export const MobileTransaction = ({ date, type, category, comment, sum }) => {
   const sumColor = type === '+' ? css.greenSum : css.redSum;
@@ -30,7 +31,10 @@ export const MobileTransaction = ({ date, type, category, comment, sum }) => {
         <button className={css.deleteButton} type="button">
           Delete
         </button>
-        <span className={css.editTransaction}>Edit</span>
+        <div className={css.editBox}>
+          <ReactSVG className={css.editIcon} src="../../svg/edit_icon.svg" />
+          <span className={css.editTransaction}>Edit</span>
+        </div>
       </div>
     </li>
   );

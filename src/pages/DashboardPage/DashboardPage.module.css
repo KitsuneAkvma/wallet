@@ -1,0 +1,83 @@
+@import '../../utility/css-variables.css';
+
+.container {
+  position: relative;
+  width: 100%;
+  min-width: 280px;
+  max-width: 1280px;
+  padding: 0px 20px;
+  height: 100%;
+}
+
+.navigationIconsBox {
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 1.25rem;
+  padding-top: 1.25rem;
+}
+
+.navigationIcon {
+  width: 2.5rem;
+  cursor: pointer;
+  display: inline-block;
+  @media (min-width: 768px) {
+    width: 1.75rem;
+  }
+}
+
+.navigationIcon path {
+  fill: var(--color-bg-nav-icons);
+  transition-property: fill;
+  transition-duration: 200ms;
+}
+
+.navigationIcon:hover path {
+  fill: var(--color-bg-nav-icons-active);
+}
+
+.addTransactionIcon {
+  width: 66px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  cursor: pointer;
+}
+
+.addTransactionIcon circle {
+  fill: var(--color-green);
+  transition-property: fill;
+  transition-duration: 200ms;
+}
+
+.addTransactionIcon:hover circle {
+  fill: var(--color-bg-add-btn-hover);
+}
+
+.navBalanceAndCurrencyBox {
+  display: flex;
+}
+
+.navAndCurrencyBox {
+  display: flex;
+}
+
+.navBalanceBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50%;
+}
+
+.navBox {
+  margin: 0.3125rem 0.3125rem 0.3125rem 0rem;
+}
+
+.navLink {
+  display: inline-block;
+  margin-left: 0.3125rem;
+  font-family: var(--font-primary);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6875rem;
+  letter-spacing: 0em;
+}

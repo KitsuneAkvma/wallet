@@ -59,6 +59,7 @@
 
 .deleteButton:hover {
   background-color: var(--color-bg-delete-btn-hover);
+  cursor: pointer;
 }
 
 .deleteButton:focus {
@@ -77,3 +78,18 @@
 .redSum {
   color: var(--color-pink);
 }
+
+.editBox {
+  display: flex;
+}
+
+.editBox:hover {
+  cursor: pointer;
+}
+
+.editIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: .3125rem;
+}
+
