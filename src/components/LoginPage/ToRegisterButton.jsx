@@ -5,7 +5,7 @@ import css from './ToRegisterButton.module.css';
 const ToRegisterButton = () => {
   const navigate = useNavigate();
   const navigateToRegister = () => {
-    navigate('/register');
+    navigate('/sign-up');
   };
   return (
     <div>
