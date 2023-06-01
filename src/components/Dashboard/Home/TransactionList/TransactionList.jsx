@@ -2,6 +2,7 @@ import React from 'react';
 import css from './TransactionList.module.css';
 import { MobileTransaction } from '../MobileTransaction/MobileTransaction';
 import { Transaction } from '../Transaction/Transaction';
+import { Balance } from '../Balance/Balance';
 import Media from 'react-media';
 import { TransactionListHeader } from '../TransactionListHeader/TransactionListHeader';
 
@@ -17,18 +18,21 @@ export const TransactionList = () => {
         {matches => (
           <>
             {matches.mobile && (
-              <ul className={css.transactionList}>
-                <MobileTransaction
-                  date="04.01.19"
-                  type="-"
-                  category="Other"
-                  comment="Gift for your wife"
-                  sum="300.00"
-                />
-              </ul>
+              <>
+                <Balance />
+                <ul className={css.transactionList}>
+                  <MobileTransaction
+                    date="04.01.19"
+                    type="-"
+                    category="Other"
+                    comment="Gift for your wife"
+                    sum="300.00"
+                  />
+                </ul>
+              </>
             )}
             {!matches.mobile && (
-              <>
+              <div className={css.transactionListContainer}>
                 <TransactionListHeader />
                 <ul className={css.transactionList}>
                   <Transaction
@@ -67,7 +71,7 @@ export const TransactionList = () => {
                     sum="1 000.00"
                   />
                 </ul>
-              </>
+              </div>
             )}
           </>
         )}

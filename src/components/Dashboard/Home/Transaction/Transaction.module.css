@@ -29,6 +29,7 @@
 
 .deleteButton:hover {
   background-color: var(--color-bg-delete-btn-hover);
+  cursor: pointer;
 }
 
 .deleteButton:focus {
@@ -39,7 +40,7 @@
   width: 11.66%;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .typeBox {
@@ -53,14 +54,14 @@
   width: 16.66%;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .commentBox {
   width: 16.66%;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   text-align: left;
 }
 
@@ -68,14 +69,14 @@
   width: 16.66%;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .editDeleteBox {
   width: 16.66%;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .greenSum {
@@ -84,4 +85,15 @@
 
 .redSum {
   color: var(--color-pink);
+}
+
+.editIcon {
+  width: 1rem;
+  margin-right: 0.3125rem;
+  cursor: pointer;
+  transition: width 200ms;
+}
+
+.editIcon:hover {
+  width: 1.2rem;
 }
