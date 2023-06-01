@@ -1,10 +1,10 @@
 import { Balance } from '../../components/Dashboard/Home/Balance/Balance.jsx';
-import { TransactionList } from '../../components/Dashboard/Home/TransactionList/TransactionList.jsx';
 import { CurrencyDummy } from '../../components/Dashboard/CurrencyDummy/CurrencyDummy.jsx';
 import { ReactSVG } from 'react-svg';
 import { Outlet } from 'react-router';
 import Media from 'react-media';
 import css from './DashboardPage.module.css';
+import { NavLink } from 'react-router-dom';
 
 const DashboardPage = () => {
   const queries = {
@@ -21,13 +21,20 @@ const DashboardPage = () => {
               {matches.mobile && (
                 <>
                   <div className={css.navigationIconsBox}>
-                    <ReactSVG className={css.navigationIcon} src="../../svg/home_icon.svg" />
-                    <ReactSVG className={css.navigationIcon} src="../../svg/statistics_icon.svg" />
-                    <ReactSVG className={css.navigationIcon} src="../../svg/currency_icon.svg" />
+                    <NavLink to="/" className={({ isActive }) => isActive && css.active}>
+                      <ReactSVG className={css.navigationIcon} src="../../svg/home_icon.svg" />
+                    </NavLink>
+                    <NavLink to="/statistics" className={({ isActive }) => isActive && css.active}>
+                      <ReactSVG
+                        className={css.navigationIcon}
+                        src="../../svg/statistics_icon.svg"
+                      />
+                    </NavLink>
+                    <NavLink to="/currencies" className={({ isActive }) => isActive && css.active}>
+                      <ReactSVG className={css.navigationIcon} src="../../svg/currency_icon.svg" />
+                    </NavLink>
                   </div>
-                  {/* <Outlet /> */}
-                  <Balance />
-                  <TransactionList />
+                  <Outlet />
                 </>
               )}
               {!matches.mobile && (
@@ -35,21 +42,28 @@ const DashboardPage = () => {
                   <div className={css.navBalanceAndCurrencyBox}>
                     <div className={css.navBalanceBox}>
                       <div className={css.navBox}>
-                        <ReactSVG className={css.navigationIcon} src="../../svg/home_icon.svg" />
-                        <span className={css.navLink}>Home</span>
+                        <NavLink to="/" className={({ isActive }) => isActive && css.active}>
+                          <ReactSVG className={css.navigationIcon} src="../../svg/home_icon.svg" />
+                          <span className={css.navLink}>Home</span>
+                        </NavLink>
                       </div>
                       <div className={css.navBox}>
-                        <ReactSVG
-                          className={css.navigationIcon}
-                          src="../../svg/statistics_icon.svg"
-                        />
-                        <span className={css.navLink}>Statistics</span>
+                        <NavLink
+                          to="/statistics"
+                          className={({ isActive }) => isActive && css.active}
+                        >
+                          <ReactSVG
+                            className={css.navigationIcon}
+                            src="../../svg/statistics_icon.svg"
+                          />
+                          <span className={css.navLink}>Statistics</span>
+                        </NavLink>
                       </div>
                       <Balance />
                     </div>
                     <CurrencyDummy />
                   </div>
-                  <TransactionList />
+                  <Outlet />
                 </>
               )}
             </>

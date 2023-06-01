@@ -90,6 +90,10 @@
 .editIcon {
   width: 1rem;
   height: 1rem;
-  margin-right: .3125rem;
+  margin-right: 0.3125rem;
+  transition: width 200ms;
 }
 
+.editBox:hover .editIcon {
+  width: 1.2rem;
+}

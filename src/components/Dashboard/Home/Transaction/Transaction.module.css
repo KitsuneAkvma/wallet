@@ -89,6 +89,11 @@
 
 .editIcon {
   width: 1rem;
-  margin-right: .3125rem;
+  margin-right: 0.3125rem;
   cursor: pointer;
+  transition: width 200ms;
+}
+
+.editIcon:hover {
+  width: 1.2rem;
 }

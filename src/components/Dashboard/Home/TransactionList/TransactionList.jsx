@@ -28,7 +28,7 @@ export const TransactionList = () => {
               </ul>
             )}
             {!matches.mobile && (
-              <>
+              <div className={css.transactionListContainer}>
                 <TransactionListHeader />
                 <ul className={css.transactionList}>
                   <Transaction
@@ -67,7 +67,7 @@ export const TransactionList = () => {
                     sum="1 000.00"
                   />
                 </ul>
-              </>
+              </div>
             )}
           </>
         )}
