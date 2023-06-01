@@ -56,6 +56,7 @@
   margin-bottom: 2.5rem;
   padding-left: 2.8125rem;
   background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
 }
 .email::placeholder,
 .password::placeholder {
