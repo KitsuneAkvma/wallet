@@ -4,8 +4,7 @@
   width: 100%;
   min-width: 17.5rem;
   max-width: 80rem;
-  padding: 0rem 1.25rem;
-  height: 100%;
+  padding: 0rem 1.25rem 1.25rem 1.25rem;
   @media (min-width: 1280px) {
     display: flex;
   }
