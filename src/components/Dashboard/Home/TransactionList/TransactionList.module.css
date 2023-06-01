@@ -1,3 +1,5 @@
+@import '../../../../utility/css-variables.css';
+
 .transactionList {
   list-style: none;
   padding: 0rem;
@@ -7,6 +9,7 @@
 .transactionListContainer {
   @media (min-width: 1280px) {
     width: 66.6%;
-    padding: 2.5rem 1rem 2.5rem 2.875rem;
+    padding: 2.5rem 0rem 2.5rem 2.875rem;
+    border-left: 0.0625rem solid var(--color-middle-border);
   }
 }

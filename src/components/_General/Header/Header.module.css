@@ -3,10 +3,10 @@
 .header {
   position: fixed;
   top: 0;
-  left: 0;
   z-index: 3;
-
   width: 100dvw;
+  max-width: 1280px;
+  padding: 0rem 1.25rem;
   height: 3.75rem;
   display: flex;
   justify-content: center;
@@ -74,7 +74,7 @@
   .content__logo {
     width: 11.3125rem;
     height: 2.5rem;
-    gap:1.25rem;
+    gap: 1.25rem;
   }
   .logo__icon {
     max-width: 2.5rem;
@@ -110,5 +110,11 @@
 @media (min-width: 768px) {
   .header__content {
     width: 97.5dvw;
+  }
+}
+
+@media (min-width: 1280px) {
+  .header {
+    left: calc((100vw - 1280px) / 2);
   }
 }
