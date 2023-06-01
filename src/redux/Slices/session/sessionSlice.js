@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logOut, login, getCurrentUser, signUp } from './operations';
+import { logOut, login, refreshUser, signUp } from './operations';
 
 const initialState = {
   user: { id: '', name: '', email: '' },
@@ -16,6 +16,7 @@ const handlePending = state => {
 };
 const handleRejected = (state, action) => {
   state.isLoading = false;
+
   state.error = action.payload;
 };
 
@@ -74,11 +75,11 @@ const sessionSlice = createSlice({
       .addCase(signUp.pending, handlePending)
       .addCase(login.pending, handlePending)
       .addCase(logOut.pending, handlePending)
-      .addCase(getCurrentUser.pending, handlePending)
+      .addCase(refreshUser.pending, handlePending)
       .addCase(signUp.rejected, handleRejected)
       .addCase(login.rejected, handleRejected)
       .addCase(logOut.rejected, handleRejected)
-      .addCase(getCurrentUser.rejected, handleRejected)
+      .addCase(refreshUser.rejected, handleRejected)
       .addCase(signUp.fulfilled, state => {
         state.isLoading = false;
       })
@@ -94,11 +95,10 @@ const sessionSlice = createSlice({
         state.token = null;
         state.isAuth = false;
       })
-      .addCase(getCurrentUser.fulfilled, (state, action) => {
+      .addCase(refreshUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
         state.isAuth = true;
-        state.isRefreshing = false;
       });
   },
 });
