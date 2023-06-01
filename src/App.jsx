@@ -8,7 +8,10 @@ import { LazyRouter } from './utility/lazyComponents/lazyComponents';
 import Loader from './components/_General/Loader/Loader';
 import { ToastContainer } from 'react-toastify';
 
+
+
 function App() {
+
   return (
     <>
       <React.Suspense fallback={<Loader />}>

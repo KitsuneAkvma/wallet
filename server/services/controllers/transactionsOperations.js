@@ -84,7 +84,7 @@ export const edit = async (req, res, next) => {
         message: 'Bad request',
       });
     const baseId = await getCategoryByName(category);
-    const categoryId = baseId.id.toString();
+    const categoryId = baseId?.id.toString();
     const updatedTransaction = await updateTransaction(transactionId, {
       typeOfTransaction,
       categoryId,

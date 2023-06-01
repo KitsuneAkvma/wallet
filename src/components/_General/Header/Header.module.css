@@ -1,0 +1,114 @@
+@import '../../../utility/css-variables.css';
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+
+  width: 100dvw;
+  height: 3.75rem;
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--color-bg-secondary);
+}
+.header__content {
+  width: 90dvw;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content__logo {
+  width: 7.5rem;
+  height: 1.875rem;
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+}
+.logo__icon {
+  max-width: 1.875rem;
+  max-height: 1.875rem;
+}
+.logo__text {
+  max-width: 4.625rem;
+  max-height: 1.0625rem;
+  color: var(--color-text-primary);
+}
+
+.content__user {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.user__name {
+  font-family: var(--font-secondary);
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-Gray1);
+}
+.user__vertLine {
+  display: none;
+}
+.user__logout {
+  transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+    fill 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+    color 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  cursor: pointer;
+}
+.user__logout:hover {
+  transform: scale(0.98);
+}
+.user__logout path {
+  fill: var(--color-Gray1);
+}
+.user__logout:hover path {
+  fill: var(--color-blue);
+}
+
+@media (min-width: 768px) {
+  .header {
+    height: 5rem;
+  }
+  .content__logo {
+    width: 11.3125rem;
+    height: 2.5rem;
+    gap:1.25rem;
+  }
+  .logo__icon {
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+  }
+  .logo__text {
+    max-width: 6.25rem;
+    max-height: 2.8125rem;
+  }
+
+  .user__vertLine {
+    display: block;
+    width: 0.03rem;
+    height: 1.875rem;
+    background-color: var(--color-Gray1);
+  }
+  .user__logout {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .user__logout::after {
+    content: 'Exit';
+
+    font-family: var(--font-secondary);
+    font-size: 1.125rem;
+    color: var(--color-Gray1);
+  }
+  .user__logout:hover:after {
+    color: var(--color-blue);
+  }
+}
+@media (min-width: 768px) {
+  .header__content {
+    width: 97.5dvw;
+  }
+}
