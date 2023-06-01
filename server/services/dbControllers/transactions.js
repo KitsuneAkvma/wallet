@@ -46,3 +46,14 @@ export const updateTransaction = (transactionId, body) => {
 export const removeTransaction = transactionId => {
   return Transaction.findByIdAndRemove({ _id: transactionId });
 };
+export const findTransactionsByTypeAndDate = (date, type) => {
+  const slicedDate = date.slice(0, 7);
+  return Transaction.find(
+    {
+      $and: [
+        { typeOfTransaction: { $regex: `${type}` }, transactionDate: { $regex: `${slicedDate}` } },
+      ],
+    },
+    { amountOfTransaction: 1, categoryId: 1, _id: 0 },
+  );
+};
