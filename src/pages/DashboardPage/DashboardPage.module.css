@@ -1,6 +1,7 @@
 @import '../../utility/css-variables.css';
 
 .container {
+  margin: 0px auto;
   width: 100%;
   min-width: 17.5rem;
   max-width: 80rem;

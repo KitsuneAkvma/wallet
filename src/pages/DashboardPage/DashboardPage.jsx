@@ -13,7 +13,6 @@ const DashboardPage = () => {
     screen: '(min-width: 1280px)',
   };
   return (
-    <>
       <section className={css.container}>
         <Media queries={queries}>
           {matches => (
@@ -71,7 +70,6 @@ const DashboardPage = () => {
         </Media>
         <ReactSVG className={css.addTransactionIcon} src="../../svg/plus_icon.svg" />
       </section>
-    </>
   );
 };
 export default DashboardPage;
