@@ -1,3 +1,5 @@
+@import '../../../utility/css-variables.css';
+
 .container {
   width: 100%;
   margin: 0 auto;
@@ -17,10 +19,11 @@
   .background {
     width: 100%;
     min-height: 100vh;
-    background-color: #e7eaf2;
-    /* background-image: 
+    background-color: var(--color-bg-primary);
+    background-image: url('../../../../public/images/ellipse-violet.png'),
+      url('../../../../public/images/ellipse-pink.png'); 
     background-repeat: no-repeat, no-repeat;
-    background-position: left bottom, right top; */
+    background-position: left bottom, right top;
   }
 
   .backdrop {
