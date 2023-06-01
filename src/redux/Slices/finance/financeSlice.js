@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getFinanceData } from './operations';
+import { getAllTransactions } from './operations';
 
 const initialState = {
   totalBalance: 0,
@@ -19,16 +19,11 @@ const handleRejected = (state, action) => {
 const financeSlice = createSlice({
   name: 'finance',
   initialState,
-  reducers: {
-    updateTotalBalance: (state, action) => {
-      state.totalBalance = action.payload;
-    },
-  },
-  extraReducers: builder => {
+  extraReducers(builder) {
     builder
-      .addCase(getFinanceData.pending, handlePending)
-      .addCase(getFinanceData.rejected, handleRejected)
-      .addCase(getFinanceData.fulfilled, (state, action) => {
+      .addCase(getAllTransactions.pending, handlePending)
+      .addCase(getAllTransactions.rejected, handleRejected)
+      .addCase(getAllTransactions.fulfilled, (state, action) => {
         state.data = action.payload;
         state.isLoading = false;
       });

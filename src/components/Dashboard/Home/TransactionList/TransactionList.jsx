@@ -1,4 +1,4 @@
-import React from 'react';
+
 import css from './TransactionList.module.css';
 import { MobileTransaction } from '../MobileTransaction/MobileTransaction';
 import { Transaction } from '../Transaction/Transaction';

@@ -2,6 +2,8 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
+const SERVER_URL = 'https://waller-api.onrender.com/api';
+
 // Utility to add JWT
 const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -11,10 +13,10 @@ const setAuthHeader = token => {
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
-const signUp = createAsyncThunk('auth/signup', async (credentials, thunkApi) => {
+const signUp = createAsyncThunk('users/signup', async (credentials, thunkAPI) => {
   const progressToast = toast.loading('Signing up...');
   try {
-    const res = await axios('https://dummyjson.com/products/1').then(
+    const res = await axios(`${SERVER_URL}/users/current`).then(
       toast.update(progressToast, {
         render: 'Thank you for joining us ✨',
         type: 'success',
@@ -32,15 +34,15 @@ const signUp = createAsyncThunk('auth/signup', async (credentials, thunkApi) => 
       isLoading: false,
       autoClose: 2000,
     });
-    return thunkApi.rejectWithValue(err.message);
+    return thunkAPI.rejectWithValue(err.message);
   }
 });
 
-const login = createAsyncThunk('auth/login', async (credentials, thunkApi) => {
+const login = createAsyncThunk('users/login', async (credentials, thunkAPI) => {
   const progressToast = toast.loading('Logging in...');
 
   try {
-    const res = await axios('https://dummyjson.com/products/2').then(
+    const res = await axios.post(`${SERVER_URL}/users/auth/log-in`, credentials).then(
       toast.update(progressToast, {
         render: 'Welcome back 😍',
         type: 'success',
@@ -59,14 +61,16 @@ const login = createAsyncThunk('auth/login', async (credentials, thunkApi) => {
       autoClose: 2000,
     });
 
-    return thunkApi.rejectWithValue(e.message);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
-const logOut = createAsyncThunk('auth/Logout', async (authentication, thunkApi) => {
+const logOut = createAsyncThunk('users/logout', async (authentication, thunkAPI) => {
   const progressToast = toast.loading('Sending...');
-
+  const state = thunkAPI.getState();
+  const persistedToken = state.session.token;
+  axios.defaults.headers.common['Authorization'] = `Bearer ${persistedToken}`;
   try {
-    const res = await axios('https://dummyjson.com/products/4').then(
+    const res = await axios(`${SERVER_URL}/users/auth/log-out`).then(
       toast.update(progressToast, {
         render: 'See you soon 😴',
         type: 'success',
@@ -84,15 +88,15 @@ const logOut = createAsyncThunk('auth/Logout', async (authentication, thunkApi) 
       autoClose: 2000,
     });
 
-    return thunkApi.rejectWithValue(e.message);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
 
-const refreshUser = createAsyncThunk('auth/refreshUser', async (_, thunkAPI) => {
+const getCurrentUser = createAsyncThunk('users/currentUser', async (_, thunkAPI) => {
   const progressToast = toast.loading('Refreshing user...');
 
   const state = thunkAPI.getState();
-  const persistedToken = state.auth.token;
+  const persistedToken = state.session.token;
 
   if (persistedToken === null) {
     toast.update(progressToast, {
@@ -103,10 +107,13 @@ const refreshUser = createAsyncThunk('auth/refreshUser', async (_, thunkAPI) => 
     });
     return thunkAPI.rejectWithValue('Unable to authenticate');
   }
+  const axiosConfig = {
+    headers: { Authorization: `Bearer ${persistedToken}` },
+  };
 
   try {
     setAuthHeader(persistedToken);
-    const res = await axios('https://dummyjson.com/products/4').then(
+    const res = await axios(`${SERVER_URL}/current}`, axiosConfig).then(
       toast.update(progressToast, {
         render: 'Successfully Refreshed! ✌️',
         type: 'success',
@@ -127,4 +134,4 @@ const refreshUser = createAsyncThunk('auth/refreshUser', async (_, thunkAPI) => 
   }
 });
 export { setAuthHeader, clearAuthHeader };
-export { signUp, login, logOut, refreshUser };
+export { signUp, login, logOut, getCurrentUser };
