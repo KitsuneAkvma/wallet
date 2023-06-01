@@ -16,7 +16,7 @@ const clearAuthHeader = () => {
 const signUp = createAsyncThunk('users/signup', async (credentials, thunkAPI) => {
   const progressToast = toast.loading('Signing up...');
   try {
-    const res = await axios(`${SERVER_URL}/users/current`).then(
+    const res = await axios.post(`${SERVER_URL}/users/auth/sign-up`, credentials).then(
       toast.update(progressToast, {
         render: 'Thank you for joining us ✨',
         type: 'success',
@@ -24,9 +24,11 @@ const signUp = createAsyncThunk('users/signup', async (credentials, thunkAPI) =>
         autoClose: 1000,
       }),
     );
-    setAuthHeader(res.data.token);
+    const user = res.data.data.newUser;
+    setAuthHeader(user.token);
+    console.log(res.data);
 
-    return res.data;
+    return user;
   } catch (err) {
     toast.update(progressToast, {
       render: 'Something went wrong 😭',
@@ -50,9 +52,10 @@ const login = createAsyncThunk('users/login', async (credentials, thunkAPI) => {
         autoClose: 1000,
       }),
     );
-    setAuthHeader(res.data.token);
+    const user = res.data.data;
+    setAuthHeader(user.token);
 
-    return res.data;
+    return user;
   } catch (e) {
     toast.update(progressToast, {
       render: 'Something went wrong 😭',
@@ -66,11 +69,8 @@ const login = createAsyncThunk('users/login', async (credentials, thunkAPI) => {
 });
 const logOut = createAsyncThunk('users/logout', async (authentication, thunkAPI) => {
   const progressToast = toast.loading('Sending...');
-  const state = thunkAPI.getState();
-  const persistedToken = state.session.token;
-  axios.defaults.headers.common['Authorization'] = `Bearer ${persistedToken}`;
   try {
-    const res = await axios(`${SERVER_URL}/users/auth/log-out`).then(
+    const res = await axios.post(`${SERVER_URL}/users/auth/log-out`).then(
       toast.update(progressToast, {
         render: 'See you soon 😴',
         type: 'success',
@@ -79,7 +79,7 @@ const logOut = createAsyncThunk('users/logout', async (authentication, thunkAPI)
       }),
     );
     clearAuthHeader();
-    return res.data;
+    return res;
   } catch (e) {
     toast.update(progressToast, {
       render: 'Something went wrong 😭',

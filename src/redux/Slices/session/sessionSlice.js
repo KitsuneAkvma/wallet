@@ -74,22 +74,13 @@ const sessionSlice = createSlice({
       .addCase(signUp.pending, handlePending)
       .addCase(login.pending, handlePending)
       .addCase(logOut.pending, handlePending)
-      .addCase(getCurrentUser.pending, state => {
-        state.isRefreshing = true;
-      })
+      .addCase(getCurrentUser.pending, handlePending)
       .addCase(signUp.rejected, handleRejected)
       .addCase(login.rejected, handleRejected)
       .addCase(logOut.rejected, handleRejected)
-      .addCase(getCurrentUser.rejected, (state, action) => {
-        state.isRefreshing = false;
+      .addCase(getCurrentUser.rejected, handleRejected)
+      .addCase(signUp.fulfilled, state => {
         state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(signUp.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isAuth = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
