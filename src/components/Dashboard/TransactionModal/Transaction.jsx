@@ -100,7 +100,7 @@ export const TransactionModal = () => {
       }
     };
 
-    if (showModal) {
+    if (open) {
       document.addEventListener('keydown', handleKeyDown);
       document.addEventListener('click', handleClickOutside);
     }
@@ -109,15 +109,11 @@ export const TransactionModal = () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [showModal]);
+  }, [open]);
 
   return (
     <div>
-      <button className={styles.transactionBtn} onClick={addTransaction}>
-        +
-      </button>
-
-      {showModal && (
+      {open && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <p className={styles.modalTitle}>Add transaction</p>
