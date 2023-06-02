@@ -13,6 +13,7 @@ import {
   updateLoginEmail,
   updateLoginPassword,
 } from '../../redux/Slices/session/sessionSlice';
+import { useState } from 'react';
 
 const userSchema = object({
   email: string().email('Invalid email').required('Email is required'),
@@ -28,11 +29,14 @@ const LoginPage = () => {
   const isAuth = useSelector(state => state.session.isAuth);
   const email = useSelector(state => state.session.loginForm.email);
   const password = useSelector(state => state.session.loginForm.password);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleEmailChange = event => {
     dispatch(updateLoginEmail(event.target.value));
   };
-
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const handlePasswordChange = event => {
     dispatch(updateLoginPassword(event.target.value));
   };
@@ -55,15 +59,16 @@ const LoginPage = () => {
     };
     try {
       await userSchema.validate(formValidationData, { abortEarly: false });
-      dispatch(
+      const response = await dispatch(
         login({
           email: data.get('email'),
           password: data.get('password'),
         }),
       );
-
-      form.reset();
-      handleLoginFormReset();
+      if (response.meta.requestStatus === 'fulfilled') {
+        form.reset();
+        handleLoginFormReset();
+      }
     } catch (error) {
       error.inner.forEach(validationError => {
         toast.warn(validationError.message, {
@@ -81,17 +86,17 @@ const LoginPage = () => {
 
   return (
     <div className={css.container}>
-      <ReactSVG className={css.peach} src="../../public/svg/ellipse_peach.svg" />
-      <ReactSVG className={css.violet} src="../../public/svg/ellipse_violet.svg" />
-      <ReactSVG className={css.man} src="../../public/svg/picture_with_man.svg" />
+      <ReactSVG className={css.peach} src="../../svg/ellipse_peach.svg" />
+      <ReactSVG className={css.violet} src="../../svg/ellipse_violet.svg" />
+      <ReactSVG className={css.man} src="../../svg/picture_with_man.svg" />
       <p className={css.name}>Finance App</p>
       <div className={css.blur}>
         <div className={css['form-container']}>
           <div className={css['title-container']}>
-            <ReactSVG className={css.icon} src="../../public/svg/wallet_icon.svg" />
+            <ReactSVG className={css.icon} src="../../svg/wallet_icon.svg" />
             <ReactSVG
               className={css.text}
-              src="../../public/svg/wallet_text.svg"
+              src="../../svg/wallet_text.svg"
               beforeInjection={svg => {
                 svg.classList.add('css.text');
               }}
@@ -99,7 +104,7 @@ const LoginPage = () => {
           </div>
           <form className={css.form} onSubmit={handleSubmit}>
             <div className={css['email-container']}>
-              <ReactSVG className={css['email-icon']} src="../../public/svg/email_icon.svg" />
+              <ReactSVG className={css['email-icon']} src="../../svg/email_icon.svg" />
               <input
                 className={css.email}
                 type="text"
@@ -112,10 +117,15 @@ const LoginPage = () => {
               ></input>
             </div>
             <div className={css['password-container']}>
-              <ReactSVG className={css['password-icon']} src="../../public/svg/lock_icon.svg" />
+              <ReactSVG className={css['password-icon']} src="../../svg/lock_icon.svg" />
+              <ReactSVG
+                className={css['hide-password-icon']}
+                onClick={togglePasswordVisibility}
+                src={showPassword ? '../../svg/eye.svg' : '../../svg/eye-blocked.svg'}
+              />
               <input
                 className={css.password}
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
                 placeholder="Password"
