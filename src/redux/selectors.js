@@ -11,8 +11,9 @@ const selectGlobalModalLogoutState = state => state.global.isLoading;
 const selectGlobalModalTransactionState = state => state.global.isLoading;
 
 const selectFinanceBalance = state => state.finance.totalBalance;
-const selectFinanceIsLoading = state => state.finance.totalBalance;
-const selectFinanceData = state => state.finance.totalBalance;
+const selectFinanceIsLoading = state => state.finance.isLoading;
+const selectFinanceData = state => state.finance.data;
+const selectFinanceSelectedTransaction = state => state.finance.selectedTransaction;
 
 export {
   selectSessionUser,
@@ -26,4 +27,9 @@ export {
 
 export { selectGlobalIsLoading, selectGlobalModalLogoutState, selectGlobalModalTransactionState };
 
-export { selectFinanceBalance, selectFinanceIsLoading, selectFinanceData };
+export {
+  selectFinanceBalance,
+  selectFinanceIsLoading,
+  selectFinanceData,
+  selectFinanceSelectedTransaction,
+};

@@ -87,6 +87,7 @@ const RegisterPage = () => {
           name: data.get('name'),
           email: data.get('email'),
           password: data.get('password'),
+          doubledPassword: data.get('confirmPassword'),
         }),
       );
       form.reset();

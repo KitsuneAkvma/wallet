@@ -1,10 +1,19 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import styles from './Header.module.css';
+
+import {  logOut } from '../../../redux/Slices/session/operations';
+import { selectSessionUser } from '../../../redux/selectors';
 import { HeaderStripe } from '../HeaderStripe/HeaderStripe';
 
+
 const Header = () => {
-  const userName = 'Heniu69';
+  const dispatch = useDispatch();
+  const user = useSelector(selectSessionUser);
+  const userName = user.username || 'Nameless';
+
   return (
+
     <>
       <HeaderStripe />
       <header className={styles.header}>

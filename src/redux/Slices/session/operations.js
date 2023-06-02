@@ -2,6 +2,8 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
+const SERVER_URL = 'https://waller-api.onrender.com/api';
+
 // Utility to add JWT
 const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -11,10 +13,10 @@ const setAuthHeader = token => {
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
-const signUp = createAsyncThunk('auth/signup', async (credentials, thunkApi) => {
+const signUp = createAsyncThunk('users/signup', async (credentials, thunkAPI) => {
   const progressToast = toast.loading('Signing up...');
   try {
-    const res = await axios('https://dummyjson.com/products/1').then(
+    const res = await axios.post(`${SERVER_URL}/users/auth/sign-up`, credentials).then(
       toast.update(progressToast, {
         render: 'Thank you for joining us ✨',
         type: 'success',
@@ -22,9 +24,11 @@ const signUp = createAsyncThunk('auth/signup', async (credentials, thunkApi) => 
         autoClose: 1000,
       }),
     );
-    setAuthHeader(res.data.token);
+    const user = res.data.data.newUser;
+    setAuthHeader(user.token);
+    console.log(res.data);
 
-    return res.data;
+    return user;
   } catch (err) {
     toast.update(progressToast, {
       render: 'Something went wrong 😭',
@@ -32,15 +36,15 @@ const signUp = createAsyncThunk('auth/signup', async (credentials, thunkApi) => 
       isLoading: false,
       autoClose: 2000,
     });
-    return thunkApi.rejectWithValue(err.message);
+    return thunkAPI.rejectWithValue(err.message);
   }
 });
 
-const login = createAsyncThunk('auth/login', async (credentials, thunkApi) => {
+const login = createAsyncThunk('users/login', async (credentials, thunkAPI) => {
   const progressToast = toast.loading('Logging in...');
 
   try {
-    const res = await axios('https://dummyjson.com/products/2').then(
+    const res = await axios.post(`${SERVER_URL}/users/auth/log-in`, credentials).then(
       toast.update(progressToast, {
         render: 'Welcome back 😍',
         type: 'success',
@@ -48,9 +52,10 @@ const login = createAsyncThunk('auth/login', async (credentials, thunkApi) => {
         autoClose: 1000,
       }),
     );
-    setAuthHeader(res.data.token);
+    const user = res.data.data;
+    setAuthHeader(user.token);
 
-    return res.data;
+    return user;
   } catch (e) {
     toast.update(progressToast, {
       render: 'Something went wrong 😭',
@@ -59,14 +64,13 @@ const login = createAsyncThunk('auth/login', async (credentials, thunkApi) => {
       autoClose: 2000,
     });
 
-    return thunkApi.rejectWithValue(e.message);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
-const logOut = createAsyncThunk('auth/Logout', async (authentication, thunkApi) => {
+const logOut = createAsyncThunk('users/logout', async (authentication, thunkAPI) => {
   const progressToast = toast.loading('Sending...');
-
   try {
-    const res = await axios('https://dummyjson.com/products/4').then(
+    const res = await axios.post(`${SERVER_URL}/users/auth/log-out`).then(
       toast.update(progressToast, {
         render: 'See you soon 😴',
         type: 'success',
@@ -75,7 +79,7 @@ const logOut = createAsyncThunk('auth/Logout', async (authentication, thunkApi) 
       }),
     );
     clearAuthHeader();
-    return res.data;
+    return res;
   } catch (e) {
     toast.update(progressToast, {
       render: 'Something went wrong 😭',
@@ -84,45 +88,24 @@ const logOut = createAsyncThunk('auth/Logout', async (authentication, thunkApi) 
       autoClose: 2000,
     });
 
-    return thunkApi.rejectWithValue(e.message);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
 
-const refreshUser = createAsyncThunk('auth/refreshUser', async (_, thunkAPI) => {
-  const progressToast = toast.loading('Refreshing user...');
-
+const refreshUser = createAsyncThunk('users/currentUser', async (_, thunkAPI) => {
   const state = thunkAPI.getState();
-  const persistedToken = state.auth.token;
+  const persistedToken = state.session.token;
 
   if (persistedToken === null) {
-    toast.update(progressToast, {
-      render: 'Unable to authenticate 🫢',
-      type: 'error',
-      isLoading: false,
-      autoClose: 2000,
-    });
     return thunkAPI.rejectWithValue('Unable to authenticate');
   }
 
   try {
     setAuthHeader(persistedToken);
-    const res = await axios('https://dummyjson.com/products/4').then(
-      toast.update(progressToast, {
-        render: 'Successfully Refreshed! ✌️',
-        type: 'success',
-        isLoading: false,
-        autoClose: 1000,
-      }),
-    );
+    const res = await axios.get(`${SERVER_URL}/users/current`);
 
     return res.data;
   } catch (e) {
-    toast.update(progressToast, {
-      render: 'Something went wrong 😭',
-      type: 'error',
-      isLoading: false,
-      autoClose: 2000,
-    });
     return thunkAPI.rejectWithValue(e.message);
   }
 });

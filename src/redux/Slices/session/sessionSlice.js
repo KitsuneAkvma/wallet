@@ -16,6 +16,7 @@ const handlePending = state => {
 };
 const handleRejected = (state, action) => {
   state.isLoading = false;
+
   state.error = action.payload;
 };
 
@@ -74,22 +75,13 @@ const sessionSlice = createSlice({
       .addCase(signUp.pending, handlePending)
       .addCase(login.pending, handlePending)
       .addCase(logOut.pending, handlePending)
-      .addCase(refreshUser.pending, state => {
-        state.isRefreshing = true;
-      })
+      .addCase(refreshUser.pending, handlePending)
       .addCase(signUp.rejected, handleRejected)
       .addCase(login.rejected, handleRejected)
       .addCase(logOut.rejected, handleRejected)
-      .addCase(refreshUser.rejected, (state, action) => {
-        state.isRefreshing = false;
+      .addCase(refreshUser.rejected, handleRejected)
+      .addCase(signUp.fulfilled, state => {
         state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(signUp.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isAuth = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -107,7 +99,6 @@ const sessionSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload;
         state.isAuth = true;
-        state.isRefreshing = false;
       });
   },
 });

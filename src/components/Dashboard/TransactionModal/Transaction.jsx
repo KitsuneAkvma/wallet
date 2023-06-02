@@ -11,7 +11,7 @@ import categories from '../../../../server/models/categories.json';
 
 export const TransactionModal = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('income');
+  const [selectedOption, setSelectedOption] = useState('Income');
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedExpense, setSelectedExpense] = useState([]);
   const [category, setCategory] = useState('');
@@ -31,7 +31,7 @@ export const TransactionModal = () => {
   };
 
   const handleSwitchToggle = () => {
-    setSelectedOption(prevOption => (prevOption === 'income' ? 'expense' : 'income'));
+    setSelectedOption(prevOption => (prevOption === 'Income' ? 'Expense' : 'Income'));
     setSelectedExpense([]);
   };
 
@@ -53,21 +53,26 @@ export const TransactionModal = () => {
   const formik = useFormik({
     initialValues: {
       transactionValue: '',
+      comment: '',
     },
     validationSchema,
     onSubmit: async values => {
       try {
         const transactionData = {
+          typeOfTransaction: selectedOption,
+          category: 'Income',
           amountOfTransaction: values.transactionValue,
-          transactionDate: selectedDate.toString(),
+          transactionDate: selectedDate.toISOString(),
+          comment: values.comment,
         };
-        console.log(transactionData);
 
-        if (selectedOption === 'expense') {
-          transactionData.categoryId = category;
-          await axios.post('/api/transactions/expense', transactionData);
+        if (selectedOption === 'Expense') {
+          transactionData.category = category;
+          console.log(transactionData);
+          await axios.post('http://localhost:3000/api/transactions/', transactionData); // usunąć lokalhost jak wszystko będzie działało!! zamienić na reduxa
         } else {
-          await axios.post('/api/transactions/income', transactionData);
+          console.log(transactionData);
+          await axios.post('http://localhost:3000/api/transactions/', transactionData); // usunąć lokalhost jak wszystko będzie działało!! zamienić na reduxa
         }
 
         formik.resetForm();
@@ -76,7 +81,7 @@ export const TransactionModal = () => {
         if (error.response && error.response.status === 404) {
           console.log('Requested resource not found');
         } else {
-          console.error(error);
+          console.error('Error:', error.response.data);
         }
       }
     },
@@ -125,32 +130,30 @@ export const TransactionModal = () => {
               <label className={styles.switch}>
                 <input
                   type="checkbox"
-                  checked={selectedOption === 'expense'}
+                  checked={selectedOption === 'Expense'}
                   onChange={handleSwitchToggle}
                 />
                 <span className={`${styles.slider} ${styles.round}`}></span>
               </label>
               <span
-                className={selectedOption === 'income' ? styles.greyedText : styles.expenseColor}
+                className={selectedOption === 'Income' ? styles.greyedText : styles.expenseColor}
               >
                 Expense
               </span>
             </div>
 
-            {selectedOption === 'expense' && (
+            {selectedOption === 'Expense' && (
               <div>
                 <select
                   className={styles.categorySelect}
                   defaultValue="Select your option"
                   onChange={e => setCategory(e.target.value)}
                 >
-                  {category ? null : (
-                    <option value="" hidden>
-                      Select your option
-                    </option>
-                  )}
+                  <option value="" hidden>
+                    Select your option
+                  </option>
                   {categories.map(category => (
-                    <option key={category.name} value={category.name}>
+                    <option key={category.name} value={category.name} id={category.id}>
                       {category.name}
                     </option>
                   ))}
@@ -188,7 +191,13 @@ export const TransactionModal = () => {
                 />
               </div>
             </div>
-            <input className={styles.transactionComment} type="text" placeholder="Comment" />
+            <input
+              type="text"
+              name="comment"
+              placeholder="Comment"
+              className={styles.transactionComment}
+              {...formik.getFieldProps('comment')}
+            />
             <button className={styles.closeBtn} onClick={closeModal}>
               &#10006;
             </button>

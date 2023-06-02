@@ -1,4 +1,4 @@
-import React from 'react';
+
 import css from './TransactionList.module.css';
 import { ReactSVG } from 'react-svg';
 import { MobileTransaction } from '../MobileTransaction/MobileTransaction';
