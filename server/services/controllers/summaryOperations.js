@@ -1,18 +1,5 @@
-import { findTransactionsByTypeAndDate, listTransactions } from '../dbControllers/transactions.js';
+import { findTransactionsByTypeAndDate } from '../dbControllers/transactions.js';
 
-export const getTransactionByCategories = async (req, res, next) => {
-  try {
-    const transactions = await listTransactions();
-    res.json({
-      status: 'success',
-      code: 200,
-      data: { transactions },
-    });
-  } catch (e) {
-    console.error(e);
-    next(e);
-  }
-};
 export const monthlyBalance = async (req, res, next) => {
   const dateNow = new Date().toISOString();
   const { date = dateNow } = req.body;
@@ -33,10 +20,27 @@ export const monthlyBalance = async (req, res, next) => {
     const usedCategoryIds = expenseTransactions
       .map(transaction => transaction.categoryId)
       .filter((categoryId, index, array) => array.indexOf(categoryId) === index);
+
+    let categoryIdValues = [];
+    for (const categoryId of usedCategoryIds) {
+      const valueByCategory = expenseTransactions
+        .filter(transaction => transaction.categoryId === categoryId)
+        .map(transaction => transaction.amountOfTransaction)
+        .reduce((previousValue, number) => {
+          return previousValue + number;
+        }, 0);
+      categoryIdValues.push(valueByCategory);
+    }
     res.json({
       status: 'success',
       code: 200,
-      data: { incomeValue, expenseValue, balanceForMonth, usedCategoryIds },
+      data: {
+        incomeValue,
+        expenseValue,
+        balanceForMonth,
+        usedCategoryIds,
+        categoryIdValues,
+      },
     });
   } catch (e) {
     console.error(e);
