@@ -174,19 +174,22 @@
     flex-direction: row;
   }
 
+  .statisticContent > div {
+    width: 50%;
+  }
+
   .select {
     flex-direction: row;
     gap: 1rem;
   }
 
   .optionSelect {
-    width: 10rem;
+    width: 50%;
   }
 
   .chartContainer {
     position: relative;
     margin: 0;
-    width: 21rem;
     height: 21rem;
     margin-right: 2rem;
   }
@@ -196,7 +199,8 @@
   }
 
   .data {
-    width: 21rem;
+    width: 100%;
+    justify-content: space-around;
   }
 
   .dataColor {
@@ -205,15 +209,19 @@
   }
 
   .expense {
-    width: 21rem;
+    width: 100%;
   }
 
   .income {
-    width: 21rem;
+    width: 100%;
   }
 }
 
 @media screen and (min-width: 1280px) {
+  .statistic {
+    width: 66.6%;
+  }
+
   .statisticContent {
     display: flex;
     flex-direction: row;
@@ -230,7 +238,7 @@
 
   .chartContainer {
     position: relative;
-    width: 18rem;
+    width: 100%;
     height: 18rem;
     margin: 0;
     margin-right: 2rem;
@@ -238,10 +246,7 @@
 
   .dataTitle {
     gap: 15.625rem;
-  }
-
-  .data {
-    width: 24.6875rem;
+    justify-content: center;
   }
 
   .valueData {
@@ -253,12 +258,10 @@
   }
 
   .expense {
-    width: 24.6875rem;
     gap: 11.25rem;
   }
 
   .income {
-    width: 24.6875rem;
     gap: 11.25rem;
   }
 }
