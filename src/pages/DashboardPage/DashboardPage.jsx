@@ -71,7 +71,6 @@ const DashboardPage = () => {
             </>
           )}
         </Media>
-        <ReactSVG className={css.addTransactionIcon} src="../../svg/plus_icon.svg" />
       </section>
     </>
   );
