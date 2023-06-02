@@ -5,9 +5,7 @@ import { Outlet } from 'react-router';
 import Media from 'react-media';
 import css from './DashboardPage.module.css';
 import { NavLink } from 'react-router-dom';
-
 import Header from '../../components/_General/Header/Header';
-import { HeaderStripe } from '../../components/_General/HeaderStripe/HeaderStripe.jsx';
 
 const DashboardPage = () => {
   const queries = {
@@ -17,7 +15,6 @@ const DashboardPage = () => {
   };
   return (
     <>
-      <HeaderStripe />
       <Header />
       <section className={css.container}>
         <Media queries={queries}>
