@@ -13,7 +13,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<PrivateRoutes />}>
+        <Route element={<RestrictedRoutes />}>
           <Route path="/" element={<DashboardPage />}>
             <Route index element={<TransactionList />} />
             <Route path="currencies" element={<CurrencyDummy />} />

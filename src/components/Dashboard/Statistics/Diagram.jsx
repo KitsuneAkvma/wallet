@@ -129,11 +129,13 @@ export const Diagram = () => {
           <div>
             {selectedData.map((item, index) => (
               <div className={styles.data} key={item.category}>
-                <div
-                  className={styles.dataColor}
-                  style={{ backgroundColor: chartData.datasets[0].backgroundColor[index] }}
-                ></div>
-                <p className={styles.categoryData}>{item.category}</p>
+                <div className={styles.categoryExplanation}>
+                  <div
+                    className={styles.dataColor}
+                    style={{ backgroundColor: chartData.datasets[0].backgroundColor[index] }}
+                  ></div>
+                  <p className={styles.categoryData}>{item.category}</p>
+                </div>
                 <p className={styles.valueData}>{item.value.toFixed(2)}</p>
               </div>
             ))}
