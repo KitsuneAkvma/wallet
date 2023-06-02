@@ -24,16 +24,16 @@ const DashboardPage = () => {
                 <>
                   <div className={css.navigationIconsBox}>
                     <NavLink to="/" className={({ isActive }) => isActive && css.active}>
-                      <ReactSVG className={css.navigationIcon} src="../../svg/home_icon.svg" />
+                      <ReactSVG className={css.navigationIcon} src="/svg/home_icon.svg" />
                     </NavLink>
                     <NavLink to="/statistics" className={({ isActive }) => isActive && css.active}>
                       <ReactSVG
                         className={css.navigationIcon}
-                        src="../../svg/statistics_icon.svg"
+                        src="/svg/statistics_icon.svg"
                       />
                     </NavLink>
                     <NavLink to="/currencies" className={({ isActive }) => isActive && css.active}>
-                      <ReactSVG className={css.navigationIcon} src="../../svg/currency_icon.svg" />
+                      <ReactSVG className={css.navigationIcon} src="/svg/currency_icon.svg" />
                     </NavLink>
                   </div>
                   <Outlet />
@@ -45,7 +45,7 @@ const DashboardPage = () => {
                     <div className={css.navBalanceBox}>
                       <div className={css.navBox}>
                         <NavLink to="/" className={({ isActive }) => isActive && css.active}>
-                          <ReactSVG className={css.navigationIcon} src="../../svg/home_icon.svg" />
+                          <ReactSVG className={css.navigationIcon} src="/svg/home_icon.svg" />
                           <span className={css.navLink}>Home</span>
                         </NavLink>
                       </div>
@@ -56,7 +56,7 @@ const DashboardPage = () => {
                         >
                           <ReactSVG
                             className={css.navigationIcon}
-                            src="../../svg/statistics_icon.svg"
+                            src="/svg/statistics_icon.svg"
                           />
                           <span className={css.navLink}>Statistics</span>
                         </NavLink>
