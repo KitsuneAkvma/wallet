@@ -1,0 +1,99 @@
+@import '../../../../utility/css-variables.css';
+
+.transactionBox {
+  display: flex;
+  padding: 0.5625rem 1.25rem;
+  border-bottom: 0.0625rem solid var(--color-transaction-border);
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  justify-content: space-between;
+}
+
+.deleteButton {
+  font-family: var(--font-secondary);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  text-align: center;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--color-green);
+  border-radius: 1.125rem;
+  color: var(--color-delete-btn-font);
+  border: none;
+  transition: 200ms;
+}
+
+.deleteButton:hover {
+  background-color: var(--color-bg-delete-btn-hover);
+  cursor: pointer;
+}
+
+.deleteButton:focus {
+  outline: none;
+}
+
+.dateBox {
+  width: 11.66%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.typeBox {
+  width: 11.66%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.commentBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.sumBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.editDeleteBox {
+  width: 16.66%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.greenSum {
+  color: var(--color-green);
+}
+
+.redSum {
+  color: var(--color-pink);
+}
+
+.editIcon {
+  width: 1rem;
+  margin-right: 0.3125rem;
+  cursor: pointer;
+  transition: width 200ms;
+}
+
+.editIcon:hover {
+  width: 1.2rem;
+}
