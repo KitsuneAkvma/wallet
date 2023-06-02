@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllTransactions } from './operations';
+import { editTransaction, getAllTransactions, getOneTransaction } from './operations';
 
 const initialState = {
   totalBalance: 0,
   isLoading: false,
   data: [],
+  selectedTransaction: {},
 };
 
 const handlePending = state => {
@@ -22,9 +23,21 @@ const financeSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getAllTransactions.pending, handlePending)
+      .addCase(getOneTransaction.pending, handlePending)
+      .addCase(editTransaction.pending, handlePending)
       .addCase(getAllTransactions.rejected, handleRejected)
+      .addCase(getOneTransaction.rejected, handleRejected)
+      .addCase(editTransaction.rejected, handleRejected)
       .addCase(getAllTransactions.fulfilled, (state, action) => {
         state.data = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getOneTransaction.fulfilled, (state, action) => {
+        state.selectedTransaction = action.payload;
+
+        state.isLoading = false;
+      })
+      .addCase(editTransaction.fulfilled, state => {
         state.isLoading = false;
       });
   },
