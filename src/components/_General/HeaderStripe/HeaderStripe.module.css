@@ -1,0 +1,13 @@
+@import '../../../utility/css-variables.css';
+
+.headerStripe {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  width: 100dvw;
+  height: 3.75rem;
+  background-color: var(--color-bg-secondary);
+  @media (min-width: 768px) {
+    height: 5rem;
+  }
+}
