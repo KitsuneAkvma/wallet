@@ -77,7 +77,7 @@ export const TransactionList = () => {
           </>
         )}
       </Media>
-      <ReactSVG className={css.addTransactionIcon} src="../../../../../public/svg/plus_icon.svg" />
+      <ReactSVG className={css.addTransactionIcon} src="/svg/plus_icon.svg" />
     </>
   );
 };
