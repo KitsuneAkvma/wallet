@@ -5,7 +5,6 @@ import { Outlet } from 'react-router';
 import Media from 'react-media';
 import css from './DashboardPage.module.css';
 import { NavLink } from 'react-router-dom';
-
 import Header from '../../components/_General/Header/Header';
 
 const DashboardPage = () => {
@@ -15,6 +14,8 @@ const DashboardPage = () => {
     screen: '(min-width: 1280px)',
   };
   return (
+    <>
+      <Header />
       <section className={css.container}>
         <Media queries={queries}>
           {matches => (
@@ -70,8 +71,8 @@ const DashboardPage = () => {
             </>
           )}
         </Media>
-        <ReactSVG className={css.addTransactionIcon} src="../../svg/plus_icon.svg" />
       </section>
+    </>
   );
 };
 export default DashboardPage;

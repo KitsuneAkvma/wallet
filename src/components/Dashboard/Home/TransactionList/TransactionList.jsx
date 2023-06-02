@@ -1,5 +1,6 @@
 
 import css from './TransactionList.module.css';
+import { ReactSVG } from 'react-svg';
 import { MobileTransaction } from '../MobileTransaction/MobileTransaction';
 import { Transaction } from '../Transaction/Transaction';
 import { Balance } from '../Balance/Balance';
@@ -76,6 +77,7 @@ export const TransactionList = () => {
           </>
         )}
       </Media>
+      <ReactSVG className={css.addTransactionIcon} src="../../../../../public/svg/plus_icon.svg" />
     </>
   );
 };

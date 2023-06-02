@@ -1,3 +1,5 @@
+@import '../../../../utility/css-variables.css';
+
 .transactionList {
   list-style: none;
   padding: 0rem;
@@ -7,6 +9,28 @@
 .transactionListContainer {
   @media (min-width: 1280px) {
     width: 66.6%;
-    padding: 2.5rem 1rem 2.5rem 2.875rem;
+    padding: 2.5rem 0rem 2.5rem 2.875rem;
+    border-left: 0.0625rem solid var(--color-middle-border);
   }
+}
+
+.addTransactionIcon {
+  width: 66px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  @media (min-width: 1280px) {
+    right: calc((100vw - 1210px) / 2);
+  }
+}
+
+.addTransactionIcon circle {
+  fill: var(--color-green);
+  transition-property: fill;
+  transition-duration: 200ms;
+}
+
+.addTransactionIcon:hover circle {
+  fill: var(--color-bg-add-btn-hover);
 }

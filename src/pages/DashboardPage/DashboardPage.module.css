@@ -2,10 +2,14 @@
 
 .container {
   margin: 0px auto;
+  min-height: 100%;
   width: 100%;
   min-width: 17.5rem;
   max-width: 80rem;
-  padding: 0rem 1.25rem 1.25rem 1.25rem;
+  padding: 5rem 1.25rem 1.25rem 1.25rem;
+  @media (max-width: 767px) {
+    padding: 3.75rem 1.25rem 1.25rem 1.25rem;
+  }
   @media (min-width: 1280px) {
     display: flex;
   }
@@ -37,34 +41,13 @@
   fill: var(--color-bg-nav-icons-active);
 }
 
-.addTransactionIcon {
-  width: 66px;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  cursor: pointer;
-  @media (min-width: 1280px) {
-    right: calc((100vw - 1210px) / 2);
-  }
-}
-
-.addTransactionIcon circle {
-  fill: var(--color-green);
-  transition-property: fill;
-  transition-duration: 200ms;
-}
-
-.addTransactionIcon:hover circle {
-  fill: var(--color-bg-add-btn-hover);
-}
-
 .navBalanceAndCurrencyBox {
   display: flex;
+  padding: 2.5rem 1rem 2.5rem 0rem;
   @media (min-width: 1280px) {
     width: 33.3%;
     height: 100%;
     display: block;
-    padding: 2.5rem 1rem 2.5rem 2.875rem;
     border-right: 0.0625rem solid var(--color-middle-border);
   }
 }
@@ -95,8 +78,13 @@
   font-weight: 400;
   line-height: 1.6875rem;
   letter-spacing: 0em;
+  color: var(--color-text-primary);
 }
 
 .active path {
   fill: var(--color-bg-nav-icons-active);
+}
+
+.active span {
+  font-weight: 700;
 }
