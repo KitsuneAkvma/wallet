@@ -36,26 +36,22 @@ const addTransaction = createAsyncThunk('finance/addOne', async (credentials, th
   }
 });
 
-
 const editTransaction = createAsyncThunk('finance/editOne', async (credentials, thunkApi) => {
   const id = credentials.id;
   try {
-
     const res = await axios.patch(`${SERVER_URL}/${id}`, credentials);
 
-      thunkApi.dispatch(getAllTransactions());
+    thunkApi.dispatch(getAllTransactions());
 
-      return res.data;
-    } catch (e) {
-      return thunkApi.rejectWithValue(e.message);
-    }
-  },
-);
+    return res.data;
+  } catch (e) {
+    return thunkApi.rejectWithValue(e.message);
+  }
+});
 
 const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunkApi) => {
   try {
     const res = await axios.delete(`${SERVER_URL}/${id}`);
-
 
     thunkApi.dispatch(getAllTransactions());
 
@@ -69,6 +65,7 @@ const fetchCategories = createAsyncThunk('finance/fetchCategories', async (_, th
   try {
     const res = await axios.get(`${SERVER_URL}/transaction-categories`);
     const categories = res.data.data.allCategories;
+
     return categories;
   } catch (e) {
     return thunkApi.rejectWithValue(e.message);
