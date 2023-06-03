@@ -117,7 +117,7 @@ export const login = async (req, res, next) => {
     res.json({
       status: 'Success',
       code: 200,
-      data: { token: token, user: { id, username, email, balance } },
+      data: { token: token, user: { id, email, username, balance } },
     });
   } catch (error) {
     next(error);
