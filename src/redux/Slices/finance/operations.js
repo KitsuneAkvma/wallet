@@ -30,23 +30,26 @@ const addTransaction = createAsyncThunk('finance/addOne', async (credentials, th
     const res = await axios.post(`${SERVER_URL}/`, credentials);
 
     thunkApi.dispatch(getAllTransactions());
-    return res;
+    return res.data;
   } catch (e) {
     return thunkApi.rejectWithValue(e.message);
   }
 });
 
-const editTransaction = createAsyncThunk('finance/editOne', async (id, credentials, thunkApi) => {
-  try {
-    const res = await axios.patch(`${SERVER_URL}/${id}`, credentials);
+const editTransaction = createAsyncThunk(
+  'finance/editOne',
+  async ({ id, credentials }, thunkApi) => {
+    try {
+      const res = await axios.patch(`${SERVER_URL}/${id}`, credentials);
 
-    thunkApi.dispatch(getAllTransactions());
+      thunkApi.dispatch(getAllTransactions());
 
-    return res;
-  } catch (e) {
-    return thunkApi.rejectWithValue(e.message);
-  }
-});
+      return res.data;
+    } catch (e) {
+      return thunkApi.rejectWithValue(e.message);
+    }
+  },
+);
 
 const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunkApi) => {
   try {
@@ -60,10 +63,21 @@ const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunk
   }
 });
 
+const fetchCategories = createAsyncThunk('finance/fetchCategories', async (_, thunkApi) => {
+  try {
+    const res = await axios.get(`${SERVER_URL}/transaction-categories`);
+    const categories = res.data.data.allCategories;
+    return categories;
+  } catch (e) {
+    return thunkApi.rejectWithValue(e.message);
+  }
+});
+
 export {
   getAllTransactions,
   getOneTransaction,
   addTransaction,
   editTransaction,
   deleteTransaction,
+  fetchCategories,
 };
