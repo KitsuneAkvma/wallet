@@ -86,17 +86,17 @@ const LoginPage = () => {
 
   return (
     <div className={css.container}>
-      <ReactSVG className={css.peach} src="../../svg/ellipse_peach.svg" />
-      <ReactSVG className={css.violet} src="../../svg/ellipse_violet.svg" />
-      <ReactSVG className={css.man} src="../../svg/picture_with_man.svg" />
+      <ReactSVG className={css.peach} src="/svg/ellipse_peach.svg" />
+      <ReactSVG className={css.violet} src="/svg/ellipse_violet.svg" />
+      <ReactSVG className={css.man} src="/svg/picture_with_man.svg" />
       <p className={css.name}>Finance App</p>
       <div className={css.blur}>
         <div className={css['form-container']}>
           <div className={css['title-container']}>
-            <ReactSVG className={css.icon} src="../../svg/wallet_icon.svg" />
+            <ReactSVG className={css.icon} src="/svg/wallet_icon.svg" />
             <ReactSVG
               className={css.text}
-              src="../../svg/wallet_text.svg"
+              src="/svg/wallet_text.svg"
               beforeInjection={svg => {
                 svg.classList.add('css.text');
               }}
@@ -104,7 +104,7 @@ const LoginPage = () => {
           </div>
           <form className={css.form} onSubmit={handleSubmit}>
             <div className={css['email-container']}>
-              <ReactSVG className={css['email-icon']} src="../../svg/email_icon.svg" />
+              <ReactSVG className={css['email-icon']} src="/svg/email_icon.svg" />
               <input
                 className={css.email}
                 type="text"
@@ -117,11 +117,11 @@ const LoginPage = () => {
               ></input>
             </div>
             <div className={css['password-container']}>
-              <ReactSVG className={css['password-icon']} src="../../svg/lock_icon.svg" />
+              <ReactSVG className={css['password-icon']} src="/svg/lock_icon.svg" />
               <ReactSVG
                 className={css['hide-password-icon']}
                 onClick={togglePasswordVisibility}
-                src={showPassword ? '../../svg/eye.svg' : '../../svg/eye-blocked.svg'}
+                src={showPassword ? '/svg/eye.svg' : '/svg/eye-blocked.svg'}
               />
               <input
                 className={css.password}
