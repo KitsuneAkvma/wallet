@@ -87,7 +87,7 @@ export const EditTransaction = () => {
           transactionData.category = category;
         }
 
-        await dispatch(editTransaction(transactionId, transactionData)).unwrap();
+        await dispatch(editTransaction({ id, transactionData })).unwrap();
         formik.resetForm();
         closeModal();
       } catch (error) {
