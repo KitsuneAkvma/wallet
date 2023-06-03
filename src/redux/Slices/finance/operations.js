@@ -36,8 +36,10 @@ const addTransaction = createAsyncThunk('finance/addOne', async (credentials, th
   }
 });
 
-const editTransaction = createAsyncThunk('finance/editOne', async (id, credentials, thunkApi) => {
+const editTransaction = createAsyncThunk('finance/editOne', async (credentials, thunkApi) => {
+  const id = credentials.id;
   try {
+
     const res = await axios.patch(`${SERVER_URL}/${id}`, credentials);
 
     thunkApi.dispatch(getAllTransactions());

@@ -2,18 +2,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import styles from './Header.module.css';
 
-import {  logOut } from '../../../redux/Slices/session/operations';
+import { logOut } from '../../../redux/Slices/session/operations';
 import { selectSessionUser } from '../../../redux/selectors';
 import { HeaderStripe } from '../HeaderStripe/HeaderStripe';
-
 
 const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectSessionUser);
-  const userName = user.username || 'Nameless';
+  const userName = user.username
+  const handleLogout = () => {
+    dispatch(logOut());
+  };
 
   return (
-
     <>
       <HeaderStripe />
       <header className={styles.header}>
@@ -32,6 +33,7 @@ const Header = () => {
               alt="logout-button"
               aria-label="logout button"
               className={styles.user__logout}
+              onClick={handleLogout}
             />
           </div>
         </div>

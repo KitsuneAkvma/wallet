@@ -6,27 +6,26 @@ const SERVER_URL = 'https://waller-api.onrender.com/api';
 
 // Utility to add JWT
 const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  axios.defaults.headers.authorization = `Bearer ${token}`;
 };
 
 // Utility to remove JWT
 const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
+  delete axios.defaults.headers.authorization;
 };
+
 const signUp = createAsyncThunk('users/signup', async (credentials, thunkAPI) => {
   const progressToast = toast.loading('Signing up...');
   try {
-    const res = await axios.post(`${SERVER_URL}/users/auth/sign-up`, credentials).then(
-      toast.update(progressToast, {
-        render: 'Thank you for joining us ✨',
-        type: 'success',
-        isLoading: false,
-        autoClose: 1000,
-      }),
-    );
+    const res = await axios.post(`${SERVER_URL}/users/auth/sign-up`, credentials);
     const user = res.data.data.newUser;
-    setAuthHeader(user.token);
-    console.log(res.data);
+
+    toast.update(progressToast, {
+      render: 'Thank you for joining us ✨ Please check your email to verify your account',
+      type: 'success',
+      isLoading: false,
+      autoClose: 1000,
+    });
 
     return user;
   } catch (err) {
@@ -42,19 +41,17 @@ const signUp = createAsyncThunk('users/signup', async (credentials, thunkAPI) =>
 
 const login = createAsyncThunk('users/login', async (credentials, thunkAPI) => {
   const progressToast = toast.loading('Logging in...');
-
   try {
-    const res = await axios.post(`${SERVER_URL}/users/auth/log-in`, credentials).then(
-      toast.update(progressToast, {
-        render: 'Welcome back 😍',
-        type: 'success',
-        isLoading: false,
-        autoClose: 1000,
-      }),
-    );
+    const res = await axios.post(`${SERVER_URL}/users/auth/log-in`, credentials);
     const user = res.data.data;
-    setAuthHeader(user.token);
 
+    setAuthHeader(user.token);
+    toast.update(progressToast, {
+      render: 'Welcome back 😍',
+      type: 'success',
+      isLoading: false,
+      autoClose: 1000,
+    });
     return user;
   } catch (e) {
     toast.update(progressToast, {
@@ -63,31 +60,32 @@ const login = createAsyncThunk('users/login', async (credentials, thunkAPI) => {
       isLoading: false,
       autoClose: 2000,
     });
-
     return thunkAPI.rejectWithValue(e.message);
   }
 });
-const logOut = createAsyncThunk('users/logout', async (authentication, thunkAPI) => {
-  const progressToast = toast.loading('Sending...');
+
+const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
+  const progressToast = toast.loading('Logging out...');
+
   try {
-    const res = await axios.post(`${SERVER_URL}/users/auth/log-out`).then(
-      toast.update(progressToast, {
-        render: 'See you soon 😴',
-        type: 'success',
-        isLoading: false,
-        autoClose: 1000,
-      }),
-    );
+    await axios.post(`${SERVER_URL}/users/auth/log-out`);
     clearAuthHeader();
-    return res;
+    toast.update(progressToast, {
+      render: 'See you soon 😴',
+      type: 'success',
+      isLoading: false,
+      autoClose: 1000,
+    });
   } catch (e) {
+    clearAuthHeader();
+
     toast.update(progressToast, {
       render: 'Something went wrong 😭',
       type: 'error',
       isLoading: false,
       autoClose: 2000,
     });
-
+    thunkAPI.dispatch(refreshUser());
     return thunkAPI.rejectWithValue(e.message);
   }
 });
@@ -95,19 +93,29 @@ const logOut = createAsyncThunk('users/logout', async (authentication, thunkAPI)
 const refreshUser = createAsyncThunk('users/currentUser', async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   const persistedToken = state.session.token;
-
-  if (persistedToken === null) {
+  if (!persistedToken) {
     return thunkAPI.rejectWithValue('Unable to authenticate');
   }
 
   try {
-    setAuthHeader(persistedToken);
-    const res = await axios.get(`${SERVER_URL}/users/current`);
+    const response = await axios.get(`${SERVER_URL}/users/current`, {
+      headers: {
+        Authorization: `Bearer ${persistedToken}`,
+      },
+    });
 
-    return res.data;
-  } catch (e) {
-    return thunkAPI.rejectWithValue(e.message);
+    const user = response.data;
+
+    if (!user) {
+      return thunkAPI.rejectWithValue('Unable to authenticate');
+    }
+    axios.defaults.user = user;
+
+    return user;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
+
 export { setAuthHeader, clearAuthHeader };
 export { signUp, login, logOut, refreshUser };

@@ -97,7 +97,7 @@ const sessionSlice = createSlice({
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload;
+        state.user = action.payload.data;
         state.isAuth = true;
       });
   },
