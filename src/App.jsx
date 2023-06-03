@@ -10,8 +10,10 @@ import { ToastContainer } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { refreshUser } from './redux/Slices/session/operations';
 
+
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(refreshUser());
   });

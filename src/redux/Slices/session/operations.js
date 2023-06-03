@@ -74,14 +74,14 @@ const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
       render: 'See you soon 😴',
       type: 'success',
       isLoading: false,
-      autoClose: 1000,
+      autoClose: 2000,
     });
   } catch (e) {
     clearAuthHeader();
 
     toast.update(progressToast, {
-      render: 'Something went wrong 😭',
-      type: 'error',
+      render: 'See you soon 😴',
+      type: 'success',
       isLoading: false,
       autoClose: 2000,
     });
