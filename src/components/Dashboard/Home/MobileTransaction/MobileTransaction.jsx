@@ -4,6 +4,7 @@ import { ReactSVG } from 'react-svg';
 import { useDispatch } from 'react-redux';
 import { updateIsModalEditTransactionOpen } from '../../../../redux/Slices/global/globalSlice';
 import { deleteTransaction } from '../../../../redux/Slices/finance/operations';
+import { updateSelectedTransaction } from '../../../../redux/Slices/finance/financeSlice';
 
 export const MobileTransaction = ({
   transactionDate,
@@ -42,7 +43,7 @@ export const MobileTransaction = ({
       </div>
       <div className={css.transactionSubBox}>
         <button
-          // onClick={dispatch(deleteTransaction(_id))}
+          onClick={()=>{dispatch(deleteTransaction(_id))}}
           className={css.deleteButton}
           type="button"
         >
@@ -51,6 +52,8 @@ export const MobileTransaction = ({
         <div
           onClick={() => {
             dispatch(updateIsModalEditTransactionOpen(true));
+            dispatch(updateSelectedTransaction(_id));
+            
           }}
           className={css.editBox}
         >

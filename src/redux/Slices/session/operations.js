@@ -98,7 +98,8 @@ const refreshUser = createAsyncThunk('users/currentUser', async (_, thunkAPI) =>
   if (!token) {
     return thunkAPI.rejectWithValue('Unable to authenticate');
   }
-
+  
+  setAuthHeader(token);
   try {
     const response = await axios.get(`${SERVER_URL}/users/current`, {
       headers: {
