@@ -28,6 +28,11 @@ const handleRejected = (state, action) => {
 const financeSlice = createSlice({
   name: 'finance',
   initialState,
+  reducers: {
+    updateSelectedTransaction: (state, action) => {
+      state.selectedTransaction = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getAllTransactions.pending, handlePending)
@@ -36,14 +41,12 @@ const financeSlice = createSlice({
       .addCase(editTransaction.pending, handlePending)
       .addCase(deleteTransaction.pending, handlePending)
       .addCase(fetchCategories.pending, handlePending)
-
       .addCase(getAllTransactions.rejected, handleRejected)
       .addCase(getOneTransaction.rejected, handleRejected)
       .addCase(addTransaction.rejected, handleRejected)
       .addCase(editTransaction.rejected, handleRejected)
       .addCase(deleteTransaction.rejected, handleRejected)
       .addCase(fetchCategories.rejected, handleRejected)
-
       .addCase(getAllTransactions.fulfilled, (state, action) => {
         state.data = action.payload;
         state.isLoading = false;
@@ -57,7 +60,6 @@ const financeSlice = createSlice({
       })
       .addCase(editTransaction.fulfilled, state => {
         state.isLoading = false;
-        state.selectedTransaction = {};
       })
       .addCase(deleteTransaction.fulfilled, state => {
         state.isLoading = false;
@@ -66,10 +68,11 @@ const financeSlice = createSlice({
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.isLoading = false;
         state.categories = action.payload;
+
       });
   },
 });
 
 export const financeReducer = financeSlice.reducer;
 
-export const { updateTotalBalance } = financeSlice.actions;
+export const { updateSelectedTransaction } = financeSlice.actions;

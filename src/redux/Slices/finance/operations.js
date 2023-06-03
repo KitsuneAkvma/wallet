@@ -36,11 +36,12 @@ const addTransaction = createAsyncThunk('finance/addOne', async (credentials, th
   }
 });
 
-const editTransaction = createAsyncThunk(
-  'finance/editOne',
-  async ({ id, credentials }, thunkApi) => {
-    try {
-      const res = await axios.patch(`${SERVER_URL}/${id}`, credentials);
+
+const editTransaction = createAsyncThunk('finance/editOne', async (credentials, thunkApi) => {
+  const id = credentials.id;
+  try {
+
+    const res = await axios.patch(`${SERVER_URL}/${id}`, credentials);
 
       thunkApi.dispatch(getAllTransactions());
 
@@ -54,6 +55,7 @@ const editTransaction = createAsyncThunk(
 const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunkApi) => {
   try {
     const res = await axios.delete(`${SERVER_URL}/${id}`);
+
 
     thunkApi.dispatch(getAllTransactions());
 
