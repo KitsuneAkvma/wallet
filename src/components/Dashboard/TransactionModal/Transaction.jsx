@@ -6,28 +6,22 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateIsModalAddTransactionOpen } from '../../../redux/Slices/global/globalSlice';
-import axios from 'axios';
 import categories from '../../../../server/models/categories.json';
 import { addTransaction, fetchCategories } from '../../../redux/Slices/finance/operations';
-import { selectFinanceData } from '../../../redux/selectors';
 
 export const TransactionModal = () => {
-  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState('Expense');
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedExpense, setSelectedExpense] = useState([]);
   const [category, setCategory] = useState('');
-  const financeData = useSelector(selectFinanceData);
 
-  const handleCategories = () => {
-    dispatch(fetchCategories());
-  };
-
+  const categories = useSelector(state => state.finance.categories);
   const open = useSelector(state => state.global.isModalAddTransactionOpen);
+  const dispatch = useDispatch();
 
   const closeModal = () => {
-    setShowModal(false);
     dispatch(updateIsModalAddTransactionOpen(false));
+    console.log(open);
   };
 
   const handleSwitchToggle = () => {
@@ -36,10 +30,24 @@ export const TransactionModal = () => {
   };
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await dispatch(fetchCategories());
+        if (response.status === 'success' && response.data && response.data.allCategories) {
+          const categories = response.data.allCategories.map(category => category.name);
+          console.log('Transaction Categories:', categories);
+        } else {
+          throw new Error('Invalid response structure');
+        }
+      } catch (error) {
+        console.error('Error fetching transaction categories:', error);
+      }
+    };
+
     if (open) {
       setSelectedDate(new Date());
     }
-  }, [open]);
+  }, [open, dispatch]);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -68,21 +76,25 @@ export const TransactionModal = () => {
           typeOfTransaction: selectedOption,
           category: 'Income',
           amountOfTransaction: values.transactionValue,
-          transactionDate: selectedDate,
+          transactionDate: selectedDate.toISOString(),
           comment: values.comment,
         };
 
         if (selectedOption === 'Expense') {
           transactionData.category = category;
-          console.log(transactionData);
-          await axios.post('http://localhost:3000/api/transactions/', transactionData); // usunąć lokalhost jak wszystko będzie działało!! zamienić na reduxa
-        } else {
-          console.log(transactionData);
-          await axios.post('http://localhost:3000/api/transactions/', transactionData); // usunąć lokalhost jak wszystko będzie działało!! zamienić na reduxa
         }
 
-        formik.resetForm();
-        closeModal();
+        console.log(transactionData);
+
+        dispatch(addTransaction(transactionData))
+          .unwrap()
+          .then(() => {
+            formik.resetForm();
+            closeModal();
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
       } catch (error) {
         if (error.response && error.response.status === 404) {
           console.log('Requested resource not found');
@@ -125,7 +137,7 @@ export const TransactionModal = () => {
             <p className={styles.modalTitle}>Add transaction</p>
             <div className={styles.optionContainer}>
               <span
-                className={selectedOption === 'expense' ? styles.greyedText : styles.incomeColor}
+                className={selectedOption === 'Expense' ? styles.greyedText : styles.incomeColor}
               >
                 Income
               </span>
@@ -151,11 +163,13 @@ export const TransactionModal = () => {
                   defaultValue="Select your option"
                   onChange={e => setCategory(e.target.value)}
                 >
-                  <option value="" hidden>
-                    Select your option
-                  </option>
+                  {category ? null : (
+                    <option value="" hidden>
+                      Select your option
+                    </option>
+                  )}
                   {categories.map(category => (
-                    <option key={category.name} value={category.name} id={category.id}>
+                    <option key={category.name} value={category.name}>
                       {category.name}
                     </option>
                   ))}
