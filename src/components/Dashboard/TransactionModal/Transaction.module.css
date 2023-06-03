@@ -1,5 +1,14 @@
 @import '../../../utility/css-variables.css';
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .transactionBtn {
   position: absolute;
   color: var(--color-bg-secondary);
@@ -24,6 +33,7 @@
   outline: none;
 }
 .modal {
+  z-index: 2;
   position: fixed;
   color: var(--color-text-primary);
   top: 0;
@@ -34,6 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.3s ease;
 }
 
 .modalContent {
@@ -244,6 +255,7 @@ input:checked + .slider:before {
 }
 
 .addBtn {
+  cursor: pointer;
   font-family: var(--font-secondary);
   margin-top: 2.5rem;
   display: flex;
@@ -258,9 +270,16 @@ input:checked + .slider:before {
   border: none;
   background-color: var(--color-green);
   border-radius: 1.25rem;
+  transition-property: background-color;
+  transition-duration: 200ms;
+}
+
+.addBtn:hover {
+  background-color: var(--color-bg-add-btn-hover);
 }
 
 .cancelBtn {
+  cursor: pointer;
   font-family: var(--font-secondary);
   margin-top: 1.25rem;
   display: flex;
@@ -276,6 +295,12 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
   margin-bottom: 2.5rem;
+  transition-property: background-color;
+  transition-duration: 200ms;
+}
+
+.cancelBtn:hover {
+  background-color: var(--color-bg-cancel-btn-hover);
 }
 
 .categorySelect {
