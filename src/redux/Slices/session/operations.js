@@ -92,15 +92,15 @@ const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
 
 const refreshUser = createAsyncThunk('users/currentUser', async (_, thunkAPI) => {
   const state = thunkAPI.getState();
-  const persistedToken = state.session.token;
-  if (!persistedToken) {
+  const { token, user } = state.session;
+  if (!token && !user) {
     return thunkAPI.rejectWithValue('Unable to authenticate');
   }
 
   try {
     const response = await axios.get(`${SERVER_URL}/users/current`, {
       headers: {
-        Authorization: `Bearer ${persistedToken}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -109,7 +109,6 @@ const refreshUser = createAsyncThunk('users/currentUser', async (_, thunkAPI) =>
     if (!user) {
       return thunkAPI.rejectWithValue('Unable to authenticate');
     }
-    axios.defaults.user = user;
 
     return user;
   } catch (error) {
