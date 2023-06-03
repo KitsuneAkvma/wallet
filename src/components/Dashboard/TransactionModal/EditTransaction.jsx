@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import styles from './EditTransaction.module.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateIsModalEditTransactionOpen } from '../../../redux/Slices/global/globalSlice';
 
 export const EditTransaction = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,13 +14,16 @@ export const EditTransaction = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
 
+  const open = useSelector(state => state.global.isModalEditTransactionOpen);
+  const dispatch = useDispatch();
+
   const editModal = () => {
     setSelectedDate(new Date());
     setShowModal(true);
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    dispatch(updateIsModalEditTransactionOpen(false));
   };
 
   const handleDateChange = date => {
@@ -59,7 +64,7 @@ export const EditTransaction = () => {
       }
     };
 
-    if (showModal) {
+    if (open) {
       document.addEventListener('keydown', handleKeyDown);
       document.addEventListener('click', handleClickOutside);
     }
@@ -68,13 +73,11 @@ export const EditTransaction = () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [showModal]);
+  }, [open]);
 
   return (
     <div>
-      <button onClick={editModal}>Edit</button>
-
-      {showModal && (
+      {open && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <p className={styles.modalTitle}>Edit transaction</p>

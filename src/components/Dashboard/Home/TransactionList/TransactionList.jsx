@@ -8,6 +8,7 @@ import Media from 'react-media';
 import { TransactionListHeader } from '../TransactionListHeader/TransactionListHeader';
 import { TransactionModal } from '../../TransactionModal/Transaction';
 import { updateIsModalAddTransactionOpen } from '../../../../redux/Slices/global/globalSlice';
+import { EditTransaction } from '../../TransactionModal/EditTransaction';
 
 export const TransactionList = () => {
   const queries = {
@@ -81,6 +82,7 @@ export const TransactionList = () => {
         )}
       </Media>
       <TransactionModal />
+      <EditTransaction />
       <ReactSVG onClick={()=>{dispatch(updateIsModalAddTransactionOpen(true))}} className={css.addTransactionIcon} src="/svg/plus_icon.svg" />
     </>
   );

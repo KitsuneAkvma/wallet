@@ -1,9 +1,12 @@
 import React from 'react';
 import css from './Transaction.module.css';
 import { ReactSVG } from 'react-svg';
+import { useDispatch } from 'react-redux';
+import { updateIsModalEditTransactionOpen } from '../../../../redux/Slices/global/globalSlice';
 
 export const Transaction = ({ date, type, category, comment, sum }) => {
   const sumColor = type === '+' ? css.greenSum : css.redSum;
+  const dispatch = useDispatch();
   return (
     <li className={css.transactionBox}>
       <div className={css.dateBox}>{date}</div>
@@ -12,7 +15,13 @@ export const Transaction = ({ date, type, category, comment, sum }) => {
       <div className={css.commentBox}>{comment}</div>
       <div className={`${css.sumBox} ${sumColor}`}>{sum}</div>
       <div className={css.editDeleteBox}>
-        <ReactSVG className={css.editIcon} src="../../svg/edit_icon.svg" />
+        <ReactSVG
+          onClick={() => {
+            dispatch(updateIsModalEditTransactionOpen(true));
+          }}
+          className={css.editIcon}
+          src="../../svg/edit_icon.svg"
+        />
         <button className={css.deleteButton} type="button">
           Delete
         </button>
