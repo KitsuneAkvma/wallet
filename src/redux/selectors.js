@@ -14,6 +14,7 @@ const selectFinanceBalance = state => state.finance.totalBalance;
 const selectFinanceIsLoading = state => state.finance.isLoading;
 const selectFinanceData = state => state.finance.data;
 const selectFinanceSelectedTransaction = state => state.finance.selectedTransaction;
+const selectFinanceCategories = state => state.finance.categories;
 
 export {
   selectSessionUser,
@@ -32,4 +33,5 @@ export {
   selectFinanceIsLoading,
   selectFinanceData,
   selectFinanceSelectedTransaction,
+  selectFinanceCategories,
 };
