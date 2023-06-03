@@ -1,11 +1,14 @@
-
 import css from './TransactionList.module.css';
 import { ReactSVG } from 'react-svg';
 import { MobileTransaction } from '../MobileTransaction/MobileTransaction';
+import { useDispatch } from 'react-redux';
 import { Transaction } from '../Transaction/Transaction';
 import { Balance } from '../Balance/Balance';
 import Media from 'react-media';
 import { TransactionListHeader } from '../TransactionListHeader/TransactionListHeader';
+import { TransactionModal } from '../../TransactionModal/Transaction';
+import { updateIsModalAddTransactionOpen } from '../../../../redux/Slices/global/globalSlice';
+import { EditTransaction } from '../../TransactionModal/EditTransaction';
 
 export const TransactionList = () => {
   const queries = {
@@ -13,6 +16,7 @@ export const TransactionList = () => {
     tablet: '(min-width: 768px) and (max-width: 1279px)',
     screen: '(min-width: 1280px)',
   };
+  const dispatch = useDispatch();
   return (
     <>
       <Media queries={queries}>
@@ -77,7 +81,9 @@ export const TransactionList = () => {
           </>
         )}
       </Media>
-      <ReactSVG className={css.addTransactionIcon} src="../../../../../public/svg/plus_icon.svg" />
+      <TransactionModal />
+      <EditTransaction />
+      <ReactSVG onClick={()=>{dispatch(updateIsModalAddTransactionOpen(true))}} className={css.addTransactionIcon} src="/svg/plus_icon.svg" />
     </>
   );
 };

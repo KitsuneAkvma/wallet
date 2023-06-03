@@ -40,9 +40,18 @@ const RegisterPage = () => {
   const password = useSelector(state => state.session.registerForm.password);
   const confirmPassword = useSelector(state => state.session.registerForm.confPassword);
   const name = useSelector(state => state.session.registerForm.name);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmedPassword, setConfirmedShowPassword] = useState(false);
 
   const handleEmailChange = event => {
     dispatch(updateRegisterEmail(event.target.value));
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmedPasswordVisibility = () => {
+    setConfirmedShowPassword(!showConfirmedPassword);
   };
 
   const handlePasswordChange = event => {
@@ -82,7 +91,7 @@ const RegisterPage = () => {
     try {
       await userSchema.validate(formValidationData, { abortEarly: false });
 
-      dispatch(
+      const response = await dispatch(
         signUp({
           name: data.get('name'),
           email: data.get('email'),
@@ -90,8 +99,11 @@ const RegisterPage = () => {
           doubledPassword: data.get('confirmPassword'),
         }),
       );
-      form.reset();
-      handleRegisterFormReset();
+
+      if (response.meta.requestStatus === 'fulfilled') {
+        form.reset();
+        handleRegisterFormReset();
+      }
     } catch (error) {
       error.inner.forEach(validationError => {
         toast.warn(validationError.message, {
@@ -109,17 +121,17 @@ const RegisterPage = () => {
 
   return (
     <div className={css.container}>
-      <ReactSVG className={css.peach} src="../../public/svg/ellipse_peach.svg" />
-      <ReactSVG className={css.violet} src="../../public/svg/ellipse_violet.svg" />
-      <ReactSVG className={css.woman} src="../../public/svg/picture_with_woman.svg" />
+      <ReactSVG className={css.peach} src="/svg/ellipse_peach.svg" />
+      <ReactSVG className={css.violet} src="/svg/ellipse_violet.svg" />
+      <ReactSVG className={css.woman} src="/svg/picture_with_woman.svg" />
       <p className={css.name}>Finance App</p>
       <div className={css.blur}>
         <div className={css['form-container']}>
           <div className={css['title-container']}>
-            <ReactSVG className={css.icon} src="../../public/svg/wallet_icon.svg" />
+            <ReactSVG className={css.icon} src="/svg/wallet_icon.svg" />
             <ReactSVG
               className={css.text}
-              src="../../public/svg/wallet_text.svg"
+              src="/svg/wallet_text.svg"
               beforeInjection={svg => {
                 svg.classList.add('css.text');
               }}
@@ -127,7 +139,7 @@ const RegisterPage = () => {
           </div>
           <form className={css.form} onSubmit={handleSubmit}>
             <div className={css['email-container']}>
-              <ReactSVG className={css['email-icon']} src="../../public/svg/email_icon.svg" />
+              <ReactSVG className={css['email-icon']} src="/svg/email_icon.svg" />
               <input
                 className={css.email}
                 type="text"
@@ -140,10 +152,15 @@ const RegisterPage = () => {
               ></input>
             </div>
             <div className={css['password-container']}>
-              <ReactSVG className={css['password-icon']} src="../../public/svg/lock_icon.svg" />
+              <ReactSVG className={css['password-icon']} src="/svg/lock_icon.svg" />
+              <ReactSVG
+                className={css['hide-password-icon']}
+                onClick={togglePasswordVisibility}
+                src={showPassword ? '/svg/eye.svg' : '/svg/eye-blocked.svg'}
+              />
               <input
                 className={css.password}
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
                 placeholder="Password"
@@ -153,10 +170,15 @@ const RegisterPage = () => {
               ></input>
             </div>
             <div className={css['password-container']}>
-              <ReactSVG className={css['password-icon']} src="../../public/svg/lock_icon.svg" />
+              <ReactSVG className={css['password-icon']} src="/svg/lock_icon.svg" />
+              <ReactSVG
+                className={css['hide-password-icon']}
+                onClick={toggleConfirmedPasswordVisibility}
+                src={showConfirmedPassword ? '/svg/eye.svg' : '/svg/eye-blocked.svg'}
+              />
               <input
                 className={css.password}
-                type="password"
+                type={showConfirmedPassword ? 'text' : 'password'}
                 id="confirmPassword"
                 name="confirmPassword"
                 placeholder="Confirm password"
@@ -173,7 +195,7 @@ const RegisterPage = () => {
             </div>
 
             <div className={css['name-input-container']}>
-              <ReactSVG className={css['name-input-icon']} src="../../public/svg/user_icon.svg" />
+              <ReactSVG className={css['name-input-icon']} src="/svg/user_icon.svg" />
               <input
                 className={css['name-input']}
                 type="text"

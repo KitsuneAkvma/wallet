@@ -1,24 +1,55 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import styles from './EditTransaction.module.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
+import categories from '../../../../server/models/categories.json';
+import { updateIsModalEditTransactionOpen } from '../../../redux/Slices/global/globalSlice';
+import { editTransaction, getOneTransaction } from '../../../redux/Slices/finance/operations';
 
 export const EditTransaction = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('expense');
+  const [selectedOption, setSelectedOption] = useState('Expense');
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
+  const [transactionId, setTransactionId] = useState('');
 
-  const editModal = () => {
-    setSelectedDate(new Date());
-    setShowModal(true);
+  const open = useSelector(state => state.global.isModalEditTransactionOpen);
+
+  const dispatch = useDispatch();
+  const editModal = async () => {
+    try {
+      const id = '647a30e1f3a09f8e61244a5d'; // dodać pobieranie id
+      setTransactionId(id);
+      const transaction = await dispatch(getOneTransaction(id)).unwrap();
+      const dateParts = transaction.transactionDate.split('-');
+      const year = parseInt(dateParts[0], 10);
+      const month = parseInt(dateParts[1], 10) - 1;
+      const day = parseInt(dateParts[2], 10);
+      const date = new Date(year, month, day);
+
+      setSelectedDate(date);
+
+      formik.setValues({
+        transactionValue: transaction.amountOfTransaction.toString(),
+        comment: transaction.comment,
+        data: transaction.createdAt,
+        category: transaction.category,
+      });
+
+      setSelectedOption(transaction.typeOfTransaction);
+      if (transaction.typeOfTransaction === 'Expense') {
+        setCategory(transaction.category);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    dispatch(updateIsModalEditTransactionOpen(false));
   };
 
   const handleDateChange = date => {
@@ -41,8 +72,27 @@ export const EditTransaction = () => {
       transactionValue: '',
     },
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async values => {
+      try {
+        const id = transactionId;
+        const transactionData = {
+          typeOfTransaction: selectedOption,
+          category: 'Income',
+          amountOfTransaction: values.transactionValue,
+          transactionDate: selectedDate.toISOString(),
+          comment: values.comment,
+        };
+
+        if (selectedOption === 'Expense') {
+          transactionData.category = category;
+        }
+
+        await dispatch(editTransaction({ id, transactionData })).unwrap();
+        formik.resetForm();
+        closeModal();
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
   });
 
@@ -59,7 +109,8 @@ export const EditTransaction = () => {
       }
     };
 
-    if (showModal) {
+    if (open) {
+      editModal();
       document.addEventListener('keydown', handleKeyDown);
       document.addEventListener('click', handleClickOutside);
     }
@@ -68,43 +119,45 @@ export const EditTransaction = () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [showModal]);
+  }, [open]);
 
   return (
     <div>
-      <button onClick={editModal}>Edit</button>
-
-      {showModal && (
+      {open && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <p className={styles.modalTitle}>Edit transaction</p>
             <div className={styles.optionContainer}>
               <span
-                className={selectedOption === 'expense' ? styles.greyedText : styles.incomeColor}
+                className={selectedOption === 'Expense' ? styles.greyedText : styles.incomeColor}
               >
                 Income
               </span>
               /
               <span
-                className={selectedOption === 'income' ? styles.greyedText : styles.expenseColor}
+                className={selectedOption === 'Income' ? styles.greyedText : styles.incomeColor}
               >
                 Expense
               </span>
             </div>
 
-            {selectedOption === 'expense' && (
+            {selectedOption === 'Expense' && (
               <div>
-                <select className={styles.categorySelect} defaultValue="">
+                <select
+                  className={styles.categorySelect}
+                  defaultValue="Select your option"
+                  onChange={e => setCategory(e.target.value)}
+                >
                   {category ? null : (
                     <option value="" hidden>
                       Select your option
                     </option>
                   )}
-                  <option value="Tutaj">Tutaj</option>
-                  <option value="Będą">Będą</option>
-                  <option value="Dodane">Dodane</option>
-                  <option value="Opcje">Opcje</option>
-                  <option value="ZBackendu">z Backendu</option>
+                  {categories.map(category => (
+                    <option key={category.name} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             )}

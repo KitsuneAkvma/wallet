@@ -30,11 +30,12 @@ const addTransaction = createAsyncThunk('finance/addOne', async (credentials, th
     const res = await axios.post(`${SERVER_URL}/`, credentials);
 
     thunkApi.dispatch(getAllTransactions());
-    return res;
+    return res.data;
   } catch (e) {
     return thunkApi.rejectWithValue(e.message);
   }
 });
+
 
 const editTransaction = createAsyncThunk('finance/editOne', async (credentials, thunkApi) => {
   const id = credentials.id;
@@ -42,6 +43,20 @@ const editTransaction = createAsyncThunk('finance/editOne', async (credentials, 
 
     const res = await axios.patch(`${SERVER_URL}/${id}`, credentials);
 
+      thunkApi.dispatch(getAllTransactions());
+
+      return res.data;
+    } catch (e) {
+      return thunkApi.rejectWithValue(e.message);
+    }
+  },
+);
+
+const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunkApi) => {
+  try {
+    const res = await axios.delete(`${SERVER_URL}/${id}`);
+
+
     thunkApi.dispatch(getAllTransactions());
 
     return res;
@@ -50,13 +65,11 @@ const editTransaction = createAsyncThunk('finance/editOne', async (credentials, 
   }
 });
 
-const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunkApi) => {
+const fetchCategories = createAsyncThunk('finance/fetchCategories', async (_, thunkApi) => {
   try {
-    const res = await axios.delete(`${SERVER_URL}/${id}`);
-
-    thunkApi.dispatch(getAllTransactions());
-
-    return res;
+    const res = await axios.get(`${SERVER_URL}/transaction-categories`);
+    const categories = res.data.data.allCategories;
+    return categories;
   } catch (e) {
     return thunkApi.rejectWithValue(e.message);
   }
@@ -68,4 +81,5 @@ export {
   addTransaction,
   editTransaction,
   deleteTransaction,
+  fetchCategories,
 };
