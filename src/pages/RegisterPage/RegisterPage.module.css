@@ -78,13 +78,40 @@
   width: 1.5rem;
   height: 1.5rem;
 }
+
+.email-icon svg,
+.password-icon svg,
+.name-input-icon svg {
+  fill: var(--color-Gray2);
+  transition-property: fill;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hide-password-icon svg {
+  content: '';
+  position: absolute;
+  right: 0.3125rem;
+  top: 0.125rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  fill: var(--color-Gray2);
+}
+
 .email-container,
 .password-container,
 .name-input-container {
   position: relative;
   margin-bottom: 2.5rem;
 }
-
+.email-container:focus-within svg,
+.password-container:focus-within .password-icon svg,
+.name-input-container:focus-within svg {
+  transition-property: fill;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  fill: var(--color-green);
+}
 .btn {
   margin-bottom: 1.25rem;
   width: 17.5rem;
@@ -102,6 +129,29 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
+  display: inline-block;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: var(--color-bg-add-btn-hover);
+  transition: all 0.3s;
+  border-radius: 1.25rem;
+  z-index: -1;
+}
+.btn:hover {
+  color: #fff;
+}
+.btn:hover::before {
+  width: 100%;
 }
 
 @media (min-width: 768px) {
