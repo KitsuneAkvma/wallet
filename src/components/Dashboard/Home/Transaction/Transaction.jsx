@@ -3,26 +3,42 @@ import css from './Transaction.module.css';
 import { ReactSVG } from 'react-svg';
 import { useDispatch } from 'react-redux';
 import { updateIsModalEditTransactionOpen } from '../../../../redux/Slices/global/globalSlice';
+import { deleteTransaction } from '../../../../redux/Slices/finance/operations';
+import { updateSelectedTransaction } from '../../../../redux/Slices/finance/financeSlice';
 
-export const Transaction = ({ date, type, category, comment, sum }) => {
-  const sumColor = type === '+' ? css.greenSum : css.redSum;
+export const Transaction = ({
+  transactionDate,
+  typeOfTransaction,
+  categoryId,
+  comment,
+  amountOfTransaction,
+  _id,
+}) => {
+  const sumColor = typeOfTransaction === 'Income' ? css.greenSum : css.redSum;
   const dispatch = useDispatch();
   return (
     <li className={css.transactionBox}>
-      <div className={css.dateBox}>{date}</div>
-      <div className={css.typeBox}>{type}</div>
-      <div className={css.categoryBox}>{category}</div>
+      <div className={css.dateBox}>{transactionDate.slice(0, 10)}</div>
+      <div className={css.typeBox}>{typeOfTransaction === 'Income' ? '+' : '-'}</div>
+      <div className={css.categoryBox}>{categoryId}</div>
       <div className={css.commentBox}>{comment}</div>
-      <div className={`${css.sumBox} ${sumColor}`}>{sum}</div>
+      <div className={`${css.sumBox} ${sumColor}`}>{amountOfTransaction}</div>
       <div className={css.editDeleteBox}>
         <ReactSVG
           onClick={() => {
             dispatch(updateIsModalEditTransactionOpen(true));
+            dispatch(updateSelectedTransaction(_id))
           }}
           className={css.editIcon}
-          src="../../svg/edit_icon.svg"
+          src="/svg/edit_icon.svg"
         />
-        <button className={css.deleteButton} type="button">
+        <button
+          onClick={() => {
+            dispatch(deleteTransaction(_id));
+          }}
+          className={css.deleteButton}
+          type="button"
+        >
           Delete
         </button>
       </div>
