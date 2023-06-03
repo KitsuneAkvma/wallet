@@ -84,6 +84,7 @@ const sessionSlice = createSlice({
         state.token = null;
         state.isAuth = false;
       })
+
       .addCase(refreshUser.rejected, state => {
         state.isLoading = false;
         state.user = { name: null, email: null };

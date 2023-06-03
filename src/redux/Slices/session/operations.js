@@ -93,8 +93,9 @@ const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
 
 const refreshUser = createAsyncThunk('users/currentUser', async (_, thunkAPI) => {
   const state = thunkAPI.getState();
+
   const { token } = state.session;
-  if (!token ) {
+  if (!token) {
     return thunkAPI.rejectWithValue('Unable to authenticate');
   }
 
