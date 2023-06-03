@@ -1,5 +1,14 @@
 @import '../../../utility/css-variables.css';
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .modal {
   color: var(--color-text-primary);
   position: fixed;
@@ -11,6 +20,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
+  animation: fadeIn 0.3s ease;
 }
 
 .modalContent {
@@ -160,9 +171,13 @@
 }
 
 .addBtn {
+  cursor: pointer;
   font-family: var(--font-secondary);
   margin-top: 2.5rem;
   display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
   font-weight: 400;
   font-size: 1.125rem;
   color: var(--color-bg-secondary);
@@ -172,12 +187,20 @@
   justify-content: center;
   background-color: var(--color-green);
   border-radius: 1.25rem;
+  transition-property: background-color;
+  transition-duration: 200ms;
+}
+
+.addBtn:hover {
+  background-color: var(--color-bg-add-btn-hover);
 }
 
 .cancelBtn {
+  cursor: pointer;
   font-family: var(--font-secondary);
   margin-top: 1.25rem;
   display: flex;
+  align-items: center;
   color: var(--color-blue);
   background: var(--color-bg-secondary);
   border: 0.0625rem solid var(--color-blue);
@@ -189,6 +212,12 @@
   line-height: 1.6875rem;
   justify-content: center;
   margin-bottom: 2.5rem;
+  transition-property: background-color;
+  transition-duration: 200ms;
+}
+
+.cancelBtn:hover {
+  background-color: var(--color-bg-cancel-btn-hover);
 }
 
 .categorySelect {
