@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { logOut, login, refreshUser, signUp } from './operations';
 
 const initialState = {
-  user: { id: '', name: '', email: '' },
+  user: { id: '', username: '', email: '' },
   loginForm: { email: '', password: '' },
   registerForm: { email: '', password: '', confPassword: '', name: '' },
   transactionForm: { type: '', name: '', amount: '', date: '', category: '', comment: '' },
@@ -84,7 +84,12 @@ const sessionSlice = createSlice({
         state.token = null;
         state.isAuth = false;
       })
-      .addCase(refreshUser.rejected, handleRejected)
+      .addCase(refreshUser.rejected, state => {
+        state.isLoading = false;
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isAuth = false;
+      })
       .addCase(signUp.fulfilled, state => {
         state.isLoading = false;
       })
@@ -100,10 +105,8 @@ const sessionSlice = createSlice({
         state.token = null;
         state.isAuth = false;
       })
-      .addCase(refreshUser.fulfilled, (state, action) => {
+      .addCase(refreshUser.fulfilled, state => {
         state.isLoading = false;
-        state.user = action.payload.data;
-        state.isAuth = true;
       });
   },
 });

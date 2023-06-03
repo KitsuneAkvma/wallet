@@ -44,6 +44,7 @@ const login = createAsyncThunk('users/login', async (credentials, thunkAPI) => {
   try {
     const res = await axios.post(`${SERVER_URL}/users/auth/log-in`, credentials);
     const user = res.data.data;
+    console.log(res.data.data);
 
     setAuthHeader(user.token);
     toast.update(progressToast, {
@@ -92,8 +93,8 @@ const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
 
 const refreshUser = createAsyncThunk('users/currentUser', async (_, thunkAPI) => {
   const state = thunkAPI.getState();
-  const { token, user } = state.session;
-  if (!token && !user) {
+  const { token } = state.session;
+  if (!token ) {
     return thunkAPI.rejectWithValue('Unable to authenticate');
   }
 
