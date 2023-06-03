@@ -1,20 +1,22 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import styles from './EditTransaction.module.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import categories from '../../../../server/models/categories.json';
+import { updateIsModalEditTransactionOpen } from '../../../redux/Slices/global/globalSlice';
 import { editTransaction, getOneTransaction } from '../../../redux/Slices/finance/operations';
 
 export const EditTransaction = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('expense');
+  const [selectedOption, setSelectedOption] = useState('Expense');
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
   const [transactionId, setTransactionId] = useState('');
+
+  const open = useSelector(state => state.global.isModalEditTransactionOpen);
 
   const dispatch = useDispatch();
   const editModal = async () => {
@@ -22,7 +24,6 @@ export const EditTransaction = () => {
       const id = '647a30e1f3a09f8e61244a5d'; // dodać pobieranie id
       setTransactionId(id);
       const transaction = await dispatch(getOneTransaction(id)).unwrap();
-
       const dateParts = transaction.transactionDate.split('-');
       const year = parseInt(dateParts[0], 10);
       const month = parseInt(dateParts[1], 10) - 1;
@@ -30,7 +31,6 @@ export const EditTransaction = () => {
       const date = new Date(year, month, day);
 
       setSelectedDate(date);
-      setShowModal(true);
 
       formik.setValues({
         transactionValue: transaction.amountOfTransaction.toString(),
@@ -49,7 +49,7 @@ export const EditTransaction = () => {
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    dispatch(updateIsModalEditTransactionOpen(false));
   };
 
   const handleDateChange = date => {
@@ -87,7 +87,7 @@ export const EditTransaction = () => {
           transactionData.category = category;
         }
 
-        await dispatch(editTransaction(transactionData)).unwrap();
+        await dispatch(editTransaction(transactionId, transactionData)).unwrap();
         formik.resetForm();
         closeModal();
       } catch (error) {
@@ -109,7 +109,8 @@ export const EditTransaction = () => {
       }
     };
 
-    if (showModal) {
+    if (open) {
+      editModal();
       document.addEventListener('keydown', handleKeyDown);
       document.addEventListener('click', handleClickOutside);
     }
@@ -118,13 +119,11 @@ export const EditTransaction = () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [showModal]);
+  }, [open]);
 
   return (
     <div>
-      <button onClick={editModal}>Edit</button>
-
-      {showModal && (
+      {open && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <p className={styles.modalTitle}>Edit transaction</p>

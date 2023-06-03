@@ -21,7 +21,6 @@ export const TransactionModal = () => {
 
   const closeModal = () => {
     dispatch(updateIsModalAddTransactionOpen(false));
-    console.log(open);
   };
 
   const handleSwitchToggle = () => {
