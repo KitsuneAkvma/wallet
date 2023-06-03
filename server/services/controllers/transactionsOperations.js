@@ -50,7 +50,7 @@ export const add = async (req, res, next) => {
       comment,
       owner: req.user.id,
     });
-    console.log('transaction owner', newTransaction.owner);
+
     res.status(201).json({
       status: 'created',
       code: 201,
