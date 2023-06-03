@@ -27,7 +27,7 @@ export const add = async (req, res, next) => {
     const newBalanceExpense = Number(expense);
     const newBalance = typeOfTransaction === 'Income' ? newBalanceIncome : newBalanceExpense;
     const updatedUser = await updateUserBalance(req.user.id, newBalance);
-    const updatedBalance = updatedUser.balance;
+    const updatedBalance = Number(updatedUser.balance);
     if (typeOfTransaction === 'Income' && category !== 'Income')
       return res.status(400).json({
         status: 'error',
@@ -48,7 +48,9 @@ export const add = async (req, res, next) => {
       amountOfTransaction,
       transactionDate,
       comment,
+      owner: req.user.id,
     });
+
     res.status(201).json({
       status: 'created',
       code: 201,
@@ -70,7 +72,7 @@ export const edit = async (req, res, next) => {
     const newBalanceExpense = Number(expense);
     const newBalance = typeOfTransaction === 'Income' ? newBalanceIncome : newBalanceExpense;
     const updatedUser = await updateUserBalance(req.user.id, newBalance);
-    const updatedBalance = updatedUser.balance;
+    const updatedBalance = Number(updatedUser.balance);
     if (typeOfTransaction === 'Income' && category !== 'Income')
       return res.status(400).json({
         status: 'error',
@@ -145,10 +147,10 @@ export const remove = async (req, res, next) => {
 };
 export const get = async (req, res, next) => {
   const { page, limit = 15 } = req.query;
+  const { id, balance } = req.user;
   try {
-    const transactions = await listTransactions(req.query);
-    const countTransactions = await countTransaction();
-    const { id, balance } = req.user;
+    const transactions = await listTransactions(req.query, id);
+    const countTransactions = await countTransaction(id);
     res.json({
       status: 'success',
       code: 200,

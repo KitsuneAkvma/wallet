@@ -6,6 +6,7 @@ import sgMail from '@sendgrid/mail';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../models/users.js';
 import { removeUser, updateUser } from '../dbControllers/users.js';
+
 dotenv.config();
 const secretWord = process.env.SECRET;
 const verificationPath = process.env.VERIFICATION_PATH;
