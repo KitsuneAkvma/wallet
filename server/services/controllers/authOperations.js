@@ -6,6 +6,7 @@ import sgMail from '@sendgrid/mail';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../models/users.js';
 import { removeUser, updateUser } from '../dbControllers/users.js';
+
 dotenv.config();
 const secretWord = process.env.SECRET;
 const verificationPath = process.env.VERIFICATION_PATH;
@@ -35,16 +36,16 @@ export const registration = async (req, res, next) => {
     newUser.setPassword(password);
     await newUser.save();
     const { id, balance } = newUser;
-    // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    // const myEmail = process.env.MY_EMAIL;
-    // const verificationEmail = {
-    //   to: [myEmail, { email }],
-    //   from: myEmail,
-    //   subject: 'Wallet app verification email',
-    //   text: `Please confirm your email address at ${verificationPath}${verificationToken}`,
-    //   html: `Please confirm your email address at <strong><a href="${verificationPath}${verificationToken}">${verificationPath}${verificationToken}</a></strong>`,
-    // };
-    // await sgMail.send(verificationEmail);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const myEmail = process.env.MY_EMAIL;
+    const verificationEmail = {
+      to: [myEmail, { email }],
+      from: myEmail,
+      subject: 'Wallet app verification email',
+      text: `Please confirm your email address at ${verificationPath}${verificationToken}`,
+      html: `Please confirm your email address at <strong><a href="${verificationPath}${verificationToken}">${verificationPath}${verificationToken}</a></strong>`,
+    };
+    await sgMail.send(verificationEmail);
     res.status(201).json({
       status: 'Success',
       code: 201,
