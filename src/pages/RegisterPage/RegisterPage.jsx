@@ -93,7 +93,7 @@ const RegisterPage = () => {
 
       const response = await dispatch(
         signUp({
-          name: data.get('name'),
+          username: data.get('name'),
           email: data.get('email'),
           password: data.get('password'),
           doubledPassword: data.get('confirmPassword'),
