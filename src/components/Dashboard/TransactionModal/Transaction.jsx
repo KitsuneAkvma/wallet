@@ -8,22 +8,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateIsModalAddTransactionOpen } from '../../../redux/Slices/global/globalSlice';
 import axios from 'axios';
 import categories from '../../../../server/models/categories.json';
+import { addTransaction, fetchCategories } from '../../../redux/Slices/finance/operations';
+import { selectFinanceData } from '../../../redux/selectors';
 
 export const TransactionModal = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('Income');
+  const dispatch = useDispatch();
+  const [selectedOption, setSelectedOption] = useState('Expense');
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedExpense, setSelectedExpense] = useState([]);
   const [category, setCategory] = useState('');
+  const financeData = useSelector(selectFinanceData);
+
+  const handleCategories = () => {
+    dispatch(fetchCategories());
+  };
 
   const open = useSelector(state => state.global.isModalAddTransactionOpen);
-  const dispatch = useDispatch();
-
-  const addTransaction = () => {
-    setSelectedDate(new Date());
-    setShowModal(true);
-    dispatch(updateIsModalAddTransactionOpen(true));
-  };
 
   const closeModal = () => {
     setShowModal(false);
@@ -34,6 +34,12 @@ export const TransactionModal = () => {
     setSelectedOption(prevOption => (prevOption === 'Income' ? 'Expense' : 'Income'));
     setSelectedExpense([]);
   };
+
+  useEffect(() => {
+    if (open) {
+      setSelectedDate(new Date());
+    }
+  }, [open]);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -62,7 +68,7 @@ export const TransactionModal = () => {
           typeOfTransaction: selectedOption,
           category: 'Income',
           amountOfTransaction: values.transactionValue,
-          transactionDate: selectedDate.toISOString(),
+          transactionDate: selectedDate,
           comment: values.comment,
         };
 

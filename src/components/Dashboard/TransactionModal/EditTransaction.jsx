@@ -13,13 +13,38 @@ export const EditTransaction = () => {
   const [selectedOption, setSelectedOption] = useState('expense');
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
+  const [transactionId, setTransactionId] = useState('');
 
   const open = useSelector(state => state.global.isModalEditTransactionOpen);
   const dispatch = useDispatch();
+  const editModal = async () => {
+    try {
+      const id = '647a30e1f3a09f8e61244a5d'; // dodać pobieranie id
+      setTransactionId(id);
+      const transaction = await dispatch(getOneTransaction(id)).unwrap();
+      const dateParts = transaction.transactionDate.split('-');
+      const year = parseInt(dateParts[0], 10);
+      const month = parseInt(dateParts[1], 10) - 1;
+      const day = parseInt(dateParts[2], 10);
+      const date = new Date(year, month, day);
 
-  const editModal = () => {
-    setSelectedDate(new Date());
-    setShowModal(true);
+      setSelectedDate(date);
+      setShowModal(true);
+
+      formik.setValues({
+        transactionValue: transaction.amountOfTransaction.toString(),
+        comment: transaction.comment,
+        data: transaction.createdAt,
+        category: transaction.category,
+      });
+
+      setSelectedOption(transaction.typeOfTransaction);
+      if (transaction.typeOfTransaction === 'Expense') {
+        setCategory(transaction.category);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const closeModal = () => {
@@ -46,8 +71,27 @@ export const EditTransaction = () => {
       transactionValue: '',
     },
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async values => {
+      try {
+        const id = transactionId;
+        const transactionData = {
+          typeOfTransaction: selectedOption,
+          category: 'Income',
+          amountOfTransaction: values.transactionValue,
+          transactionDate: selectedDate.toISOString(),
+          comment: values.comment,
+        };
+
+        if (selectedOption === 'Expense') {
+          transactionData.category = category;
+        }
+
+        await dispatch(editTransaction(transactionData)).unwrap();
+        formik.resetForm();
+        closeModal();
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
   });
 
@@ -89,7 +133,7 @@ export const EditTransaction = () => {
               </span>
               /
               <span
-                className={selectedOption === 'income' ? styles.greyedText : styles.expenseColor}
+                className={selectedOption === 'Income' ? styles.greyedText : styles.incomeColor}
               >
                 Expense
               </span>
