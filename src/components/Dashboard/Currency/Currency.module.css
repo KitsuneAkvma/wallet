@@ -1,0 +1,121 @@
+.currency {
+  position: relative;
+  width: 100%;
+  height: 10.875rem;
+  margin: 0 auto;
+  margin-top: 1.938rem;
+  border-radius: 1.875rem;
+  color: var(--color-delete-btn-font);
+  background-color: var(--color-bg-nav-icons-active);
+  background-image: url('../../../../public/svg/currency_vector.svg');
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+.currency * {
+  color: var(--color-bg-secondary);
+}
+
+.currency td, .currency th, .currency thead {
+  color: var(--color-delete-btn-font);
+}
+
+.currency table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  font-family: var(--font-secondary);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.125rem;
+  line-height: 1.688rem;
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.currency thead {
+  font-size: 1.125rem;
+  font-weight: bold;
+  height: 3.125rem;
+}
+
+.currency thead td {
+  padding-inline: 2.5rem;
+}
+
+.currency thead td:nth-child(1) {
+  border-top-left-radius: 1.875rem;
+  background-color: var(--color-blur);
+}
+
+.currency thead td:nth-child(2) {
+  background-color: var(--color-blur);
+}
+
+.currency thead td:nth-child(3) {
+  border-top-right-radius: 1.875rem;
+  background-color: var(--color-blur);
+}
+
+.currency td {
+  padding-top: 0.625rem;
+  font-size: 1rem;
+}
+.loader {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+}
+
+@media (min-width: 768px) {
+  .currency {
+    margin-left: 0.625rem;
+    width: 50%;
+  }
+
+  .currencyShow {
+    animation: currency-show 0.5s forwards;
+  }
+  .loader {
+    top: 50%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .currency {
+    width: 100%;
+    height: 21.688rem;
+    margin-top: 2rem;
+    margin-left: 0rem;
+  }
+
+  .currency thead {
+    height: 3.75rem;
+  }
+
+  .currency thead td {
+    padding: 1.063rem 0 1rem;
+  }
+
+  .currency td {
+    padding-top: 1.438rem;
+  }
+}
+
+@keyframes currency-show {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}

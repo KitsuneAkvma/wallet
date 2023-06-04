@@ -1,31 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './Logout.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectGlobalModalLogoutState } from '../../../redux/selectors';
+import { updateIsModalLogoutOpen } from '../../../redux/Slices/global/globalSlice';
+import { logOut } from '../../../redux/Slices/session/operations';
 
 export const LogoutModal = () => {
-  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector(selectGlobalModalLogoutState);
 
-  const openModal = () => {
-    setShowModal(true);
+  const handleCancel = () => {
+    dispatch(updateIsModalLogoutOpen(false));
   };
-
-  const closeModal = () => {
-    setShowModal(false);
+  const handleLogout = () => {
+    dispatch(updateIsModalLogoutOpen(false));
+    dispatch(logOut());
   };
 
   useEffect(() => {
     const handleKeyDown = event => {
       if (event.key === 'Escape') {
-        closeModal();
+        handleCancel();
       }
     };
 
     const handleClickOutside = event => {
       if (event.target.classList.contains(styles.modal)) {
-        closeModal();
+        handleCancel();
       }
     };
 
-    if (showModal) {
+    if (isModalOpen) {
       document.addEventListener('keydown', handleKeyDown);
       document.addEventListener('click', handleClickOutside);
     }
@@ -34,24 +39,25 @@ export const LogoutModal = () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [showModal]);
+  }, [isModalOpen]);
 
   return (
-    <div>
-      <button onClick={openModal}>Exit</button>
-      {showModal && (
-        <div className={styles.modal}>
+    <>
+      {isModalOpen && (
+        <div className={styles.modal} aria-label="Logout window">
           <div className={styles.modalContent}>
-            <p className={styles.modalTitle}>Are you sure you want to log out</p>
+            <p className={styles.modalTitle}>Are you really leaving us?🥺</p>
             <div className={styles.logoutBtn}>
-              <button className={styles.yesBtn}>Yes</button>
-              <button className={styles.noBtn} onClick={closeModal}>
-                No
+              <button className={styles.yesBtn} onClick={handleLogout}>
+                Logout
+              </button>
+              <button className={styles.noBtn} onClick={handleCancel}>
+                Cancel
               </button>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };

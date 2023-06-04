@@ -2,12 +2,17 @@
 
 .container {
   margin: 0px auto;
+  min-height: 100%;
   width: 100%;
   min-width: 17.5rem;
   max-width: 80rem;
-  padding: 0rem 1.25rem 1.25rem 1.25rem;
+  padding: 5rem 1.25rem 3rem 1.25rem;
+  @media (max-width: 767px) {
+    padding: 3.75rem 1.25rem 2.75rem 1.25rem;
+  }
   @media (min-width: 1280px) {
     display: flex;
+    padding-bottom: 1.5rem;
   }
 }
 
@@ -37,35 +42,17 @@
   fill: var(--color-bg-nav-icons-active);
 }
 
-.addTransactionIcon {
-  width: 66px;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  cursor: pointer;
-  @media (min-width: 1280px) {
-    right: calc((100vw - 1210px) / 2);
-  }
-}
-
-.addTransactionIcon circle {
-  fill: var(--color-green);
-  transition-property: fill;
-  transition-duration: 200ms;
-}
-
-.addTransactionIcon:hover circle {
-  fill: var(--color-bg-add-btn-hover);
-}
-
 .navBalanceAndCurrencyBox {
   display: flex;
+  padding: 2.5rem 1rem 2.5rem 0rem;
+  @media (min-width: 768px) {
+    padding-right: 0rem;
+  }
   @media (min-width: 1280px) {
+    margin-right: 0.5rem;
     width: 33.3%;
     height: 100%;
     display: block;
-    padding: 2.5rem 1rem 2.5rem 2.875rem;
-    border-right: 0.0625rem solid var(--color-middle-border);
   }
 }
 
@@ -87,6 +74,14 @@
   margin: 0.3125rem 0.3125rem 0.3125rem 0rem;
 }
 
+.navBox:hover .navLink {
+  font-weight: 700;
+}
+
+.navBox:hover path {
+  fill: var(--color-bg-nav-icons-active);
+}
+
 .navLink {
   display: inline-block;
   margin-left: 0.3125rem;
@@ -95,8 +90,58 @@
   font-weight: 400;
   line-height: 1.6875rem;
   letter-spacing: 0em;
+  color: var(--color-text-primary);
+  transition-property: font-weight;
+  transition-duration: 200ms;
 }
 
 .active path {
   fill: var(--color-bg-nav-icons-active);
+}
+
+.active span {
+  font-weight: 700;
+}
+
+.ellipseViolet {
+  filter: blur(3.125rem);
+  position: absolute;
+  width: 38.625rem;
+  left: -9.5831rem;
+  top: 39.6875rem;
+  z-index: -1;
+  @media (max-width: 767px) {
+    display: none;
+  }
+  @media (min-width: 1280px) {
+    width: 45rem;
+  }
+}
+
+.ellipsePeach {
+  filter: blur(3.125rem);
+  position: absolute;
+  width: 38.625rem;
+  right: -12rem;
+  top: -7.5rem;
+  transform: rotate(21.94deg);
+  z-index: -1;
+  @media (max-width: 767px) {
+    display: none;
+  }
+  @media (min-width: 1280px) {
+    width: 45rem;
+  }
+}
+
+.ellipseContainer {
+  z-index: -1;
+  min-height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  @media (max-width: 767px) {
+    display: none;
+  }
 }

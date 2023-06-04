@@ -1,5 +1,14 @@
 @import '../../../utility/css-variables.css';
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .transactionBtn {
   position: absolute;
   color: var(--color-bg-secondary);
@@ -24,6 +33,7 @@
   outline: none;
 }
 .modal {
+  z-index: 2;
   position: fixed;
   color: var(--color-text-primary);
   top: 0;
@@ -34,6 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.3s ease;
 }
 
 .modalContent {
@@ -136,6 +147,71 @@ input:checked + .slider:before {
   color: var(--color-Gray2);
 }
 
+.categoriesBox {
+  width: 17.5rem;
+  position: relative;
+  border-bottom: 0.0625rem solid var(--color-Gray1);
+  margin-bottom: 1.875rem;
+  cursor: pointer;
+}
+
+.selectCategoryInput {
+  cursor: pointer;
+  color: var(--color-text-primary);
+  text-align: center;
+  font-weight: 700;
+  border: none;
+  background: none;
+}
+
+.selectCategoryInput::placeholder {
+  color: var(--color-Gray1);
+}
+
+.selectCategoryInput:focus {
+  outline: none;
+  caret-color: transparent;
+}
+
+.arrowIcon {
+  width: 1rem;
+  display: inline-block;
+  position: absolute;
+  right: 1.25rem;
+}
+
+.optionList {
+  position: absolute;
+  top: 1.6rem;
+  list-style: none;
+  width: 100%;
+  border-radius: 1.25rem;
+  z-index: 1;
+}
+
+.optionLi {
+  background-color: var(--color-gray5);
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: 200ms;
+  z-index: 999;
+}
+
+.optionLi:first-child {
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+}
+
+.optionLi:last-child {
+  border-bottom-left-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
+}
+
+.optionLi:hover {
+  background-color: white;
+  color: var(--color-pink);
+}
+
 .expenseColor {
   font-family: var(--font-secondary);
   font-style: normal;
@@ -191,6 +267,9 @@ input:checked + .slider:before {
   height: 2rem;
   border-bottom: 0.0625rem solid var(--color-Gray1);
 }
+.transactionDate * {
+  color: var(--color-text-primary);
+}
 
 .closeBtn {
   display: none;
@@ -244,6 +323,7 @@ input:checked + .slider:before {
 }
 
 .addBtn {
+  cursor: pointer;
   font-family: var(--font-secondary);
   margin-top: 2.5rem;
   display: flex;
@@ -258,9 +338,16 @@ input:checked + .slider:before {
   border: none;
   background-color: var(--color-green);
   border-radius: 1.25rem;
+  transition-property: background-color;
+  transition-duration: 200ms;
+}
+
+.addBtn:hover {
+  background-color: var(--color-bg-add-btn-hover);
 }
 
 .cancelBtn {
+  cursor: pointer;
   font-family: var(--font-secondary);
   margin-top: 1.25rem;
   display: flex;
@@ -276,6 +363,12 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
   margin-bottom: 2.5rem;
+  transition-property: background-color;
+  transition-duration: 200ms;
+}
+
+.cancelBtn:hover {
+  background-color: var(--color-bg-cancel-btn-hover);
 }
 
 .categorySelect {
@@ -313,6 +406,10 @@ select.categorySelect option {
     margin-top: 2.5rem;
     font-size: 1.875rem;
     line-height: 2.8125rem;
+  }
+
+  .categoriesBox {
+    width: 24.625rem;
   }
 
   .closeBtn {

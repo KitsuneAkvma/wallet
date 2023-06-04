@@ -1,10 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getFinanceData } from './operations';
+import {
+  addTransaction,
+  deleteTransaction,
+  editTransaction,
+  getAllTransactions,
+  getOneTransaction,
+  fetchCategories,
+  fetchTransactionsByMonth,
+} from './operations';
 
 const initialState = {
   totalBalance: 0,
   isLoading: false,
   data: [],
+  selectedTransaction: {},
+  categories: [],
 };
 
 const handlePending = state => {
@@ -20,21 +30,55 @@ const financeSlice = createSlice({
   name: 'finance',
   initialState,
   reducers: {
-    updateTotalBalance: (state, action) => {
-      state.totalBalance = action.payload;
+    updateSelectedTransaction: (state, action) => {
+      state.selectedTransaction = action.payload;
     },
   },
-  extraReducers: builder => {
+  extraReducers(builder) {
     builder
-      .addCase(getFinanceData.pending, handlePending)
-      .addCase(getFinanceData.rejected, handleRejected)
-      .addCase(getFinanceData.fulfilled, (state, action) => {
+      .addCase(getAllTransactions.pending, handlePending)
+      .addCase(getOneTransaction.pending, handlePending)
+      .addCase(addTransaction.pending, handlePending)
+      .addCase(editTransaction.pending, handlePending)
+      .addCase(deleteTransaction.pending, handlePending)
+      .addCase(fetchCategories.pending, handlePending)
+      .addCase(fetchTransactionsByMonth.pending, handlePending)
+      .addCase(getAllTransactions.rejected, handleRejected)
+      .addCase(getOneTransaction.rejected, handleRejected)
+      .addCase(addTransaction.rejected, handleRejected)
+      .addCase(editTransaction.rejected, handleRejected)
+      .addCase(deleteTransaction.rejected, handleRejected)
+      .addCase(fetchCategories.rejected, handleRejected)
+      .addCase(fetchTransactionsByMonth.rejected, handleRejected)
+      .addCase(getAllTransactions.fulfilled, (state, action) => {
         state.data = action.payload;
         state.isLoading = false;
+      })
+      .addCase(getOneTransaction.fulfilled, (state, action) => {
+        state.selectedTransaction = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(addTransaction.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(editTransaction.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(deleteTransaction.fulfilled, state => {
+        state.isLoading = false;
+        state.selectedTransaction = {};
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.categories = action.payload;
+      })
+      .addCase(fetchTransactionsByMonth.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.categories = action.payload;
       });
   },
 });
 
 export const financeReducer = financeSlice.reducer;
 
-export const { updateTotalBalance } = financeSlice.actions;
+export const { updateSelectedTransaction } = financeSlice.actions;

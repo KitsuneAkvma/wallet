@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { logOut, login, refreshUser, signUp } from './operations';
 
 const initialState = {
-  user: { id: '', name: '', email: '' },
+  user: { id: '', username: '', email: '' },
   loginForm: { email: '', password: '' },
   registerForm: { email: '', password: '', confPassword: '', name: '' },
   transactionForm: { type: '', name: '', amount: '', date: '', category: '', comment: '' },
@@ -16,6 +16,7 @@ const handlePending = state => {
 };
 const handleRejected = (state, action) => {
   state.isLoading = false;
+
   state.error = action.payload;
 };
 
@@ -74,22 +75,24 @@ const sessionSlice = createSlice({
       .addCase(signUp.pending, handlePending)
       .addCase(login.pending, handlePending)
       .addCase(logOut.pending, handlePending)
-      .addCase(refreshUser.pending, state => {
-        state.isRefreshing = true;
-      })
+      .addCase(refreshUser.pending, handlePending)
       .addCase(signUp.rejected, handleRejected)
       .addCase(login.rejected, handleRejected)
-      .addCase(logOut.rejected, handleRejected)
-      .addCase(refreshUser.rejected, (state, action) => {
-        state.isRefreshing = false;
+      .addCase(logOut.rejected, state => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isAuth = false;
       })
-      .addCase(signUp.fulfilled, (state, action) => {
+
+      .addCase(refreshUser.rejected, state => {
         state.isLoading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isAuth = true;
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isAuth = false;
+      })
+      .addCase(signUp.fulfilled, state => {
+        state.isLoading = false;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -103,11 +106,8 @@ const sessionSlice = createSlice({
         state.token = null;
         state.isAuth = false;
       })
-      .addCase(refreshUser.fulfilled, (state, action) => {
+      .addCase(refreshUser.fulfilled, state => {
         state.isLoading = false;
-        state.user = action.payload;
-        state.isAuth = true;
-        state.isRefreshing = false;
       });
   },
 });

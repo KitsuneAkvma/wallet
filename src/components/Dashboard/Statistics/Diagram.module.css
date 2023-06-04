@@ -15,8 +15,13 @@
   padding-left: 1.25rem;
 }
 
+.chartNoData {
+  padding-top: 1.875rem;
+  font-size: 1.5rem;
+}
+
 .optionSelect {
-  width: 17.5rem;
+  width: 100%;
   height: 3.125rem;
   border: 0.0625rem solid var(--color-text-primary);
   border-radius: 1.875rem;
@@ -37,10 +42,78 @@
 
 .chartContainer {
   position: relative;
-  width: 17.5rem;
+  width: 100%;
   height: 17.5rem;
   margin: 0;
   margin-bottom: 2rem;
+}
+
+.timeBox {
+  width: 100%;
+  height: 3.125rem;
+  position: relative;
+  border: 0.0625rem solid var(--color-text-primary);
+  border-radius: 1.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.selectMonthInput,
+.selectYearInput {
+  cursor: pointer;
+  color: var(--color-text-primary);
+  text-align: left;
+  border: none;
+  margin-left: 1.25rem;
+  background-color: transparent;
+}
+
+.selectMonthInput:focus,
+.selectYearInput:focus {
+  outline: none;
+  caret-color: transparent;
+}
+
+.arrowIcon {
+  width: 1rem;
+  display: inline-block;
+  position: absolute;
+  right: 1.25rem;
+}
+
+.optionList {
+  position: absolute;
+  top: 3.2rem;
+  list-style: none;
+  width: 100%;
+  border-radius: 1.25rem;
+  z-index: 1;
+}
+
+.optionLi {
+  background-color: var(--color-gray5);
+  display: flex;
+  justify-content: left;
+  padding-left: 1rem;
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: 200ms;
+  z-index: 999;
+}
+
+.optionLi:first-child {
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+}
+
+.optionLi:last-child {
+  border-bottom-left-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
+}
+
+.optionLi:hover {
+  background-color: white;
 }
 
 .centerText {
@@ -59,7 +132,7 @@
   font-family: var(--font-secondary);
   display: flex;
   gap: 8.4375rem;
-  justify-content: center;
+  justify-content: space-around;
   font-weight: 700;
   font-size: 1.125rem;
   line-height: 1.6875rem;
@@ -75,12 +148,17 @@
   font-size: 1rem;
   line-height: 1.5rem;
   display: flex;
-  width: 17.5rem;
+  justify-content: space-around;
+  width: 100%;
   border-bottom: 0.0625rem solid var(--color-gray4);
   box-shadow: 0rem 0.0625rem 0rem rgba(255, 255, 255, 0.6);
   align-items: center;
   margin-bottom: 0.875rem;
   padding-bottom: 0.875rem;
+}
+
+.categoryExplanation {
+  display: flex;
 }
 
 .dataColor {
@@ -114,8 +192,9 @@
 
 .expense {
   display: flex;
+  justify-content: space-around;
   padding-left: 0.9375rem;
-  width: 17.5rem;
+  width: 100%;
   align-items: center;
   font-weight: 700;
   font-size: 16px;
@@ -139,8 +218,9 @@
 
 .income {
   display: flex;
+  justify-content: space-around;
   padding-left: 0.9375rem;
-  width: 17.5rem;
+  width: 100%;
   align-items: center;
   font-weight: 700;
   font-size: 16px;
@@ -167,19 +247,22 @@
     flex-direction: row;
   }
 
+  .statisticContent > div {
+    width: 50%;
+  }
+
   .select {
     flex-direction: row;
     gap: 1rem;
   }
 
   .optionSelect {
-    width: 10rem;
+    width: 50%;
   }
 
   .chartContainer {
     position: relative;
     margin: 0;
-    width: 21rem;
     height: 21rem;
     margin-right: 2rem;
   }
@@ -189,7 +272,8 @@
   }
 
   .data {
-    width: 21rem;
+    width: 100%;
+    justify-content: space-around;
   }
 
   .dataColor {
@@ -198,15 +282,19 @@
   }
 
   .expense {
-    width: 21rem;
+    width: 100%;
   }
 
   .income {
-    width: 21rem;
+    width: 100%;
   }
 }
 
 @media screen and (min-width: 1280px) {
+  .statistic {
+    width: 66.6%;
+  }
+
   .statisticContent {
     display: flex;
     flex-direction: row;
@@ -223,7 +311,7 @@
 
   .chartContainer {
     position: relative;
-    width: 18rem;
+    width: 100%;
     height: 18rem;
     margin: 0;
     margin-right: 2rem;
@@ -231,10 +319,7 @@
 
   .dataTitle {
     gap: 15.625rem;
-  }
-
-  .data {
-    width: 24.6875rem;
+    justify-content: center;
   }
 
   .valueData {
@@ -246,12 +331,10 @@
   }
 
   .expense {
-    width: 24.6875rem;
     gap: 11.25rem;
   }
 
   .income {
-    width: 24.6875rem;
     gap: 11.25rem;
   }
 }

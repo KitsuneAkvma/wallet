@@ -38,10 +38,6 @@ export const user = new Schema(
       type: Number,
       default: 0,
     },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-    },
   },
   { versionKey: false, timestamps: true },
 );

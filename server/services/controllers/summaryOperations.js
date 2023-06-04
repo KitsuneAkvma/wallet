@@ -2,15 +2,16 @@ import { findTransactionsByTypeAndDate } from '../dbControllers/transactions.js'
 
 export const monthlyBalance = async (req, res, next) => {
   const dateNow = new Date().toISOString();
-  const { date = dateNow } = req.body;
+  const { date = dateNow } = req.query;
+  const { id } = req.user;
   try {
-    const incomeTransactions = await findTransactionsByTypeAndDate(date, 'Income');
+    const incomeTransactions = await findTransactionsByTypeAndDate(date, 'Income', id);
     const incomeValue = incomeTransactions
       .map(transaction => transaction.amountOfTransaction)
       .reduce((previousValue, number) => {
         return previousValue + number;
       }, 0);
-    const expenseTransactions = await findTransactionsByTypeAndDate(date, 'Expense');
+    const expenseTransactions = await findTransactionsByTypeAndDate(date, 'Expense', id);
     const expenseValue = expenseTransactions
       .map(transaction => transaction.amountOfTransaction)
       .reduce((previousValue, number) => {

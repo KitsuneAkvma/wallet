@@ -1,28 +1,73 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import styles from './EditTransaction.module.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
+import {
+  updateIsCategoriesListOpen,
+  updateIsModalEditTransactionOpen,
+} from '../../../redux/Slices/global/globalSlice';
+import {
+  editTransaction,
+  getOneTransaction,
+  fetchCategories,
+} from '../../../redux/Slices/finance/operations';
+import { ReactSVG } from 'react-svg';
+import { selectIsCategoriesListOpen } from '../../../redux/selectors';
 
 export const EditTransaction = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('expense');
+  const [selectedOption, setSelectedOption] = useState('Income');
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [selectedExpense, setSelectedExpense] = useState([]);
 
-  const editModal = () => {
-    setSelectedDate(new Date());
-    setShowModal(true);
+  const open = useSelector(state => state.global.isModalEditTransactionOpen);
+  const dispatch = useDispatch();
+  const isCategoriesListOpen = useSelector(selectIsCategoriesListOpen);
+  const transactionId = useSelector(state => state.finance.selectedTransaction);
+
+  const editModal = async () => {
+    try {
+      const transaction = await dispatch(getOneTransaction(transactionId)).unwrap();
+      const dateParts = transaction.transactionDate.split('-');
+      const year = parseInt(dateParts[0], 10);
+      const month = parseInt(dateParts[1], 10) - 1;
+      const day = parseInt(dateParts[2], 10);
+      const date = new Date(year, month, day);
+
+      setSelectedDate(date);
+
+      formik.setValues({
+        transactionValue: transaction.amountOfTransaction.toString(),
+        comment: transaction.comment,
+        category: transaction.categoryId,
+      });
+
+      setSelectedOption(transaction.typeOfTransaction);
+
+      if (transaction.typeOfTransaction === 'Expense') {
+        setCategory(transaction.category);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    dispatch(updateIsModalEditTransactionOpen(false));
   };
 
   const handleDateChange = date => {
     setSelectedDate(date);
+  };
+
+  const handleSwitchToggle = () => {
+    setSelectedOption(prevOption => (prevOption === 'Income' ? 'Expense' : 'Income'));
+    setSelectedExpense([]);
   };
 
   const validationSchema = Yup.object().shape({
@@ -39,12 +84,45 @@ export const EditTransaction = () => {
   const formik = useFormik({
     initialValues: {
       transactionValue: '',
+      comment: '',
     },
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async values => {
+      try {
+        const transactionData = {
+          typeOfTransaction: selectedOption,
+          amountOfTransaction: values.transactionValue,
+          transactionDate: selectedDate.toISOString(),
+          comment: values.comment,
+          id: transactionId._id,
+          category: 'Income',
+        };
+
+        if (selectedOption === 'Expense') {
+          transactionData.category = category;
+        }
+
+        await dispatch(editTransaction(transactionData)).unwrap();
+        formik.resetForm();
+        closeModal();
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
   });
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await dispatch(fetchCategories());
+        const categoriesName = response.payload.map(category => category.name);
+        setCategories(categoriesName);
+      } catch (error) {
+        console.error('Error fetching transaction categories:', error);
+      }
+    };
+    getCategories();
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = event => {
@@ -59,7 +137,8 @@ export const EditTransaction = () => {
       }
     };
 
-    if (showModal) {
+    if (open) {
+      editModal();
       document.addEventListener('keydown', handleKeyDown);
       document.addEventListener('click', handleClickOutside);
     }
@@ -68,44 +147,69 @@ export const EditTransaction = () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [showModal]);
+  }, [open]);
 
   return (
     <div>
-      <button onClick={editModal}>Edit</button>
-
-      {showModal && (
+      {open && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <p className={styles.modalTitle}>Edit transaction</p>
             <div className={styles.optionContainer}>
               <span
-                className={selectedOption === 'expense' ? styles.greyedText : styles.incomeColor}
+                className={selectedOption === 'Expense' ? styles.greyedText : styles.incomeColor}
               >
                 Income
               </span>
-              /
+              <label className={styles.switch}>
+                <input
+                  type="checkbox"
+                  checked={selectedOption === 'Expense'}
+                  onChange={handleSwitchToggle}
+                />
+                <span className={`${styles.slider} ${styles.round}`}></span>
+              </label>
               <span
-                className={selectedOption === 'income' ? styles.greyedText : styles.expenseColor}
+                className={selectedOption === 'Income' ? styles.greyedText : styles.expenseColor}
               >
                 Expense
               </span>
             </div>
 
-            {selectedOption === 'expense' && (
-              <div>
-                <select className={styles.categorySelect} defaultValue="">
-                  {category ? null : (
-                    <option value="" hidden>
-                      Select your option
-                    </option>
-                  )}
-                  <option value="Tutaj">Tutaj</option>
-                  <option value="Będą">Będą</option>
-                  <option value="Dodane">Dodane</option>
-                  <option value="Opcje">Opcje</option>
-                  <option value="ZBackendu">z Backendu</option>
-                </select>
+            {selectedOption === 'Expense' && (
+              <div
+                className={styles.categoriesBox}
+                onClick={() => {
+                  isCategoriesListOpen
+                    ? dispatch(updateIsCategoriesListOpen(false))
+                    : dispatch(updateIsCategoriesListOpen(true));
+                }}
+              >
+                <input
+                  placeholder="Select a category"
+                  className={styles.selectCategoryInput}
+                  value={category}
+                  readOnly
+                />
+                <ReactSVG className={styles.arrowIcon} src="/svg/arrow_icon.svg" />
+                {isCategoriesListOpen && (
+                  <ul className={styles.optionList}>
+                    {categories.map(category => {
+                      if (category === 'Income') {
+                        return null;
+                      }
+                      return (
+                        <li
+                          key={category}
+                          className={styles.optionLi}
+                          onClick={() => setCategory(category)}
+                        >
+                          {category}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </div>
             )}
             <div className={styles.valueAndTime}>
@@ -139,7 +243,13 @@ export const EditTransaction = () => {
                 />
               </div>
             </div>
-            <input className={styles.transactionComment} type="text" placeholder="Comment" />
+            <input
+              type="text"
+              name="comment"
+              placeholder="Comment"
+              className={styles.transactionComment}
+              {...formik.getFieldProps('comment')}
+            />
             <button className={styles.closeBtn} onClick={closeModal}>
               &#10006;
             </button>
