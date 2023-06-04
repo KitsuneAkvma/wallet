@@ -6,24 +6,26 @@ import * as Yup from 'yup';
 import styles from './EditTransaction.module.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
-import categories from '../../../../server/models/categories.json';
 import { updateIsModalEditTransactionOpen } from '../../../redux/Slices/global/globalSlice';
-import { editTransaction, getOneTransaction } from '../../../redux/Slices/finance/operations';
+import {
+  editTransaction,
+  getOneTransaction,
+  fetchCategories,
+} from '../../../redux/Slices/finance/operations';
 
 export const EditTransaction = () => {
   const [selectedOption, setSelectedOption] = useState('Expense');
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
-  const [transactionId, setTransactionId] = useState('');
+  const [categories, setCategories] = useState([]);
 
   const open = useSelector(state => state.global.isModalEditTransactionOpen);
+  const transactionId = useSelector(state => state.finance.selectedTransaction);
 
   const dispatch = useDispatch();
   const editModal = async () => {
     try {
-      const id = '647a30e1f3a09f8e61244a5d'; // dodać pobieranie id
-      setTransactionId(id);
-      const transaction = await dispatch(getOneTransaction(id)).unwrap();
+      const transaction = await dispatch(getOneTransaction(transactionId)).unwrap();
       const dateParts = transaction.transactionDate.split('-');
       const year = parseInt(dateParts[0], 10);
       const month = parseInt(dateParts[1], 10) - 1;
@@ -35,11 +37,11 @@ export const EditTransaction = () => {
       formik.setValues({
         transactionValue: transaction.amountOfTransaction.toString(),
         comment: transaction.comment,
-        data: transaction.createdAt,
-        category: transaction.category,
+        category: transaction.categoryId,
       });
 
       setSelectedOption(transaction.typeOfTransaction);
+
       if (transaction.typeOfTransaction === 'Expense') {
         setCategory(transaction.category);
       }
@@ -70,24 +72,24 @@ export const EditTransaction = () => {
   const formik = useFormik({
     initialValues: {
       transactionValue: '',
+      comment: '',
     },
     validationSchema,
     onSubmit: async values => {
       try {
-        const id = transactionId;
         const transactionData = {
           typeOfTransaction: selectedOption,
-          category: 'Income',
           amountOfTransaction: values.transactionValue,
           transactionDate: selectedDate.toISOString(),
           comment: values.comment,
+          id: transactionId._id,
         };
 
         if (selectedOption === 'Expense') {
           transactionData.category = category;
         }
 
-        await dispatch(editTransaction({ id, transactionData })).unwrap();
+        await dispatch(editTransaction(transactionData)).unwrap();
         formik.resetForm();
         closeModal();
       } catch (error) {
@@ -95,6 +97,19 @@ export const EditTransaction = () => {
       }
     },
   });
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await dispatch(fetchCategories());
+        const categoriesName = response.payload.map(category => category.name);
+        setCategories(categoriesName);
+      } catch (error) {
+        console.error('Error fetching transaction categories:', error);
+      }
+    };
+    getCategories();
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = event => {
@@ -135,7 +150,7 @@ export const EditTransaction = () => {
               </span>
               /
               <span
-                className={selectedOption === 'Income' ? styles.greyedText : styles.incomeColor}
+                className={selectedOption === 'Income' ? styles.greyedText : styles.expenseColor}
               >
                 Expense
               </span>
@@ -153,11 +168,16 @@ export const EditTransaction = () => {
                       Select your option
                     </option>
                   )}
-                  {categories.map(category => (
-                    <option key={category.name} value={category.name}>
-                      {category.name}
-                    </option>
-                  ))}
+                  {categories.map(category => {
+                    if (category === 'Income') {
+                      return null;
+                    }
+                    return (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             )}
@@ -192,7 +212,13 @@ export const EditTransaction = () => {
                 />
               </div>
             </div>
-            <input className={styles.transactionComment} type="text" placeholder="Comment" />
+            <input
+              type="text"
+              name="comment"
+              placeholder="Comment"
+              className={styles.transactionComment}
+              {...formik.getFieldProps('comment')}
+            />
             <button className={styles.closeBtn} onClick={closeModal}>
               &#10006;
             </button>

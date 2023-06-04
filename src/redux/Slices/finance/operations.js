@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const SERVER_URL = 'https://waller-api.onrender.com/api/transactions';
+const CATEGORY_URL = 'https://waller-api.onrender.com/api';
 
 const getAllTransactions = createAsyncThunk('finance/getAll', async (_, thunkApi) => {
   try {
@@ -55,7 +56,7 @@ const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunk
 
     thunkApi.dispatch(getAllTransactions());
 
-    return res;
+    return res.data;
   } catch (e) {
     return thunkApi.rejectWithValue(e.message);
   }
@@ -63,7 +64,7 @@ const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunk
 
 const fetchCategories = createAsyncThunk('finance/fetchCategories', async (_, thunkApi) => {
   try {
-    const res = await axios.get(`${SERVER_URL}/transaction-categories`);
+    const res = await axios.get(`${CATEGORY_URL}/transaction-categories`);
     const categories = res.data.data.allCategories;
 
     return categories;
