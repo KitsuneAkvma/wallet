@@ -16,7 +16,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const Diagram = () => {
   const [selectedYear, setSelectedYear] = useState('2023');
-  const [selectedMonth, setSelectedMonth] = useState('February');
+  const [selectedMonth, setSelectedMonth] = useState('June');
   const [categories, setCategories] = useState([]);
   const [color, setColor] = useState([]);
   const [diagramData, setDiagramData] = useState([]);
@@ -41,25 +41,25 @@ export const Diagram = () => {
 
   const getMonthNumber = month => {
     const monthMap = {
-      January: 1,
-      February: 2,
-      March: 3,
-      April: 4,
-      May: 5,
-      June: 6,
-      July: 7,
-      August: 8,
-      September: 9,
-      October: 10,
-      November: 11,
-      December: 12,
+      January: 0,
+      February: 1,
+      March: 2,
+      April: 3,
+      May: 4,
+      June: 5,
+      July: 6,
+      August: 7,
+      September: 8,
+      October: 9,
+      November: 10,
+      December: 11,
     };
     return monthMap[month];
   };
 
   useEffect(() => {
     const getMonthlySummary = async () => {
-      const specificDate = new Date(selectedYear, getMonthNumber(selectedMonth), 1).toISOString();
+      const specificDate = new Date(selectedYear, getMonthNumber(selectedMonth), 1);
       console.log(specificDate);
       try {
         const response = await dispatch(fetchTransactionsByMonth(specificDate));
