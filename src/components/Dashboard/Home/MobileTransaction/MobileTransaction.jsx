@@ -13,10 +13,13 @@ export const MobileTransaction = ({
   comment,
   amountOfTransaction,
   _id,
+  categoriesArray,
+  getCategoryNameFromArr
 }) => {
   const sumColor = typeOfTransaction === 'Income' ? css.greenSum : css.redSum;
   const borderColor = typeOfTransaction === 'Income' ? css.greenBorder : css.redBorder;
   const dispatch = useDispatch();
+  const categoryName = getCategoryNameFromArr(categoryId, categoriesArray);
   return (
     <li className={`${css.transactionBox} ${borderColor}`}>
       <div className={css.transactionSubBox}>
@@ -31,7 +34,7 @@ export const MobileTransaction = ({
       </div>
       <div className={css.transactionSubBox}>
         <span className={css.transactionDetailName}>Category</span>
-        <span className={css.transactionDetailValue}>{categoryId}</span>
+        <span className={css.transactionDetailValue}>{categoryName === undefined ? categoryId : categoryName}</span>
       </div>
       <div className={css.transactionSubBox}>
         <span className={css.transactionDetailName}>Comment</span>
