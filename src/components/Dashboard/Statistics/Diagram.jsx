@@ -151,6 +151,7 @@ export const Diagram = () => {
     const backgroundColors = selectedData.map(
       (_, index) => categoryColors[index % categoryColors.length],
     );
+
     return {
       data: chartData,
       backgroundColor: backgroundColors,
@@ -189,11 +190,13 @@ export const Diagram = () => {
     <div className={styles.statistic}>
       <p className={styles.chartTitle}>Statistics</p>
       <div className={styles.statisticContent}>
-        <div>
-          <div className={styles.chartContainer}>
+        <div className={styles.chartContainer}>
+          {expense === '0.00' ? (
+            <p className={styles.chartNoData}>No data for this period</p>
+          ) : (
             <Doughnut data={chartData} options={chartOptions} />
-            <div className={styles.centerText}>{centerText}</div>
-          </div>
+          )}
+          <div className={styles.centerText}>{centerText}</div>
         </div>
         <div>
           <div className={styles.select}>
@@ -340,31 +343,6 @@ export const Diagram = () => {
                 </ul>
               )}
             </div>
-            {/* <select
-              className={styles.optionSelect}
-              value={selectedMonth}
-              onChange={handleMonthChange}
-            >
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
-            </select>
-            <select
-              className={styles.optionSelect}
-              value={selectedYear}
-              onChange={handleYearChange}
-            >
-              <option value="2023">2023</option>
-            </select> */}
           </div>
           <div className={styles.dataTitle}>
             <p>Category</p>
