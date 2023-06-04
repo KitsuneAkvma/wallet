@@ -4,6 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import styles from './Diagram.module.css';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ReactSVG } from 'react-svg';
 import Datetime from 'react-datetime';
 import {
   fetchCategories,
@@ -15,10 +16,16 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const Diagram = () => {
   const [selectedYear, setSelectedYear] = useState('2023');
-  const [selectedMonth, setSelectedMonth] = useState('June');
+  const [selectedMonth, setSelectedMonth] = useState('February');
   const [categories, setCategories] = useState([]);
   const [color, setColor] = useState([]);
   const [diagramData, setDiagramData] = useState([]);
+  const [chosenMonth, setChosenMonth] = useState(
+    new Date().toLocaleString('en-US', { month: 'long' }),
+  );
+  const [chosenYear, setChosenYear] = useState(new Date().getFullYear());
+  const [isMonthListOpen, setIsMonthListOpen] = useState(false);
+  const [isYearListOpen, setIsYearListOpen] = useState(false);
   const [incomeValue, setIncomeValue] = useState(0);
 
   const dispatch = useDispatch();
@@ -34,25 +41,25 @@ export const Diagram = () => {
 
   const getMonthNumber = month => {
     const monthMap = {
-      January: 0,
-      February: 1,
-      March: 2,
-      April: 3,
-      May: 4,
-      June: 5,
-      July: 6,
-      August: 7,
-      September: 8,
-      October: 9,
-      November: 10,
-      December: 11,
+      January: 1,
+      February: 2,
+      March: 3,
+      April: 4,
+      May: 5,
+      June: 6,
+      July: 7,
+      August: 8,
+      September: 9,
+      October: 10,
+      November: 11,
+      December: 12,
     };
     return monthMap[month];
   };
 
   useEffect(() => {
     const getMonthlySummary = async () => {
-      const specificDate = new Date(selectedYear, getMonthNumber(selectedMonth), 1);
+      const specificDate = new Date(selectedYear, getMonthNumber(selectedMonth), 1).toISOString();
       console.log(specificDate);
       try {
         const response = await dispatch(fetchTransactionsByMonth(specificDate));
@@ -196,7 +203,150 @@ export const Diagram = () => {
         </div>
         <div>
           <div className={styles.select}>
-            <select
+            <div
+              onClick={() => {
+                isMonthListOpen ? setIsMonthListOpen(false) : setIsMonthListOpen(true);
+              }}
+              className={styles.timeBox}
+            >
+              <input className={styles.selectMonthInput} value={selectedMonth} />
+              <ReactSVG className={styles.arrowIcon} src="/svg/arrow_icon.svg" />
+              {isMonthListOpen && (
+                <ul className={`${styles.optionList}`}>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('January');
+                    }}
+                    className={styles.optionLi}
+                    value="January"
+                  >
+                    January
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('February');
+                    }}
+                    className={styles.optionLi}
+                    value="February"
+                  >
+                    February
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('March');
+                    }}
+                    className={styles.optionLi}
+                    value="March"
+                  >
+                    March
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('April');
+                    }}
+                    className={styles.optionLi}
+                    value="April"
+                  >
+                    April
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('May');
+                    }}
+                    className={styles.optionLi}
+                    value="May"
+                  >
+                    May
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('June');
+                    }}
+                    className={styles.optionLi}
+                    value="June"
+                  >
+                    June
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('July');
+                    }}
+                    className={styles.optionLi}
+                    value="July"
+                  >
+                    July
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('August');
+                    }}
+                    className={styles.optionLi}
+                    value="August"
+                  >
+                    August
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('September');
+                    }}
+                    className={styles.optionLi}
+                    value="September"
+                  >
+                    September
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('October');
+                    }}
+                    className={styles.optionLi}
+                    value="October"
+                  >
+                    October
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('November');
+                    }}
+                    className={styles.optionLi}
+                    value="November"
+                  >
+                    November
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSelectedMonth('December');
+                    }}
+                    className={styles.optionLi}
+                    value="December"
+                  >
+                    December
+                  </li>
+                </ul>
+              )}
+            </div>
+            <div
+              onClick={() => {
+                isYearListOpen ? setIsYearListOpen(false) : setIsYearListOpen(true);
+              }}
+              className={styles.timeBox}
+            >
+              <input className={styles.selectYearInput} value={selectedYear} />
+              <ReactSVG className={styles.arrowIcon} src="/svg/arrow_icon.svg" />
+              {isYearListOpen && (
+                <ul className={`${styles.optionList}`}>
+                  <li
+                    onClick={() => {
+                      setSelectedYear('2023');
+                    }}
+                    className={styles.optionLi}
+                    value="2023"
+                  >
+                    2023
+                  </li>
+                </ul>
+              )}
+            </div>
+            {/* <select
               className={styles.optionSelect}
               value={selectedMonth}
               onChange={handleMonthChange}
@@ -220,7 +370,7 @@ export const Diagram = () => {
               onChange={handleYearChange}
             >
               <option value="2023">2023</option>
-            </select>
+            </select> */}
           </div>
           <div className={styles.dataTitle}>
             <p>Category</p>
