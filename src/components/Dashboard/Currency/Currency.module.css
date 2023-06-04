@@ -15,7 +15,7 @@
   color: var(--color-bg-secondary);
 }
 
-td, th, thead {
+.currency td, .currency th, .currency thead {
   color: var(--color-delete-btn-font);
 }
 
