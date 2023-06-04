@@ -5,21 +5,22 @@
   margin: 0 auto;
   margin-top: 30px;
   border-radius: 30px;
-  color: var(--light-text-color);
-  background-color: var(--accent-bcg-color);
+  color: var(--color-delete-btn-font);
+  background-color: var(--color-bg-nav-icons-active);
   background-image: url('../../../../public/svg/currency_vector.svg');
   background-repeat: no-repeat;
-  background-position: right bottom;
+  background-position: bottom;
 }
+
 
 .currency table {
   width: 100%;
   text-align: center;
   border-collapse: collapse;
-  font-family: var(--main__font-family);
+  font-family: var(--font-secondary);
   font-style: normal;
   font-weight: normal;
-  font-size: var(--font-size__main);
+  font-size: 16px;
   line-height: 24px;
   border-spacing: 0;
   margin: 0;
@@ -39,7 +40,7 @@
 
 .currency thead td:nth-child(1) {
   border-top-left-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #ffffff33;
 }
 
 .currency thead td:nth-child(2) {
