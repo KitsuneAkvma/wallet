@@ -2,7 +2,7 @@ import { findTransactionsByTypeAndDate } from '../dbControllers/transactions.js'
 
 export const monthlyBalance = async (req, res, next) => {
   const dateNow = new Date().toISOString();
-  const { date = dateNow } = req.body;
+  const { date = dateNow } = req.query;
   const { id } = req.user;
   try {
     const incomeTransactions = await findTransactionsByTypeAndDate(date, 'Income', id);
