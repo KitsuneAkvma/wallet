@@ -5,6 +5,7 @@ const initialState = {
   isModalLogoutOpen: false,
   isModalAddTransactionOpen: false,
   isModalEditTransactionOpen: false,
+  isCategoriesListOpen: false
 };
 
 const globalSlice = createSlice({
@@ -23,10 +24,13 @@ const globalSlice = createSlice({
     updateIsModalEditTransactionOpen: (state, action) => {
       state.isModalEditTransactionOpen = action.payload;
     },
+    updateIsCategoriesListOpen: (state, action) => {
+      state.isCategoriesListOpen = action.payload;
+    },
   },
 });
 
 export const globalReducer = globalSlice.reducer;
 
-export const { updateIsLoading, updateIsModalLogoutOpen, updateIsModalAddTransactionOpen, updateIsModalEditTransactionOpen } =
+export const { updateIsLoading, updateIsModalLogoutOpen, updateIsModalAddTransactionOpen, updateIsModalEditTransactionOpen, updateIsCategoriesListOpen } =
   globalSlice.actions;
