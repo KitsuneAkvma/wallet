@@ -95,7 +95,7 @@ export const EditTransaction = () => {
         if (selectedOption === 'Expense') {
           transactionData.category = category;
         }
-        console.log(selectedOption);
+    
         await dispatch(editTransaction(transactionData)).unwrap();
         formik.resetForm();
         closeModal();

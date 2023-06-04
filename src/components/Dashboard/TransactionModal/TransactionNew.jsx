@@ -41,7 +41,6 @@ export const TransactionModal = () => {
         const response = await dispatch(fetchCategories());
         if (response.status === 'success' && response.data && response.data.allCategories) {
           const categories = response.data.allCategories.map(category => category.name);
-          console.log('Transaction Categories:', categories);
         } else {
           throw new Error('Invalid response structure');
         }
@@ -90,8 +89,6 @@ export const TransactionModal = () => {
           transactionData.category = category;
         }
 
-        console.log(transactionData);
-
         dispatch(addTransaction(transactionData))
           .unwrap()
           .then(() => {
@@ -103,7 +100,6 @@ export const TransactionModal = () => {
           });
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          console.log('Requested resource not found');
         } else {
           console.error('Error:', error.response.data);
         }
@@ -171,40 +167,102 @@ export const TransactionModal = () => {
                 }}
                 className={styles.categoriesBox}
               >
-                <input placeholder="Select a category" className={styles.selectCategoryInput} value={chosenCategory}/>
+                <input
+                  placeholder="Select a category"
+                  className={styles.selectCategoryInput}
+                  value={chosenCategory}
+                />
                 <ReactSVG className={styles.arrowIcon} src="/svg/arrow_icon.svg" />
                 {isCategoriesListOpen && (
-                  <ul
-                    className={`${styles.optionList}`}
-                  >
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Main expenses")}} value="Main expenses">
+                  <ul className={`${styles.optionList}`}>
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Main expenses');
+                      }}
+                      value="Main expenses"
+                    >
                       Main expenses
                     </li>
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Products")}} value="Products">
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Products');
+                      }}
+                      value="Products"
+                    >
                       Products
                     </li>
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Car")}} value="Car">
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Car');
+                      }}
+                      value="Car"
+                    >
                       Car
                     </li>
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Self care")}} value="Self care">
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Self care');
+                      }}
+                      value="Self care"
+                    >
                       Self care
                     </li>
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Child care")}} value="Child care">
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Child care');
+                      }}
+                      value="Child care"
+                    >
                       Child care
                     </li>
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Household products")}} value="Household products">
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Household products');
+                      }}
+                      value="Household products"
+                    >
                       Household products
                     </li>
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Education")}} value="Education">
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Education');
+                      }}
+                      value="Education"
+                    >
                       Education
                     </li>
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Leisure")}} value="Leisure">
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Leisure');
+                      }}
+                      value="Leisure"
+                    >
                       Leisure
                     </li>
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Entertainment")}} value="Entertainment">
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Entertainment');
+                      }}
+                      value="Entertainment"
+                    >
                       Entertainment
                     </li>
-                    <li className={styles.optionLi} onClick={()=>{setChosenCategory("Other expenses")}} value="Other expenses">
+                    <li
+                      className={styles.optionLi}
+                      onClick={() => {
+                        setChosenCategory('Other expenses');
+                      }}
+                      value="Other expenses"
+                    >
                       Other expenses
                     </li>
                   </ul>
