@@ -19,7 +19,7 @@ import { ReactSVG } from 'react-svg';
 import { selectIsCategoriesListOpen } from '../../../redux/selectors';
 
 export const EditTransaction = () => {
-  const [selectedOption, setSelectedOption] = useState('Expense');
+  const [selectedOption, setSelectedOption] = useState('Income');
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
