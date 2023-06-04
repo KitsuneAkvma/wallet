@@ -9,9 +9,33 @@
   }
 }
 
+.transactionBtn {
+  position: absolute;
+  color: var(--color-bg-secondary);
+  font-size: 2.5rem;
+  line-height: 0;
+  padding: 0;
+  height: 2.75rem;
+  width: 2.75rem;
+  background-color: var(--color-bg-secondary);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  background-color: var(--color-green);
+  display: flex;
+  justify-content: center;
+  border: none;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.transactionBtn:focus {
+  border: none;
+  outline: none;
+}
 .modal {
-  color: var(--color-text-primary);
+  z-index: 2;
   position: fixed;
+  color: var(--color-text-primary);
   top: 0;
   left: 0;
   width: 100%;
@@ -20,7 +44,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
   animation: fadeIn 0.3s ease;
 }
 
@@ -36,8 +59,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2.5rem;
-  margin-bottom: 3.75rem;
 }
 
 .modalTitle {
@@ -52,6 +73,71 @@
   justify-content: center;
 }
 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 5rem;
+  height: 2.5rem;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  margin-top: 2.625rem;
+  margin-bottom: 2.625rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  border: 0.0625rem solid var(--color-Gray2);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  display: flex;
+  align-items: center;
+}
+
+.slider:before {
+  position: absolute;
+  content: '+';
+  color: var(--color-bg-secondary);
+  font-size: 2.5rem;
+  padding: 0;
+  height: 2.75rem;
+  width: 2.75rem;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  background-color: var(--color-green);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input:checked + .slider:before {
+  background-color: var(--color-pink);
+  content: '_';
+  font-size: 40px;
+  padding-bottom: 40px;
+  -webkit-transform: translateX(2.5rem);
+  -ms-transform: translateX(2.5rem);
+  transform: translateX(2.5rem);
+}
+
+.slider.round {
+  border-radius: 2.125rem;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
 .greyedText {
   font-family: var(--font-secondary);
   font-style: normal;
@@ -59,18 +145,6 @@
   font-size: 1rem;
   line-height: 1.5rem;
   color: var(--color-Gray2);
-  margin-left: 0.6875rem;
-  margin-right: 0.6875rem;
-}
-
-.expenseColor {
-  font-family: var(--font-secondary);
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-pink);
-  margin-left: 0.6875rem;
 }
 
 .categoriesBox {
@@ -137,6 +211,15 @@
   color: var(--color-pink);
 }
 
+.expenseColor {
+  font-family: var(--font-secondary);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--color-pink);
+}
+
 .incomeColor {
   font-family: var(--font-secondary);
   font-style: normal;
@@ -144,11 +227,11 @@
   font-size: 1rem;
   line-height: 1.5rem;
   color: var(--color-green);
-  margin-right: 0.6875rem;
 }
 
 .valueAndTime {
   display: flex;
+  color: var(--color-text-primary);
   flex-direction: column;
   gap: 2.5rem;
   align-items: center;
@@ -177,6 +260,7 @@
 }
 
 .transactionDate {
+  color: var(--color-text-primary);
   border: none;
   width: 17.5rem;
   height: 2rem;
@@ -239,16 +323,15 @@
   font-family: var(--font-secondary);
   margin-top: 2.5rem;
   display: flex;
-  align-items: center;
-  outline: none;
-  border: none;
   font-weight: 400;
   font-size: 1.125rem;
   color: var(--color-bg-secondary);
   line-height: 1.6875rem;
   width: 18.75rem;
   height: 3.125rem;
+  align-items: center;
   justify-content: center;
+  border: none;
   background-color: var(--color-green);
   border-radius: 1.25rem;
   transition-property: background-color;
@@ -264,7 +347,6 @@
   font-family: var(--font-secondary);
   margin-top: 1.25rem;
   display: flex;
-  align-items: center;
   color: var(--color-blue);
   background: var(--color-bg-secondary);
   border: 0.0625rem solid var(--color-blue);
@@ -274,6 +356,7 @@
   font-weight: 400;
   font-size: 1.125rem;
   line-height: 1.6875rem;
+  align-items: center;
   justify-content: center;
   margin-bottom: 2.5rem;
   transition-property: background-color;
@@ -315,14 +398,14 @@ select.categorySelect option {
     width: 33.75rem;
   }
 
-  .categoriesBox {
-    width: 24.625rem;
-  }
-
   .modalTitle {
     margin-top: 2.5rem;
     font-size: 1.875rem;
     line-height: 2.8125rem;
+  }
+
+  .categoriesBox {
+    width: 24.625rem;
   }
 
   .closeBtn {

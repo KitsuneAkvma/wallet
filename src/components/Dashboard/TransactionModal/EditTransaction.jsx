@@ -64,6 +64,11 @@ export const EditTransaction = () => {
     setSelectedDate(date);
   };
 
+  const handleSwitchToggle = () => {
+    setSelectedOption(prevOption => (prevOption === 'Income' ? 'Expense' : 'Income'));
+    setSelectedExpense([]);
+  };
+
   const validationSchema = Yup.object().shape({
     transactionValue: Yup.number()
       .typeError('Value must be a number')
@@ -155,7 +160,14 @@ export const EditTransaction = () => {
               >
                 Income
               </span>
-              /
+              <label className={styles.switch}>
+                <input
+                  type="checkbox"
+                  checked={selectedOption === 'Expense'}
+                  onChange={handleSwitchToggle}
+                />
+                <span className={`${styles.slider} ${styles.round}`}></span>
+              </label>
               <span
                 className={selectedOption === 'Income' ? styles.greyedText : styles.expenseColor}
               >
