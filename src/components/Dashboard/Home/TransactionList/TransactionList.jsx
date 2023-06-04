@@ -25,7 +25,7 @@ export const TransactionList = () => {
 
   const getCategoryNameFromArr = (id, array) => {
     const record = array.filter(record => record._id === id);
-    const categoryName = record[0].name;
+    const categoryName = record[0] ? record[0].name : '';
     return categoryName;
   }
   useEffect(() => {

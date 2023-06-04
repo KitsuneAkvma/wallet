@@ -6,12 +6,13 @@
   width: 100%;
   min-width: 17.5rem;
   max-width: 80rem;
-  padding: 5rem 1.25rem 1.25rem 1.25rem;
+  padding: 5rem 1.25rem 3rem 1.25rem;
   @media (max-width: 767px) {
-    padding: 3.75rem 1.25rem 1.25rem 1.25rem;
+    padding: 3.75rem 1.25rem 2.75rem 1.25rem;
   }
   @media (min-width: 1280px) {
     display: flex;
+    padding-bottom: 1.5rem;
   }
 }
 
@@ -70,6 +71,14 @@
   margin: 0.3125rem 0.3125rem 0.3125rem 0rem;
 }
 
+.navBox:hover .navLink {
+  font-weight: 700;
+}
+
+.navBox:hover path {
+  fill: var(--color-bg-nav-icons-active);
+}
+
 .navLink {
   display: inline-block;
   margin-left: 0.3125rem;
@@ -79,6 +88,8 @@
   line-height: 1.6875rem;
   letter-spacing: 0em;
   color: var(--color-text-primary);
+  transition-property: font-weight;
+  transition-duration: 200ms;
 }
 
 .active path {

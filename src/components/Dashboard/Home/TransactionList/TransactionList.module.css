@@ -17,7 +17,7 @@
 .addTransactionIcon {
   width: 66px;
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
   right: 20px;
   cursor: pointer;
   @media (min-width: 1280px) {
