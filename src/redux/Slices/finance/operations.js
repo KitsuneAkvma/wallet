@@ -77,7 +77,9 @@ const fetchTransactionsByMonth = createAsyncThunk(
   'finance/fetchTransactionsByMonth',
   async (specificDate, thunkApi) => {
     try {
-      const res = await axios.get(`${SUMMARY_URL}/transactions-summary`, { date: specificDate });
+      const res = await axios.get(
+        `${SUMMARY_URL}/transactions-summary/?date=${specificDate.toISOString()}`,
+      );
       const transactions = res.data.data;
       return transactions;
     } catch (e) {
