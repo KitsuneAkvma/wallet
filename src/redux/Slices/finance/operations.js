@@ -65,7 +65,7 @@ const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunk
 const fetchCategories = createAsyncThunk('finance/fetchCategories', async (_, thunkApi) => {
   try {
     const res = await axios.get(`${CATEGORY_URL}/transaction-categories`);
-    const categories = res.data.data.allCategories.map(category => category.name);
+    const categories = res.data.data.allCategories;
 
     return categories;
   } catch (e) {
