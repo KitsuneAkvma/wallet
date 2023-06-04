@@ -45,11 +45,14 @@
 .navBalanceAndCurrencyBox {
   display: flex;
   padding: 2.5rem 1rem 2.5rem 0rem;
+  @media (min-width: 768px) {
+    padding-right: 0rem;
+  }
   @media (min-width: 1280px) {
+    margin-right: 0.5rem;
     width: 33.3%;
     height: 100%;
     display: block;
-    border-right: 0.0625rem solid var(--color-middle-border);
   }
 }
 
