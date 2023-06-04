@@ -9,6 +9,7 @@ const selectSessionError = state => state.session.error;
 const selectGlobalIsLoading = state => state.global.isLoading;
 const selectGlobalModalLogoutState = state => state.global.isLoading;
 const selectGlobalModalTransactionState = state => state.global.isLoading;
+const selectIsCategoriesListOpen = state => state.global.isCategoriesListOpen;
 
 const selectFinanceBalance = state => state.finance.totalBalance;
 const selectFinanceIsLoading = state => state.finance.isLoading;
@@ -26,7 +27,7 @@ export {
   selectSessionError,
 };
 
-export { selectGlobalIsLoading, selectGlobalModalLogoutState, selectGlobalModalTransactionState };
+export { selectGlobalIsLoading, selectGlobalModalLogoutState, selectGlobalModalTransactionState, selectIsCategoriesListOpen };
 
 export {
   selectFinanceBalance,
