@@ -14,7 +14,7 @@ export const Transaction = ({
   amountOfTransaction,
   _id,
   categoriesArray,
-  getCategoryNameFromArr
+  getCategoryNameFromArr,
 }) => {
   const sumColor = typeOfTransaction === 'Income' ? css.greenSum : css.redSum;
   const dispatch = useDispatch();
@@ -23,14 +23,16 @@ export const Transaction = ({
     <li className={css.transactionBox}>
       <div className={css.dateBox}>{transactionDate.slice(0, 10)}</div>
       <div className={css.typeBox}>{typeOfTransaction === 'Income' ? '+' : '-'}</div>
-      <div className={css.categoryBox}>{categoryName === undefined ? categoryId : categoryName}</div>
+      <div className={css.categoryBox}>
+        {categoryName === undefined ? categoryId : categoryName}
+      </div>
       <div className={css.commentBox}>{comment}</div>
-      <div className={`${css.sumBox} ${sumColor}`}>{amountOfTransaction}</div>
+      <div className={`${css.sumBox} ${sumColor}`}>{amountOfTransaction.toFixed(2)}</div>
       <div className={css.editDeleteBox}>
         <ReactSVG
           onClick={() => {
             dispatch(updateIsModalEditTransactionOpen(true));
-            dispatch(updateSelectedTransaction(_id))
+            dispatch(updateSelectedTransaction(_id));
           }}
           className={css.editIcon}
           src="/svg/edit_icon.svg"
