@@ -65,7 +65,6 @@ export const Diagram = () => {
 
         setIncomeValue(incomeValue);
 
-        c;
         const getingCategories = categoryResponse.payload;
 
         const categoryIdMap = categoryIdValues.map((value, index) => ({
