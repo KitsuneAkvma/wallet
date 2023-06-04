@@ -87,6 +87,7 @@
   text-align: center;
   font-weight: 700;
   border: none;
+  background: none;
 }
 
 .selectCategoryInput::placeholder {
@@ -181,6 +182,9 @@
   width: 17.5rem;
   height: 2rem;
   border-bottom: 0.0625rem solid var(--color-Gray1);
+}
+.transactionDate * {
+  color: var(--color-text-primary);
 }
 
 .closeBtn {
