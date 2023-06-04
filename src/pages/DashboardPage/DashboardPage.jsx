@@ -1,5 +1,5 @@
 import { Balance } from '../../components/Dashboard/Home/Balance/Balance.jsx';
-import { CurrencyDummy } from '../../components/Dashboard/CurrencyDummy/CurrencyDummy.jsx';
+import CurrencyTable from '../../components/Dashboard/Currency/Currency';
 import { ReactSVG } from 'react-svg';
 import { Outlet } from 'react-router';
 import Media from 'react-media';
@@ -63,7 +63,7 @@ const DashboardPage = () => {
                       </div>
                       <Balance />
                     </div>
-                    <CurrencyDummy />
+                    <CurrencyTable />
                   </div>
                   <Outlet />
                 </>

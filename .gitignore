@@ -24,6 +24,7 @@ package-lock.json
 *.njsproj
 *.sln
 *.sw?
+dist
 
 # Local Netlify folder
 .netlify
