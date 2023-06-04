@@ -169,6 +169,7 @@ export const TransactionModal = () => {
                   placeholder="Select a category"
                   className={styles.selectCategoryInput}
                   value={category}
+                  readOnly
                 />
                 <ReactSVG className={styles.arrowIcon} src="/svg/arrow_icon.svg" />
                 {isCategoriesListOpen && (

@@ -19,10 +19,11 @@ import { ReactSVG } from 'react-svg';
 import { selectIsCategoriesListOpen } from '../../../redux/selectors';
 
 export const EditTransaction = () => {
-  const [selectedOption, setSelectedOption] = useState('Expense');
+  const [selectedOption, setSelectedOption] = useState('Income');
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
+  const [selectedExpense, setSelectedExpense] = useState([]);
 
   const open = useSelector(state => state.global.isModalEditTransactionOpen);
   const dispatch = useDispatch();
@@ -64,6 +65,11 @@ export const EditTransaction = () => {
     setSelectedDate(date);
   };
 
+  const handleSwitchToggle = () => {
+    setSelectedOption(prevOption => (prevOption === 'Income' ? 'Expense' : 'Income'));
+    setSelectedExpense([]);
+  };
+
   const validationSchema = Yup.object().shape({
     transactionValue: Yup.number()
       .typeError('Value must be a number')
@@ -95,7 +101,7 @@ export const EditTransaction = () => {
         if (selectedOption === 'Expense') {
           transactionData.category = category;
         }
-    
+
         await dispatch(editTransaction(transactionData)).unwrap();
         formik.resetForm();
         closeModal();
@@ -155,7 +161,14 @@ export const EditTransaction = () => {
               >
                 Income
               </span>
-              /
+              <label className={styles.switch}>
+                <input
+                  type="checkbox"
+                  checked={selectedOption === 'Expense'}
+                  onChange={handleSwitchToggle}
+                />
+                <span className={`${styles.slider} ${styles.round}`}></span>
+              </label>
               <span
                 className={selectedOption === 'Income' ? styles.greyedText : styles.expenseColor}
               >
@@ -176,6 +189,7 @@ export const EditTransaction = () => {
                   placeholder="Select a category"
                   className={styles.selectCategoryInput}
                   value={category}
+                  readOnly
                 />
                 <ReactSVG className={styles.arrowIcon} src="/svg/arrow_icon.svg" />
                 {isCategoriesListOpen && (
