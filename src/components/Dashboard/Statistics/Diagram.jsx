@@ -56,7 +56,7 @@ export const Diagram = () => {
   useEffect(() => {
     const getMonthlySummary = async () => {
       const specificDate = new Date(selectedYear, getMonthNumber(selectedMonth), 1);
-      
+
       try {
         const response = await dispatch(fetchTransactionsByMonth(specificDate));
         const { incomeValue, usedCategoryIds, categoryIdValues } = response.payload;
@@ -65,7 +65,6 @@ export const Diagram = () => {
 
         setIncomeValue(incomeValue);
 
-        c
         const getingCategories = categoryResponse.payload;
 
         const categoryIdMap = categoryIdValues.map((value, index) => ({
@@ -83,7 +82,6 @@ export const Diagram = () => {
           usedCategoryId: getCategoryName(item.usedCategoryId),
         }));
 
-       
         setDiagramData(updatedCategoryIdMap);
 
         setCategories(getingCategories.map(category => category.name));

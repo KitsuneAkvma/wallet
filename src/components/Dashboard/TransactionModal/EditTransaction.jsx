@@ -23,6 +23,7 @@ export const EditTransaction = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
+  const [selectedExpense, setSelectedExpense] = useState([]);
 
   const open = useSelector(state => state.global.isModalEditTransactionOpen);
   const dispatch = useDispatch();
@@ -100,7 +101,7 @@ export const EditTransaction = () => {
         if (selectedOption === 'Expense') {
           transactionData.category = category;
         }
-    
+
         await dispatch(editTransaction(transactionData)).unwrap();
         formik.resetForm();
         closeModal();
