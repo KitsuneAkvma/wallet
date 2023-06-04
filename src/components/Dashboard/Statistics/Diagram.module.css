@@ -43,6 +43,74 @@
   margin-bottom: 2rem;
 }
 
+.timeBox {
+  width: 100%;
+  height: 3.125rem;
+  position: relative;
+  border: 0.0625rem solid var(--color-text-primary);
+  border-radius: 1.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.selectMonthInput,
+.selectYearInput {
+  cursor: pointer;
+  color: var(--color-text-primary);
+  text-align: left;
+  border: none;
+  margin-left: 1.25rem;
+  background-color: transparent;
+}
+
+.selectMonthInput:focus,
+.selectYearInput:focus {
+  outline: none;
+  caret-color: transparent;
+}
+
+.arrowIcon {
+  width: 1rem;
+  display: inline-block;
+  position: absolute;
+  right: 1.25rem;
+}
+
+.optionList {
+  position: absolute;
+  top: 3.2rem;
+  list-style: none;
+  width: 100%;
+  border-radius: 1.25rem;
+  z-index: 1;
+}
+
+.optionLi {
+  background-color: var(--color-gray5);
+  display: flex;
+  justify-content: left;
+  padding-left: 1rem;
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: 200ms;
+  z-index: 999;
+}
+
+.optionLi:first-child {
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+}
+
+.optionLi:last-child {
+  border-bottom-left-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
+}
+
+.optionLi:hover {
+  background-color: white;
+}
+
 .centerText {
   position: absolute;
   font-family: var(--font-secondary);
