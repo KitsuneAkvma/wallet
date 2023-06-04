@@ -102,3 +102,46 @@
 .active span {
   font-weight: 700;
 }
+
+.ellipseViolet {
+  filter: blur(3.125rem);
+  position: absolute;
+  width: 38.625rem;
+  left: -9.5831rem;
+  top: 39.6875rem;
+  z-index: -1;
+  @media (max-width: 767px) {
+    display: none;
+  }
+  @media (min-width: 1280px) {
+    width: 45rem;
+  }
+}
+
+.ellipsePeach {
+  filter: blur(3.125rem);
+  position: absolute;
+  width: 38.625rem;
+  right: -12rem;
+  top: -7.5rem;
+  transform: rotate(21.94deg);
+  z-index: -1;
+  @media (max-width: 767px) {
+    display: none;
+  }
+  @media (min-width: 1280px) {
+    width: 45rem;
+  }
+}
+
+.ellipseContainer {
+  z-index: -1;
+  min-height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
