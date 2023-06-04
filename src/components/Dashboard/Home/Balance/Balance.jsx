@@ -23,7 +23,7 @@ export const Balance = () => {
   return (
     <div className={css.balanceBox}>
       <span className={css.balanceTitle}>YOUR BALANCE</span>
-      <span className={css.balanceAmount}>₴ {yourBalance}</span>
+      <span className={css.balanceAmount}>₴ {yourBalance.toFixed(2)}</span>
     </div>
   );
 };
