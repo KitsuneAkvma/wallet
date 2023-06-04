@@ -25,7 +25,6 @@ export const EditTransaction = () => {
   const dispatch = useDispatch();
   const editModal = async () => {
     try {
-      console.log(transactionId);
       const transaction = await dispatch(getOneTransaction(transactionId)).unwrap();
       const dateParts = transaction.transactionDate.split('-');
       const year = parseInt(dateParts[0], 10);
@@ -71,6 +70,10 @@ export const EditTransaction = () => {
   });
 
   const formik = useFormik({
+    initialValues: {
+      transactionValue: '',
+      comment: '',
+    },
     validationSchema,
     onSubmit: async values => {
       try {
@@ -87,7 +90,6 @@ export const EditTransaction = () => {
         }
 
         await dispatch(editTransaction(transactionData)).unwrap();
-        console.log(formik.values);
         formik.resetForm();
         closeModal();
       } catch (error) {
@@ -100,8 +102,8 @@ export const EditTransaction = () => {
     const getCategories = async () => {
       try {
         const response = await dispatch(fetchCategories());
-        setCategories(response.payload);
-        console.log('Transaction Categories:', categories);
+        const categoriesName = response.payload.map(category => category.name);
+        setCategories(categoriesName);
       } catch (error) {
         console.error('Error fetching transaction categories:', error);
       }

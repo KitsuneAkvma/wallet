@@ -32,8 +32,8 @@ export const TransactionModal = () => {
     const getCategories = async () => {
       try {
         const response = await dispatch(fetchCategories());
-        setCategories(response.payload);
-        console.log('Transaction Categories:', categories);
+        const categoriesName = response.payload.map(category => category.name);
+        setCategories(categoriesName);
       } catch (error) {
         console.error('Error fetching transaction categories:', error);
       }
@@ -94,7 +94,6 @@ export const TransactionModal = () => {
           });
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          console.log('Requested resource not found');
         } else {
           console.error('Error:', error.response.data);
         }
