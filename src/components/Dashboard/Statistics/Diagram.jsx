@@ -56,7 +56,6 @@ export const Diagram = () => {
   useEffect(() => {
     const getMonthlySummary = async () => {
       const specificDate = new Date(selectedYear, getMonthNumber(selectedMonth), 1);
-      console.log(specificDate);
       try {
         const response = await dispatch(fetchTransactionsByMonth(specificDate));
         const { incomeValue, usedCategoryIds, categoryIdValues } = response.payload;
