@@ -11,6 +11,9 @@
   background-repeat: no-repeat;
   background-position: bottom;
 }
+.currency * {
+  color: var(--color-bg-secondary);
+}
 
 .currency table {
   width: 100%;
@@ -30,11 +33,10 @@
   font-size: 1.125rem;
   font-weight: bold;
   height: 3.125rem;
-  /* background: rgba(255, 255, 255, 0.2); */
 }
 
 .currency thead td {
-  padding: 0.688rem 0 0.75rem;
+  padding-inline: 2.5rem;
 }
 
 .currency thead td:nth-child(1) {

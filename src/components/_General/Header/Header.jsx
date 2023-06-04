@@ -5,13 +5,14 @@ import styles from './Header.module.css';
 import { logOut } from '../../../redux/Slices/session/operations';
 import { selectSessionUser } from '../../../redux/selectors';
 import { HeaderStripe } from '../HeaderStripe/HeaderStripe';
+import { updateIsModalLogoutOpen } from '../../../redux/Slices/global/globalSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectSessionUser);
-  const userName = user.username
+  const userName = user.username;
   const handleLogout = () => {
-    dispatch(logOut());
+    dispatch(updateIsModalLogoutOpen(true));
   };
 
   return (

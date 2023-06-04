@@ -6,6 +6,7 @@ import Media from 'react-media';
 import css from './DashboardPage.module.css';
 import { NavLink } from 'react-router-dom';
 import Header from '../../components/_General/Header/Header';
+import { LogoutModal } from '../../components/Dashboard/Home/Logout.jsx';
 
 const DashboardPage = () => {
   const queries = {
@@ -27,10 +28,7 @@ const DashboardPage = () => {
                       <ReactSVG className={css.navigationIcon} src="/svg/home_icon.svg" />
                     </NavLink>
                     <NavLink to="/statistics" className={({ isActive }) => isActive && css.active}>
-                      <ReactSVG
-                        className={css.navigationIcon}
-                        src="/svg/statistics_icon.svg"
-                      />
+                      <ReactSVG className={css.navigationIcon} src="/svg/statistics_icon.svg" />
                     </NavLink>
                     <NavLink to="/currencies" className={({ isActive }) => isActive && css.active}>
                       <ReactSVG className={css.navigationIcon} src="/svg/currency_icon.svg" />
@@ -54,10 +52,7 @@ const DashboardPage = () => {
                           to="/statistics"
                           className={({ isActive }) => isActive && css.active}
                         >
-                          <ReactSVG
-                            className={css.navigationIcon}
-                            src="/svg/statistics_icon.svg"
-                          />
+                          <ReactSVG className={css.navigationIcon} src="/svg/statistics_icon.svg" />
                           <span className={css.navLink}>Statistics</span>
                         </NavLink>
                       </div>
@@ -71,6 +66,7 @@ const DashboardPage = () => {
             </>
           )}
         </Media>
+        <LogoutModal />
       </section>
     </>
   );
