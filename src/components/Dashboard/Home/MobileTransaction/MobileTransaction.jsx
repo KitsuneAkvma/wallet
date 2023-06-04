@@ -14,7 +14,7 @@ export const MobileTransaction = ({
   amountOfTransaction,
   _id,
   categoriesArray,
-  getCategoryNameFromArr
+  getCategoryNameFromArr,
 }) => {
   const sumColor = typeOfTransaction === 'Income' ? css.greenSum : css.redSum;
   const borderColor = typeOfTransaction === 'Income' ? css.greenBorder : css.redBorder;
@@ -34,7 +34,9 @@ export const MobileTransaction = ({
       </div>
       <div className={css.transactionSubBox}>
         <span className={css.transactionDetailName}>Category</span>
-        <span className={css.transactionDetailValue}>{categoryName === undefined ? categoryId : categoryName}</span>
+        <span className={css.transactionDetailValue}>
+          {categoryName === undefined ? categoryId : categoryName}
+        </span>
       </div>
       <div className={css.transactionSubBox}>
         <span className={css.transactionDetailName}>Comment</span>
@@ -42,11 +44,13 @@ export const MobileTransaction = ({
       </div>
       <div className={css.transactionSubBox}>
         <span className={css.transactionDetailName}>Sum</span>
-        <span className={`${css.sumBox} ${sumColor}`}>{amountOfTransaction}</span>
+        <span className={`${css.sumBox} ${sumColor}`}>{amountOfTransaction.toFixed(2)}</span>
       </div>
       <div className={css.transactionSubBox}>
         <button
-          onClick={()=>{dispatch(deleteTransaction(_id))}}
+          onClick={() => {
+            dispatch(deleteTransaction(_id));
+          }}
           className={css.deleteButton}
           type="button"
         >
@@ -56,7 +60,6 @@ export const MobileTransaction = ({
           onClick={() => {
             dispatch(updateIsModalEditTransactionOpen(true));
             dispatch(updateSelectedTransaction(_id));
-            
           }}
           className={css.editBox}
         >
