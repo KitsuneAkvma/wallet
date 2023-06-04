@@ -61,5 +61,5 @@ export const findTransactionsByTypeAndDate = (date, type, userId) => {
       ],
     },
     { amountOfTransaction: 1, categoryId: 1, _id: 0 },
-  );
+  ).sort({ transactionDate: 1 });
 };
