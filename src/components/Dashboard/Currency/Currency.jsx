@@ -8,14 +8,14 @@ export default function CurrencyTable() {
 
   useEffect(() => {
     const fetchCurrency = async () => {
-      const data = await currencyApi.fetchCurrency();
+      const data = await currencyApi.fetchNBP();
         const currencies = data[0].rates.filter(rate => rate.code === 'EUR' || rate.code === 'USD');
   const filteredCurrencies = currencies.map(rate => ({
     currency: rate.code,
     bid: rate.bid.toFixed(2),
     ask: rate.ask.toFixed(2)
   }));
-console.log(filteredCurrencies);
+
       setCurrency(filteredCurrencies);
       localStorage.setItem("currency", JSON.stringify(filteredCurrencies));
       localStorage.setItem("currencyTime", Date.now());

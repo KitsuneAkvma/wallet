@@ -1,10 +1,10 @@
 .currency {
   position: relative;
-  max-width: 480px;
-  height: 174px;
+  max-width: 30rem;
+  height: 10.875rem;
   margin: 0 auto;
-  margin-top: 30px;
-  border-radius: 30px;
+  margin-top: 1.938rem;
+  border-radius: 1.875rem;
   color: var(--color-delete-btn-font);
   background-color: var(--color-bg-nav-icons-active);
   background-image: url('../../../../public/svg/currency_vector.svg');
@@ -20,40 +20,41 @@
   font-family: var(--font-secondary);
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 1.125rem;
+  line-height: 1.688rem;
   border-spacing: 0;
   margin: 0;
   padding: 0;
 }
 
 .currency thead {
-  font-size: var(--font-size__accent);
+  font-size: 1.125rem;
   font-weight: bold;
-  height: 50px;
+  height: 3.125rem;
   /* background: rgba(255, 255, 255, 0.2); */
 }
 
 .currency thead td {
-  padding: 11px 0 12px;
+  padding: 0.688rem 0 0.75rem;
 }
 
 .currency thead td:nth-child(1) {
-  border-top-left-radius: 30px;
-  background-color: #ffffff33;
+  border-top-left-radius:  1.875rem;
+  background-color: var(--color-blur);
 }
 
 .currency thead td:nth-child(2) {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--color-blur);
 }
 
 .currency thead td:nth-child(3) {
-  border-top-right-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.2);
+  border-top-right-radius:  1.875rem;
+  background-color: var(--color-blur);
 }
 
 .currency td {
-  padding-top: 10px;
+  padding-top: 0.625rem;
+  font-size: 1rem;
 }
 .loader {
   position: relative;
@@ -66,8 +67,7 @@
 
 @media (min-width: 768px) {
   .currency {
-    width: 334px;
-    background-image: url('../../../../public/svg/currency_vector.svg');
+    width: 20.875rem;
   }
 
   .currencyShow {
@@ -80,22 +80,21 @@
 
 @media (min-width: 1280px) {
   .currency {
-    width: 348px;
-    height: 347px;
-    background-image: url('../../../../public/svg/currency_vector.svg');
+    width: 21.75rem;
+    height: 21.688rem;
     margin-top: 0;
   }
 
   .currency thead {
-    height: 60px;
+    height: 3.75rem;
   }
 
   .currency thead td {
-    padding: 17px 0 16px;
+    padding: 1.063rem 0 1rem;
   }
 
   .currency td {
-    padding-top: 23px;
+    padding-top: 1.438rem;
   }
 }
 
