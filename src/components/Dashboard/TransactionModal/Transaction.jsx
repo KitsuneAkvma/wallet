@@ -6,16 +6,16 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateIsModalAddTransactionOpen } from '../../../redux/Slices/global/globalSlice';
-import categories from '../../../../server/models/categories.json';
 import { addTransaction, fetchCategories } from '../../../redux/Slices/finance/operations';
+import { selectFinanceCategories } from '../../../redux/selectors';
 
 export const TransactionModal = () => {
   const [selectedOption, setSelectedOption] = useState('Expense');
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedExpense, setSelectedExpense] = useState([]);
   const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState([]);
 
-  const categories = useSelector(state => state.finance.categories);
   const open = useSelector(state => state.global.isModalAddTransactionOpen);
   const dispatch = useDispatch();
 
@@ -29,24 +29,23 @@ export const TransactionModal = () => {
   };
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const getCategories = async () => {
       try {
         const response = await dispatch(fetchCategories());
-        if (response.status === 'success' && response.data && response.data.allCategories) {
-          const categories = response.data.allCategories.map(category => category.name);
-          console.log('Transaction Categories:', categories);
-        } else {
-          throw new Error('Invalid response structure');
-        }
+        setCategories(response.payload);
+        console.log('Transaction Categories:', categories);
       } catch (error) {
         console.error('Error fetching transaction categories:', error);
       }
     };
+    getCategories();
+  }, []);
 
+  useEffect(() => {
     if (open) {
       setSelectedDate(new Date());
     }
-  }, [open, dispatch]);
+  }, [open]);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -83,11 +82,10 @@ export const TransactionModal = () => {
           transactionData.category = category;
         }
 
-        console.log(transactionData);
-
         dispatch(addTransaction(transactionData))
           .unwrap()
           .then(() => {
+            console.log(formik.values);
             formik.resetForm();
             closeModal();
           })
@@ -167,11 +165,16 @@ export const TransactionModal = () => {
                       Select your option
                     </option>
                   )}
-                  {categories.map(category => (
-                    <option key={category.name} value={category.name}>
-                      {category.name}
-                    </option>
-                  ))}
+                  {categories.map(category => {
+                    if (category === 'Income') {
+                      return null;
+                    }
+                    return (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             )}
