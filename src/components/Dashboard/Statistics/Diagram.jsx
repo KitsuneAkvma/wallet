@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import styles from './Diagram.module.css';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Datetime from 'react-datetime';
+import {
+  fetchCategories,
+  fetchTransactionsByMonth,
+  getAllTransactions,
+} from '../../../redux/Slices/finance/operations';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const Diagram = () => {
   const [selectedYear, setSelectedYear] = useState('2023');
-  const [selectedMonth, setSelectedMonth] = useState('April');
+  const [selectedMonth, setSelectedMonth] = useState('June');
+  const [categories, setCategories] = useState([]);
+  const [color, setColor] = useState([]);
+  const [diagramData, setDiagramData] = useState([]);
+  const [incomeValue, setIncomeValue] = useState(0);
+
+  const dispatch = useDispatch();
 
   const handleYearChange = e => {
     setSelectedYear(e.target.value);
@@ -15,43 +29,124 @@ export const Diagram = () => {
 
   const handleMonthChange = e => {
     setSelectedMonth(e.target.value);
+    generateChartData(selectedYear, e.target.value);
   };
 
+  const getMonthNumber = month => {
+    const monthMap = {
+      January: 0,
+      February: 1,
+      March: 2,
+      April: 3,
+      May: 4,
+      June: 5,
+      July: 6,
+      August: 7,
+      September: 8,
+      October: 9,
+      November: 10,
+      December: 11,
+    };
+    return monthMap[month];
+  };
+
+  useEffect(() => {
+    const getMonthlySummary = async () => {
+      const specificDate = new Date(selectedYear, getMonthNumber(selectedMonth), 1);
+      console.log(specificDate);
+      try {
+        const response = await dispatch(fetchTransactionsByMonth(specificDate));
+        const { incomeValue, usedCategoryIds, categoryIdValues } = response.payload;
+
+        const categoryResponse = await dispatch(fetchCategories());
+
+        setIncomeValue(incomeValue);
+
+        console.log(response.payload);
+        const getingCategories = categoryResponse.payload;
+
+        const categoryIdMap = categoryIdValues.map((value, index) => ({
+          value: value,
+          usedCategoryId: usedCategoryIds[index],
+        }));
+
+        const getCategoryName = categoryId => {
+          const category = getingCategories.find(category => category._id === categoryId);
+          return category ? category.name : '';
+        };
+
+        const updatedCategoryIdMap = categoryIdMap.map(item => ({
+          value: item.value,
+          usedCategoryId: getCategoryName(item.usedCategoryId),
+        }));
+
+        console.log(updatedCategoryIdMap);
+        setDiagramData(updatedCategoryIdMap);
+
+        setCategories(getingCategories.map(category => category.name));
+        setColor(getingCategories.map(category => category.color));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getMonthlySummary();
+  }, [dispatch, selectedMonth]);
+
   const dataByMonth = {
-    January: [
-      { category: 'Category 1', value: 10.0 },
-      { category: 'Category 2', value: 20.0 },
-      { category: 'Category 3', value: 30.0 },
-      { category: 'Category 4', value: 15.0 },
-      { category: 'Category 5', value: 25.0 },
-    ],
-    February: [
-      { category: 'Category 1', value: 5.0 },
-      { category: 'Category 2', value: 15.0 },
-      { category: 'Category 3', value: 25.0 },
-      { category: 'Category 4', value: 20.0 },
-      { category: 'Category 5', value: 10.0 },
-    ],
-    March: [
-      { category: 'Category 1', value: 15.0 },
-      { category: 'Category 2', value: 10.0 },
-      { category: 'Category 3', value: 5.0 },
-      { category: 'Category 4', value: 20.0 },
-      { category: 'Category 5', value: 30.0 },
-    ],
-    April: [
-      { category: 'Category 1', value: 20.0 },
-      { category: 'Category 2', value: 25.0 },
-      { category: 'Category 3', value: 15.0 },
-      { category: 'Category 4', value: 10.0 },
-      { category: 'Category 5', value: 8.0 },
-    ],
+    January: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    February: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    March: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    April: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    May: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    June: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    July: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    August: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    September: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    October: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    November: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
+    December: diagramData.map(item => ({
+      category: item.usedCategoryId,
+      value: item.value,
+    })),
   };
 
   const generateChartData = (year, month) => {
     const selectedData = dataByMonth[month];
     const chartData = selectedData.map(item => item.value);
-    const categoryColors = ['#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0']; // Define an array of category colors
+    const categoryColors = color.length > 0 ? color : [];
     const backgroundColors = selectedData.map(
       (_, index) => categoryColors[index % categoryColors.length],
     );
@@ -77,9 +172,9 @@ export const Diagram = () => {
     },
   };
 
-  const income = '80.00';
+  const income = incomeValue.toFixed(2);
   const expense = chartData.datasets[0].data.reduce((total, value) => total + value, 0).toFixed(2);
-  const centerTextValue = income - expense;
+  const centerTextValue = (income - expense).toFixed(2);
   const centerTextClass = centerTextValue > 0 ? styles.greenText : styles.redText;
   const centerText = (
     <span className={centerTextClass}>
@@ -110,15 +205,20 @@ export const Diagram = () => {
               <option value="February">February</option>
               <option value="March">March</option>
               <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
             </select>
             <select
               className={styles.optionSelect}
               value={selectedYear}
               onChange={handleYearChange}
             >
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
               <option value="2023">2023</option>
             </select>
           </div>

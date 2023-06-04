@@ -85,7 +85,6 @@ export const TransactionModal = () => {
         dispatch(addTransaction(transactionData))
           .unwrap()
           .then(() => {
-            console.log(formik.values);
             formik.resetForm();
             closeModal();
           })
