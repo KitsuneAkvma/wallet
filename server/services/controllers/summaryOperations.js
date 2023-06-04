@@ -1,10 +1,17 @@
 import { findTransactionsByTypeAndDate } from '../dbControllers/transactions.js';
 
 export const monthlyBalance = async (req, res, next) => {
-  const dateNow = new Date().toISOString();
-  const { date = dateNow } = req.body;
+  const { date } = req.body;
   const { id } = req.user;
+
   try {
+    if (!date) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'Bad request - missing date field',
+      });
+    }
     const incomeTransactions = await findTransactionsByTypeAndDate(date, 'Income', id);
     const incomeValue = incomeTransactions
       .map(transaction => transaction.amountOfTransaction)
