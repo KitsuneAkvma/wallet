@@ -12,6 +12,10 @@
   background-position: bottom;
 }
 
+td, th, thead {
+  color: var(--color-delete-btn-font);
+}
+
 .currency table {
   width: 100%;
   text-align: center;
