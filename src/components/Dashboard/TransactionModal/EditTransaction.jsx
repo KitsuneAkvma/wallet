@@ -89,12 +89,13 @@ export const EditTransaction = () => {
           transactionDate: selectedDate.toISOString(),
           comment: values.comment,
           id: transactionId._id,
+          category: 'Income',
         };
 
         if (selectedOption === 'Expense') {
           transactionData.category = category;
         }
-
+        console.log(selectedOption);
         await dispatch(editTransaction(transactionData)).unwrap();
         formik.resetForm();
         closeModal();
