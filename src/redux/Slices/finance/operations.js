@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const SERVER_URL = 'https://waller-api.onrender.com/api/transactions';
-const CATEGORY_URL = 'https://waller-api.onrender.com/api';
+const SUMMARY_URL = 'https://waller-api.onrender.com/api';
 
 const getAllTransactions = createAsyncThunk('finance/getAll', async (_, thunkApi) => {
   try {
@@ -64,7 +64,7 @@ const deleteTransaction = createAsyncThunk('finance/deleteOne', async (id, thunk
 
 const fetchCategories = createAsyncThunk('finance/fetchCategories', async (_, thunkApi) => {
   try {
-    const res = await axios.get(`${CATEGORY_URL}/transaction-categories`);
+    const res = await axios.get(`${SUMMARY_URL}/transaction-categories`);
     const categories = res.data.data.allCategories;
 
     return categories;
@@ -73,6 +73,21 @@ const fetchCategories = createAsyncThunk('finance/fetchCategories', async (_, th
   }
 });
 
+const fetchTransactionsByMonth = createAsyncThunk(
+  'finance/fetchTransactionsByMonth',
+  async (specificDate, thunkApi) => {
+    try {
+      const res = await axios.get(
+        `${SUMMARY_URL}/transactions-summary/?date=${specificDate.toISOString()}`,
+      );
+      const transactions = res.data.data;
+      return transactions;
+    } catch (e) {
+      return thunkApi.rejectWithValue(e.message);
+    }
+  },
+);
+
 export {
   getAllTransactions,
   getOneTransaction,
@@ -80,4 +95,5 @@ export {
   editTransaction,
   deleteTransaction,
   fetchCategories,
+  fetchTransactionsByMonth,
 };

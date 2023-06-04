@@ -6,12 +6,17 @@ import * as Yup from 'yup';
 import styles from './EditTransaction.module.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
-import { updateIsModalEditTransactionOpen } from '../../../redux/Slices/global/globalSlice';
+import {
+  updateIsCategoriesListOpen,
+  updateIsModalEditTransactionOpen,
+} from '../../../redux/Slices/global/globalSlice';
 import {
   editTransaction,
   getOneTransaction,
   fetchCategories,
 } from '../../../redux/Slices/finance/operations';
+import { ReactSVG } from 'react-svg';
+import { selectIsCategoriesListOpen } from '../../../redux/selectors';
 
 export const EditTransaction = () => {
   const [selectedOption, setSelectedOption] = useState('Expense');
@@ -20,9 +25,10 @@ export const EditTransaction = () => {
   const [categories, setCategories] = useState([]);
 
   const open = useSelector(state => state.global.isModalEditTransactionOpen);
+  const dispatch = useDispatch();
+  const isCategoriesListOpen = useSelector(selectIsCategoriesListOpen);
   const transactionId = useSelector(state => state.finance.selectedTransaction);
 
-  const dispatch = useDispatch();
   const editModal = async () => {
     try {
       const transaction = await dispatch(getOneTransaction(transactionId)).unwrap();
@@ -157,28 +163,38 @@ export const EditTransaction = () => {
             </div>
 
             {selectedOption === 'Expense' && (
-              <div>
-                <select
-                  className={styles.categorySelect}
-                  defaultValue="Select your option"
-                  onChange={e => setCategory(e.target.value)}
-                >
-                  {category ? null : (
-                    <option value="" hidden>
-                      Select your option
-                    </option>
-                  )}
-                  {categories.map(category => {
-                    if (category === 'Income') {
-                      return null;
-                    }
-                    return (
-                      <option key={category} value={category}>
-                        {category}
-                      </option>
-                    );
-                  })}
-                </select>
+              <div
+                className={styles.categoriesBox}
+                onClick={() => {
+                  isCategoriesListOpen
+                    ? dispatch(updateIsCategoriesListOpen(false))
+                    : dispatch(updateIsCategoriesListOpen(true));
+                }}
+              >
+                <input
+                  placeholder="Select a category"
+                  className={styles.selectCategoryInput}
+                  value={category}
+                />
+                <ReactSVG className={styles.arrowIcon} src="/svg/arrow_icon.svg" />
+                {isCategoriesListOpen && (
+                  <ul className={styles.optionList}>
+                    {categories.map(category => {
+                      if (category === 'Income') {
+                        return null;
+                      }
+                      return (
+                        <li
+                          key={category}
+                          className={styles.optionLi}
+                          onClick={() => setCategory(category)}
+                        >
+                          {category}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </div>
             )}
             <div className={styles.valueAndTime}>

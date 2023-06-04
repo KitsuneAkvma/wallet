@@ -147,6 +147,70 @@ input:checked + .slider:before {
   color: var(--color-Gray2);
 }
 
+.categoriesBox {
+  width: 17.5rem;
+  position: relative;
+  border-bottom: 0.0625rem solid var(--color-Gray1);
+  margin-bottom: 1.875rem;
+  cursor: pointer;
+}
+
+.selectCategoryInput {
+  cursor: pointer;
+  color: var(--color-text-primary);
+  text-align: center;
+  font-weight: 700;
+  border: none;
+}
+
+.selectCategoryInput::placeholder {
+  color: var(--color-Gray1);
+}
+
+.selectCategoryInput:focus {
+  outline: none;
+  caret-color: transparent;
+}
+
+.arrowIcon {
+  width: 1rem;
+  display: inline-block;
+  position: absolute;
+  right: 1.25rem;
+}
+
+.optionList {
+  position: absolute;
+  top: 1.6rem;
+  list-style: none;
+  width: 100%;
+  border-radius: 1.25rem;
+  z-index: 1;
+}
+
+.optionLi {
+  background-color: var(--color-gray5);
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: 200ms;
+  z-index: 999;
+}
+
+.optionLi:first-child {
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+}
+
+.optionLi:last-child {
+  border-bottom-left-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
+}
+
+.optionLi:hover {
+  background-color: white;
+  color: var(--color-pink);
+}
+
 .expenseColor {
   font-family: var(--font-secondary);
   font-style: normal;
@@ -338,6 +402,10 @@ select.categorySelect option {
     margin-top: 2.5rem;
     font-size: 1.875rem;
     line-height: 2.8125rem;
+  }
+
+  .categoriesBox {
+    width: 24.625rem;
   }
 
   .closeBtn {

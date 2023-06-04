@@ -6,6 +6,7 @@ import {
   getAllTransactions,
   getOneTransaction,
   fetchCategories,
+  fetchTransactionsByMonth,
 } from './operations';
 
 const initialState = {
@@ -41,12 +42,14 @@ const financeSlice = createSlice({
       .addCase(editTransaction.pending, handlePending)
       .addCase(deleteTransaction.pending, handlePending)
       .addCase(fetchCategories.pending, handlePending)
+      .addCase(fetchTransactionsByMonth.pending, handlePending)
       .addCase(getAllTransactions.rejected, handleRejected)
       .addCase(getOneTransaction.rejected, handleRejected)
       .addCase(addTransaction.rejected, handleRejected)
       .addCase(editTransaction.rejected, handleRejected)
       .addCase(deleteTransaction.rejected, handleRejected)
       .addCase(fetchCategories.rejected, handleRejected)
+      .addCase(fetchTransactionsByMonth.rejected, handleRejected)
       .addCase(getAllTransactions.fulfilled, (state, action) => {
         state.data = action.payload;
         state.isLoading = false;
@@ -68,7 +71,10 @@ const financeSlice = createSlice({
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.isLoading = false;
         state.categories = action.payload;
-
+      })
+      .addCase(fetchTransactionsByMonth.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.categories = action.payload;
       });
   },
 });
