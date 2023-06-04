@@ -8,6 +8,7 @@ import Media from 'react-media';
 import css from './DashboardPage.module.css';
 import { NavLink } from 'react-router-dom';
 import Header from '../../components/_General/Header/Header';
+import { LogoutModal } from '../../components/Dashboard/Home/Logout.jsx';
 
 const DashboardPage = () => {
   const queries = {
@@ -76,6 +77,7 @@ const DashboardPage = () => {
             </>
           )}
         </Media>
+        <LogoutModal />
       </section>
       <div style={{ height: containerHeight }} className={css.ellipseContainer}>
         <ReactSVG className={css.ellipsePeach} src="/svg/ellipse_peach.svg" />

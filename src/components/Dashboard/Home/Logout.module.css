@@ -1,10 +1,11 @@
 .modal {
   position: fixed;
-  color: var(--color-text-primary);
+  color: var(--color-gray5);
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -12,34 +13,65 @@
 }
 .modalContent {
   position: relative;
-  background-color: var(--color-bg-secondary);
-  width: 20rem;
-  padding: 0rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.125rem 0.5rem var(--color-backdrop);
+  width: 90vw;
+  min-height: 10rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(74, 86, 226, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(74, 86, 226, 0.3);
+
   text-align: -webkit-center;
+}
+.modalTitle {
+  color: var(--color-gray5);
+  font-size: 1.5em;
 }
 
 .logoutBtn {
   display: flex;
-  gap: 5rem;
   justify-content: center;
+  gap: 3rem;
+  margin-top: 1rem;
 }
 
 .logoutBtn button {
-  margin: 0;
-  padding: 0.625rem;
-  background: none;
-  margin-bottom: 0.625rem;
-  outline: none;
+  padding: 10px 20px;
+
+  border: none;
+  border-radius: 1.875rem;
+  filter: brightness(80%);
+  cursor: pointer;
+
+  color: var(--color-gray5);
+  font: var(--font-secondary);
+  text-align: center;
+
+  transition: all 0.2s cubic-bezier(0.48, 0.25, 0.57, 0.88);
 }
 
+.logoutBtn button:hover {
+  filter: brightness(100%);
+  transform: scale(1.05);
+}
+.yesBtn {
+  background: var(--color-green);
+}
+.noBtn {
+  background: var(--color-pink);
+}
 .yesBtn:hover {
   border-color: var(--color-green);
-  color: var(--color-green);
+  background: var(--color-green);
 }
 
 .noBtn:hover {
   border-color: var(--color-pink);
-  color: var(--color-pink);
 }
