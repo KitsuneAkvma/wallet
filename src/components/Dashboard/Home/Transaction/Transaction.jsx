@@ -13,14 +13,17 @@ export const Transaction = ({
   comment,
   amountOfTransaction,
   _id,
+  categoriesArray,
+  getCategoryNameFromArr
 }) => {
   const sumColor = typeOfTransaction === 'Income' ? css.greenSum : css.redSum;
   const dispatch = useDispatch();
+  const categoryName = getCategoryNameFromArr(categoryId, categoriesArray);
   return (
     <li className={css.transactionBox}>
       <div className={css.dateBox}>{transactionDate.slice(0, 10)}</div>
       <div className={css.typeBox}>{typeOfTransaction === 'Income' ? '+' : '-'}</div>
-      <div className={css.categoryBox}>{categoryId}</div>
+      <div className={css.categoryBox}>{categoryName === undefined ? categoryId : categoryName}</div>
       <div className={css.commentBox}>{comment}</div>
       <div className={`${css.sumBox} ${sumColor}`}>{amountOfTransaction}</div>
       <div className={css.editDeleteBox}>

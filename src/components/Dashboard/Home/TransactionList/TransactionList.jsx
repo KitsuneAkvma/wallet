@@ -10,8 +10,8 @@ import { TransactionModal } from '../../TransactionModal/Transaction';
 import { updateIsModalAddTransactionOpen } from '../../../../redux/Slices/global/globalSlice';
 import { EditTransaction } from '../../TransactionModal/EditTransaction';
 import { useEffect } from 'react';
-import { selectFinanceData } from '../../../../redux/selectors';
-import { getAllTransactions } from '../../../../redux/Slices/finance/operations';
+import { selectFinanceCategories, selectFinanceData } from '../../../../redux/selectors';
+import { fetchCategories, getAllTransactions } from '../../../../redux/Slices/finance/operations';
 
 export const TransactionList = () => {
   const queries = {
@@ -20,9 +20,17 @@ export const TransactionList = () => {
     screen: '(min-width: 1280px)',
   };
   const transactions = useSelector(selectFinanceData);
+  const categoriesArray = useSelector(selectFinanceCategories);
   const dispatch = useDispatch();
+
+  const getCategoryNameFromArr = (id, array) => {
+    const record = array.filter(record => record._id === id);
+    const categoryName = record[0] ? record[0].name : '';
+    return categoryName;
+  }
   useEffect(() => {
     dispatch(getAllTransactions());
+    dispatch(fetchCategories());
   }, []);
   return (
     <>
@@ -34,7 +42,12 @@ export const TransactionList = () => {
                 <Balance />
                 <ul className={css.transactionList}>
                   {transactions.map(transaction => (
-                    <MobileTransaction key={transaction.id} {...transaction} />
+                    <MobileTransaction
+                      key={transaction._id}
+                      {...transaction}
+                      categoriesArray={categoriesArray}
+                      getCategoryNameFromArr={getCategoryNameFromArr}
+                    />
                   ))}
                 </ul>
               </>
@@ -44,7 +57,12 @@ export const TransactionList = () => {
                 <TransactionListHeader />
                 <ul className={css.transactionList}>
                   {transactions.map(transaction => (
-                    <Transaction key={transaction.id} {...transaction} />
+                    <Transaction
+                      key={transaction._id}
+                      {...transaction}
+                      categoriesArray={categoriesArray}
+                      getCategoryNameFromArr={getCategoryNameFromArr}
+                    />
                   ))}
                 </ul>
               </div>
