@@ -6,7 +6,7 @@ import DashboardPage from '../pages/DashboardPage/DashboardPage';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import { TransactionList } from '../components/Dashboard/Home/TransactionList/TransactionList';
-import { CurrencyDummy } from '../components/Dashboard/CurrencyDummy/CurrencyDummy';
+import CurrencyTable from '../components/Dashboard/Currency/Currency';
 import { Diagram } from '../components/Dashboard/Statistics/Diagram';
 
 const Router = () => {
@@ -16,7 +16,7 @@ const Router = () => {
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<DashboardPage />}>
             <Route index element={<TransactionList />} />
-            <Route path="currencies" element={<CurrencyDummy />} />
+            <Route path="currencies" element={<CurrencyTable />} />
             <Route path="statistics" element={<Diagram />} />
           </Route>
         </Route>
