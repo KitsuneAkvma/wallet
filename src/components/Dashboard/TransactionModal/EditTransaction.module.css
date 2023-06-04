@@ -315,6 +315,10 @@ select.categorySelect option {
     width: 33.75rem;
   }
 
+  .categoriesBox {
+    width: 24.625rem;
+  }
+
   .modalTitle {
     margin-top: 2.5rem;
     font-size: 1.875rem;
