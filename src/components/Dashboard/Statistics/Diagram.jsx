@@ -20,10 +20,6 @@ export const Diagram = () => {
   const [categories, setCategories] = useState([]);
   const [color, setColor] = useState([]);
   const [diagramData, setDiagramData] = useState([]);
-  const [chosenMonth, setChosenMonth] = useState(
-    new Date().toLocaleString('en-US', { month: 'long' }),
-  );
-  const [chosenYear, setChosenYear] = useState(new Date().getFullYear());
   const [isMonthListOpen, setIsMonthListOpen] = useState(false);
   const [isYearListOpen, setIsYearListOpen] = useState(false);
   const [incomeValue, setIncomeValue] = useState(0);
