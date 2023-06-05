@@ -4,6 +4,7 @@ import {
   login,
   refreshUser,
   resendEmailVerification,
+  signOut,
   signUp,
   verifyUserEmail,
 } from './operations';
@@ -85,6 +86,7 @@ const sessionSlice = createSlice({
       .addCase(refreshUser.pending, handlePending)
       .addCase(verifyUserEmail.pending, handlePending)
       .addCase(resendEmailVerification.pending, handlePending)
+      .addCase(signOut.pending, handlePending)
       .addCase(signUp.rejected, handleRejected)
       .addCase(login.rejected, handleRejected)
       .addCase(logOut.rejected, state => {
@@ -101,6 +103,7 @@ const sessionSlice = createSlice({
       })
       .addCase(verifyUserEmail.rejected, handleRejected)
       .addCase(resendEmailVerification.rejected, handleRejected)
+      .addCase(signOut.rejected, handleRejected)
       .addCase(signUp.fulfilled, state => {
         state.isLoading = false;
       })
@@ -124,6 +127,12 @@ const sessionSlice = createSlice({
       })
       .addCase(resendEmailVerification.fulfilled, state => {
         state.isLoading = false;
+      })
+      .addCase(signOut.fulfilled, state => {
+        state.isLoading = false;
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isAuth = false;
       });
   },
 });

@@ -5,9 +5,9 @@
   top: 0;
   z-index: 3;
   width: 100dvw;
-  max-width: 1280px;
-  padding: 0rem 1.25rem;
-  height: 3.75rem;
+  max-width: 80rem;
+  padding: 0px 20px;
+  height: 60px;
   display: flex;
   justify-content: center;
 
@@ -21,33 +21,39 @@
   align-items: center;
 }
 .content__logo {
-  width: 7.5rem;
-  height: 1.875rem;
+  width: 120px;
+  height: 30px;
   display: flex;
-  gap: 0.875rem;
+  gap: 14px;
   align-items: center;
 }
 .logo__icon {
-  max-width: 1.875rem;
-  max-height: 1.875rem;
+  max-width: 30px;
+  max-height: 30px;
 }
 .logo__text {
-  max-width: 4.625rem;
-  max-height: 1.0625rem;
+  max-width: 74px;
+  max-height: 17px;
   color: var(--color-text-primary);
 }
 
 .content__user {
   display: flex;
-  gap: 0.75rem;
+  gap: 12px;
   align-items: center;
 }
 .user__name {
   font-family: var(--font-secondary);
-  font-size: 1.125rem;
+  font-size: 18px;
   font-weight: 400;
   color: var(--color-Gray1);
+
+  cursor: pointer;
 }
+.user__name:hover {
+  color: var(--color-blue);
+}
+
 .user__vertLine {
   display: none;
 }
@@ -67,54 +73,54 @@
   fill: var(--color-blue);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .header {
-    height: 5rem;
+    height: 80px;
   }
   .content__logo {
-    width: 11.3125rem;
-    height: 2.5rem;
-    gap: 1.25rem;
+    width: 181px;
+    height: 40px;
+    gap: 20px;
   }
   .logo__icon {
-    max-width: 2.5rem;
-    max-height: 2.5rem;
+    max-width: 40px;
+    max-height: 40px;
   }
   .logo__text {
-    max-width: 6.25rem;
-    max-height: 2.8125rem;
+    max-width: 100px;
+    max-height: 45px;
   }
 
   .user__vertLine {
     display: block;
-    width: 0.03rem;
-    height: 1.875rem;
+    width: .48px;
+    height: 30px;
     background-color: var(--color-Gray1);
   }
   .user__logout {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
   }
   .user__logout::after {
     content: 'Exit';
 
     font-family: var(--font-secondary);
-    font-size: 1.125rem;
+    font-size: 18px;
     color: var(--color-Gray1);
   }
   .user__logout:hover:after {
     color: var(--color-blue);
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .header__content {
     width: 97.5dvw;
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 80rem) {
   .header {
-    left: calc((100vw - 1280px) / 2);
+    left: calc((100vw - 80rem) / 2);
   }
 }
