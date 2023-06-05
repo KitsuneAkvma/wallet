@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-const SERVER_URL = 'http://localhost:3000/api';
+const SERVER_URL = 'https://waller-api.onrender.com/api';
 
 // Utility to add JWT
 const setAuthHeader = token => {
