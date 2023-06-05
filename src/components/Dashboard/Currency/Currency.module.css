@@ -10,6 +10,12 @@
   background-image: url('../../../../public/svg/currency_vector.svg');
   background-repeat: no-repeat;
   background-position: bottom;
+  @media (min-width: 500px) and (max-width:767px) {
+    background-size: cover;
+  }
+  @media (min-width: 1050px) and (max-width:1279px) {
+    background-size: cover;
+  }
 }
 .currency * {
   color: var(--color-bg-secondary);
@@ -37,10 +43,6 @@
   font-size: 1.125rem;
   font-weight: bold;
   height: 3.125rem;
-}
-
-.currency thead td {
-  padding-inline: 2.5rem;
 }
 
 .currency thead td:nth-child(1) {
