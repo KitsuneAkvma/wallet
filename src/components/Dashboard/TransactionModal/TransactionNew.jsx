@@ -100,6 +100,7 @@ export const TransactionModal = () => {
           });
       } catch (error) {
         if (error.response && error.response.status === 404) {
+          return;
         } else {
           console.error('Error:', error.response.data);
         }
@@ -307,6 +308,7 @@ export const TransactionModal = () => {
                 <div className={styles.error}>{formik.errors.transactionValue}</div>
               ) : null}
               <div className={styles.transactionDate}>
+                {' '}
                 <Datetime
                   value={selectedDate}
                   onChange={handleDateChange}
@@ -315,6 +317,7 @@ export const TransactionModal = () => {
                   className={styles.datetimePicker}
                 />
               </div>
+              <ReactSVG src="/svg/date_icon.svg" className={styles.dateIcon} />
             </div>
             <input
               type="text"
