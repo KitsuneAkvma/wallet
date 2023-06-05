@@ -57,6 +57,9 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 }
 
 .selectMonthInput,
@@ -254,6 +257,9 @@
   .select {
     flex-direction: row;
     gap: 1rem;
+    @media (min-width: 1280px) {
+      width: 100%;
+    }
   }
 
   .optionSelect {
@@ -302,7 +308,6 @@
 
   .select {
     flex-direction: row;
-    gap: 2rem;
   }
 
   .optionSelect {
@@ -314,7 +319,6 @@
     width: 100%;
     height: 18rem;
     margin: 0;
-    margin-right: 2rem;
   }
 
   .dataTitle {
