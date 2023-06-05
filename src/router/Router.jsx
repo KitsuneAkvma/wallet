@@ -8,6 +8,7 @@ import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import { TransactionList } from '../components/Dashboard/Home/TransactionList/TransactionList';
 import CurrencyTable from '../components/Dashboard/Currency/Currency';
 import { Diagram } from '../components/Dashboard/Statistics/Diagram';
+import VerifyPage from '../pages/VerifyPage/VerifyPage';
 
 const Router = () => {
   return (
@@ -24,6 +25,7 @@ const Router = () => {
         <Route element={<RestrictedRoutes />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<RegisterPage />} />
+          <Route path="/verifyEmail" element={<VerifyPage />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

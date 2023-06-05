@@ -1,0 +1,21 @@
+.VerifyPage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.VerifyPage__blob_peach {
+  position: absolute;
+  transform: translate(-50%, -30%);
+  z-index: -1;
+  width: 50rem;
+  height: 50rem;
+}
+.VerifyPage__blob_violet {
+  position: absolute;
+  transform: translate(50%, 50%);
+  z-index: -1;
+  width: 50rem;
+  height: 50rem;
+}

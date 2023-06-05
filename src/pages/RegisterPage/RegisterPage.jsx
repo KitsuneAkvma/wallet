@@ -103,6 +103,7 @@ const RegisterPage = () => {
       if (response.meta.requestStatus === 'fulfilled') {
         form.reset();
         handleRegisterFormReset();
+        navigate(`/verifyEmail/?user=${email}`)
       }
     } catch (error) {
       error.inner.forEach(validationError => {
