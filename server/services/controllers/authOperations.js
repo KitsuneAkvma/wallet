@@ -85,8 +85,8 @@ export const secondVerifyEmail = async (req, res, next) => {
       to: [myEmail, { email }],
       from: myEmail,
       subject: 'Wallet app verification email',
-      text: `Please confirm your email address at ${verificationPath}${user.verificationToken}`,
-      html: `Please confirm your email address at <strong><a href="${verificationPath}${user.verificationToken}">${verificationPath}${user.verificationToken}</a></strong>`,
+      text: `Please confirm your email address by clicking on the link http://localhost:5173/verify-email/?token=${user.verificationToken}`,
+      html: `Please confirm your email address by clicking <strong><a href="http://localhost:5173/verify-email/?token=${user.verificationToken}">Here</a></strong>`,
     };
     await sgMail.send(verificationEmail);
     res.json({ code: 200, message: 'Verification email sent' });

@@ -117,6 +117,42 @@ const refreshUser = createAsyncThunk('users/currentUser', async (_, thunkAPI) =>
     return thunkAPI.rejectWithValue(error.message);
   }
 });
+const verifyUserEmail = createAsyncThunk(
+  'users/verifyEmail',
+  async (verificationToken, thunkAPI) => {
+    try {
+      const res = await axios.post(`${SERVER_URL}/users/verify/${verificationToken}`);
+      return res.data;
+    } catch (e) {
+      thunkAPI.rejectWithValue(e.message);
+    }
+  },
+);
+
+const resendEmailVerification = createAsyncThunk(
+  'users/resendEmailVerification',
+  async (email, thunkAPI) => {
+    const progressToast = toast.loading('Resending...');
+    try {
+      const res = await axios.post(`${SERVER_URL}/users/verify`, { email });
+      toast.update(progressToast, {
+        render: 'Sent! 📨',
+        type: 'success',
+        isLoading: false,
+        autoClose: 2000,
+      });
+      return res.data;
+    } catch (e) {
+      toast.update(progressToast, {
+        render: 'Something went wrong 😥',
+        type: 'error',
+        isLoading: false,
+        autoClose: 2000,
+      });
+      thunkAPI.rejectWithValue(e.message);
+    }
+  },
+);
 
 export { setAuthHeader, clearAuthHeader };
-export { signUp, login, logOut, refreshUser };
+export { signUp, login, logOut, refreshUser, resendEmailVerification, verifyUserEmail };
