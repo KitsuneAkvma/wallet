@@ -41,8 +41,8 @@ export const registration = async (req, res, next) => {
       to: [myEmail, { email }],
       from: myEmail,
       subject: 'Wallet app verification email',
-      text: `Please confirm your email address by clicking on the link https://wallet-app-g3.netlify.app/verify-email/?token=${verificationToken}`,
-      html: `Please confirm your email address by clicking <strong><a href="https://wallet-app-g3.netlify.app/verify-email/?token=${verificationToken}">Here</a></strong>`,
+      text: `Please confirm your email address by clicking on the link https://wallet-app-g3.netlify.app/verifyEmail/?token=${verificationToken}`,
+      html: `Please confirm your email address by clicking <strong><a href="https://wallet-app-g3.netlify.app/verifyEmail/?token=${verificationToken}">Here</a></strong>`,
     };
     await sgMail.send(verificationEmail);
     res.status(201).json({
@@ -85,8 +85,8 @@ export const secondVerifyEmail = async (req, res, next) => {
       to: [myEmail, { email }],
       from: myEmail,
       subject: 'Wallet app verification email',
-      text: `Please confirm your email address by clicking on the link https://wallet-app-g3.netlify.app/verify-email/?token=${user.verificationToken}`,
-      html: `Please confirm your email address by clicking <strong><a href="https://wallet-app-g3.netlify.app/verify-email/?token=${user.verificationToken}">Here</a></strong>`,
+      text: `Please confirm your email address by clicking on the link https://wallet-app-g3.netlify.app/verifyEmail/?token=${user.verificationToken}`,
+      html: `Please confirm your email address by clicking <strong><a href="https://wallet-app-g3.netlify.app/verifyEmail/?token=${user.verificationToken}">Here</a></strong>`,
     };
     await sgMail.send(verificationEmail);
     res.json({ code: 200, message: 'Verification email sent' });
