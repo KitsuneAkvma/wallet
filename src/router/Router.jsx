@@ -25,9 +25,8 @@ const Router = () => {
         <Route element={<RestrictedRoutes />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<RegisterPage />} />
-          <Route path="/verify-email" element={<VerifyPage />} />
         </Route>
-
+        <Route path="/verify-email" element={<VerifyPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
