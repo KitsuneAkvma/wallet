@@ -196,7 +196,7 @@ input:checked + .slider:before {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(9.3px);
   -webkit-backdrop-filter: blur(9.3px);
-  text-align: left;F
+  text-align: left;
 }
 
 .optionLi {
