@@ -33,7 +33,7 @@
   outline: none;
 }
 .modal {
-  z-index: 2;
+  z-index: 3;
   position: fixed;
   color: var(--color-text-primary);
   top: 0;
