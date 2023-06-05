@@ -42,8 +42,8 @@ export const registration = async (req, res, next) => {
       to: [myEmail, { email }],
       from: myEmail,
       subject: 'Wallet app verification email',
-      text: `Please confirm your email address at ${verificationPath}${verificationToken}`,
-      html: `Please confirm your email address at <strong><a href="${verificationPath}${verificationToken}">${verificationPath}${verificationToken}</a></strong>`,
+      text: `Please confirm your email address by clicking on the link https://wallet-app-g3.netlify.app/verify-email/?token=${verificationToken}`,
+      html: `Please confirm your email address by clicking <strong><a href="https://wallet-app-g3.netlify.app/verify-email/?token=${verificationToken}">Here</a></strong>`,
     };
     await sgMail.send(verificationEmail);
     res.status(201).json({
@@ -54,6 +54,7 @@ export const registration = async (req, res, next) => {
       data: { newUser: { id, email, username, balance, verificationToken } },
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
