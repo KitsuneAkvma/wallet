@@ -52,7 +52,6 @@ export const UserPanel = () => {
               {' '}
               <ul className={css.navigation__list}>
                 {options.map((option, index) => {
-                  console.log({ option, selectedOption });
                   return (
                     <li
                       key={option.name}

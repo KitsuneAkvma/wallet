@@ -5,7 +5,7 @@ import { ReactSVG } from 'react-svg';
 
 export const UserInfo = () => {
   const user = useSelector(selectSessionUser);
-  console.log(user);
+
   return (
     <>
       <h3 className={css.UserInfo__title}>User info</h3>

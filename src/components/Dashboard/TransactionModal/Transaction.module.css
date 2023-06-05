@@ -193,14 +193,15 @@ input:checked + .slider:before {
   z-index: 1;
   border-radius: 1.25rem;
   list-style: none;
-  background: rgba(240, 240, 240, 0.71);
+  background: rgba(240, 240, 240, 0.7);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(9.3px);
   -webkit-backdrop-filter: blur(9.3px);
+  text-align: left;
 }
 
 .optionLi {
-  padding-block: 0.3rem;
+  width: 100%;
   cursor: pointer;
   transition-property: background-color;
   transition-duration: 200ms;
@@ -218,7 +219,6 @@ input:checked + .slider:before {
 }
 
 .optionLi:hover {
-  background-color: white;
   color: var(--color-pink);
 }
 
