@@ -240,7 +240,11 @@ export const EditTransaction = () => {
                   dateFormat="DD-MM-YYYY"
                   timeFormat={false}
                   className={styles.datetimePicker}
-                />
+                />{' '}
+   
+                  {' '}
+                  <ReactSVG src="/svg/date_icon.svg" className={styles.dateIcon} />
+            
               </div>
             </div>
             <input

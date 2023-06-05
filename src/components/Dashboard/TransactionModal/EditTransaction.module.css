@@ -183,14 +183,24 @@ input:checked + .slider:before {
 .optionList {
   position: absolute;
   top: 1.6rem;
-  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
-  border-radius: 1.25rem;
+  padding-left: 2rem;
+
   z-index: 1;
+  border-radius: 1.25rem;
+  list-style: none;
+  background: rgba(240, 240, 240, 0.71);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.3px);
+  -webkit-backdrop-filter: blur(9.3px);
 }
 
 .optionLi {
-  background-color: var(--color-gray5);
+  padding-block: 0.3rem;
   cursor: pointer;
   transition-property: background-color;
   transition-duration: 200ms;
@@ -261,6 +271,7 @@ input:checked + .slider:before {
 }
 
 .transactionDate {
+  position: relative;
   color: var(--color-text-primary);
   border: none;
   width: 17.5rem;
@@ -269,6 +280,14 @@ input:checked + .slider:before {
 }
 .transactionDate * {
   color: var(--color-text-primary);
+}
+.dateIcon {
+  position: absolute;
+  top: 0rem;
+  right: 5%;
+
+  width: 1.125rem;
+  height: 1.25rem;
 }
 
 .closeBtn {

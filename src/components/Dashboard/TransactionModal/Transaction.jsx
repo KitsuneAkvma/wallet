@@ -221,6 +221,7 @@ export const TransactionModal = () => {
                   timeFormat={false}
                   className={styles.datetimePicker}
                 />
+                <ReactSVG src="/svg/date_icon.svg" className={styles.dateIcon} />
               </div>
             </div>
             <input
