@@ -11,6 +11,7 @@ const selectGlobalModalLogoutState = state => state.global.isModalLogoutOpen;
 const selectGlobalModalAddTransactionState = state => state.global.isModalAddTransactionOpen;
 const selectGlobalModalEditTransactionState = state => state.global.isModalEditTransactionOpen;
 const selectIsCategoriesListOpen = state => state.global.isCategoriesListOpen;
+const selectGlobalIsUserPanelOpen = state => state.global.isUserPanelOpen;
 
 const selectFinanceBalance = state => state.finance.totalBalance;
 const selectFinanceIsLoading = state => state.finance.isLoading;
@@ -34,6 +35,7 @@ export {
   selectGlobalModalAddTransactionState,
   selectGlobalModalEditTransactionState,
   selectIsCategoriesListOpen,
+  selectGlobalIsUserPanelOpen,
 };
 
 export {

@@ -1,0 +1,90 @@
+.UserOptions__title {
+  margin-bottom: 2rem;
+}
+.UserOptions__content {
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.UserOptions__options {
+}
+.options__item_signOut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  margin-inline: auto;
+}
+.signOut_title {
+  color: rgb(255, 101, 112);
+}
+.signOut_desc {
+  color: rgb(255, 101, 112);
+}
+.signOut_choice {
+  display: flex;
+  gap: 3rem;
+}
+.signOut_button {
+  padding: 1rem 2rem;
+
+  border-radius: 30rem;
+  border: none;
+  background-color: rgba(255, 101, 112, 0.9);
+
+  cursor: pointer;
+
+  color: var(--color-gray5);
+  font-size: 1.4em;
+  font-weight: 700;
+
+  transition: all 0.2s ease-in;
+  user-select: none;
+}
+
+.options__item_signOut_yes {
+  padding: 1rem 2rem;
+
+  border-radius: 30rem;
+  border: none;
+  background-color: rgba(255, 101, 112, 0.9);
+
+  cursor: pointer;
+
+  color: var(--color-gray5);
+  font-size: 1.4em;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  transition: all 0.2s ease-in;
+  user-select: none;
+}
+.options__item_signOut_no {
+  padding: 1rem 2rem;
+
+  border-radius: 30rem;
+  border: none;
+  background-color: #24cca7;
+
+  cursor: pointer;
+
+  color: var(--color-gray5);
+  font-size: 1.4em;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  transition: all 0.2s ease-in;
+  user-select: none;
+}
+.signOut_button:hover {
+  filter: brightness(70%);
+  transform: scale(0.9);
+}
+.options__item_signOut_yes:hover,
+.options__item_signOut_no:hover {
+  filter: brightness(110%);
+  transform: scale(1.05);
+}

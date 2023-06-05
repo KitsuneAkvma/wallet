@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import styles from './Header.module.css';
 
-import { logOut } from '../../../redux/Slices/session/operations';
 import { selectSessionUser } from '../../../redux/selectors';
 import { HeaderStripe } from '../HeaderStripe/HeaderStripe';
-import { updateIsModalLogoutOpen } from '../../../redux/Slices/global/globalSlice';
+import {
+  updateIsModalLogoutOpen,
+  updateIsUserPanelOpen,
+} from '../../../redux/Slices/global/globalSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -13,6 +15,9 @@ const Header = () => {
   const userName = user.username;
   const handleLogout = () => {
     dispatch(updateIsModalLogoutOpen(true));
+  };
+  const handleOpenUserPanel = () => {
+    dispatch(updateIsUserPanelOpen(true));
   };
 
   return (
@@ -27,7 +32,9 @@ const Header = () => {
           </div>
 
           <div className={styles.content__user}>
-            <span className={styles.user__name}>{userName}</span>
+            <span className={styles.user__name} onClick={handleOpenUserPanel} role="button">
+              {userName}
+            </span>
             <div className={styles.user__vertLine} />
             <ReactSVG
               src="/svg/icon-exit1.svg"

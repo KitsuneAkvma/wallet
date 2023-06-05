@@ -6,6 +6,7 @@ const initialState = {
   isModalAddTransactionOpen: false,
   isModalEditTransactionOpen: false,
   isCategoriesListOpen: false,
+  isUserPanelOpen: false,
 };
 
 const globalSlice = createSlice({
@@ -27,6 +28,9 @@ const globalSlice = createSlice({
     updateIsCategoriesListOpen: (state, action) => {
       state.isCategoriesListOpen = action.payload;
     },
+    updateIsUserPanelOpen: (state, action) => {
+      state.isUserPanelOpen = action.payload;
+    },
   },
 });
 
@@ -38,4 +42,5 @@ export const {
   updateIsModalAddTransactionOpen,
   updateIsModalEditTransactionOpen,
   updateIsCategoriesListOpen,
+  updateIsUserPanelOpen,
 } = globalSlice.actions;

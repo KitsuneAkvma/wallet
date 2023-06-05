@@ -154,5 +154,13 @@ const resendEmailVerification = createAsyncThunk(
   },
 );
 
+const signOut = createAsyncThunk('users/signOut', async (_, thunkAPI) => {
+  try {
+    const res = await axios.delete(`${SERVER_URL}/users/auth/sign-out`);
+    return res.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+});
 export { setAuthHeader, clearAuthHeader };
-export { signUp, login, logOut, refreshUser, resendEmailVerification, verifyUserEmail };
+export { signUp, login, logOut, refreshUser, resendEmailVerification, verifyUserEmail, signOut };

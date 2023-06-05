@@ -9,6 +9,7 @@ import css from './DashboardPage.module.css';
 import { NavLink } from 'react-router-dom';
 import Header from '../../components/_General/Header/Header';
 import { LogoutModal } from '../../components/Dashboard/Home/Logout.jsx';
+import { UserPanel } from '../UserPanel/UserPanel.jsx';
 
 const DashboardPage = () => {
   const queries = {
@@ -17,7 +18,7 @@ const DashboardPage = () => {
     screen: '(min-width: 1280px)',
   };
   const [containerHeight, setContainerHeight] = useState(0);
-  const location = useLocation()
+  const location = useLocation();
   useEffect(() => {
     const updateContainerHeight = () => {
       setContainerHeight(document.body.scrollHeight);
@@ -78,6 +79,7 @@ const DashboardPage = () => {
           )}
         </Media>
         <LogoutModal />
+        <UserPanel />
       </section>
       <div style={{ height: containerHeight }} className={css.ellipseContainer}>
         <ReactSVG className={css.ellipsePeach} src="/svg/ellipse_peach.svg" />

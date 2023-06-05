@@ -10,6 +10,7 @@ import CurrencyTable from '../components/Dashboard/Currency/Currency';
 import { Diagram } from '../components/Dashboard/Statistics/Diagram';
 import VerifyPage from '../pages/VerifyPage/VerifyPage';
 
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -18,7 +19,7 @@ const Router = () => {
           <Route path="/" element={<DashboardPage />}>
             <Route index element={<TransactionList />} />
             <Route path="currencies" element={<CurrencyTable />} />
-            <Route path="statistics" element={<Diagram />} />
+            <Route path="statistics" element={<Diagram />} />{' '}
           </Route>
         </Route>
 
