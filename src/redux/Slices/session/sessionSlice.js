@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logOut, login, refreshUser, signUp } from './operations';
+import {
+  logOut,
+  login,
+  refreshUser,
+  resendEmailVerification,
+  signUp,
+  verifyUserEmail,
+} from './operations';
 
 const initialState = {
   user: { id: '', username: '', email: '' },
@@ -76,6 +83,8 @@ const sessionSlice = createSlice({
       .addCase(login.pending, handlePending)
       .addCase(logOut.pending, handlePending)
       .addCase(refreshUser.pending, handlePending)
+      .addCase(verifyUserEmail.pending, handlePending)
+      .addCase(resendEmailVerification.pending, handlePending)
       .addCase(signUp.rejected, handleRejected)
       .addCase(login.rejected, handleRejected)
       .addCase(logOut.rejected, state => {
@@ -84,13 +93,14 @@ const sessionSlice = createSlice({
         state.token = null;
         state.isAuth = false;
       })
-
       .addCase(refreshUser.rejected, state => {
         state.isLoading = false;
         state.user = { name: null, email: null };
         state.token = null;
         state.isAuth = false;
       })
+      .addCase(verifyUserEmail.rejected, handleRejected)
+      .addCase(resendEmailVerification.rejected, handleRejected)
       .addCase(signUp.fulfilled, state => {
         state.isLoading = false;
       })
@@ -107,6 +117,12 @@ const sessionSlice = createSlice({
         state.isAuth = false;
       })
       .addCase(refreshUser.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(verifyUserEmail.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(resendEmailVerification.fulfilled, state => {
         state.isLoading = false;
       });
   },
