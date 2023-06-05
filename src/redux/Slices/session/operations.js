@@ -121,7 +121,7 @@ const verifyUserEmail = createAsyncThunk(
   'users/verifyEmail',
   async (verificationToken, thunkAPI) => {
     try {
-      const res = await axios.post(`${SERVER_URL}/users/verify/${verificationToken}`);
+      const res = await axios.get(`${SERVER_URL}/users/verify/${verificationToken}`);
       return res.data;
     } catch (e) {
       thunkAPI.rejectWithValue(e.message);
