@@ -34,15 +34,15 @@ export const registration = async (req, res, next) => {
     });
     newUser.setPassword(password);
     await newUser.save();
-    const { id, balance } = newUser;
+    const { id, balance,email } = newUser;
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const myEmail = process.env.MY_EMAIL;
     const verificationEmail = {
-      to: [myEmail, { email }],
+      to:  email ,
       from: myEmail,
       subject: 'Wallet app verification email',
-      text: `Please confirm your email address by clicking on the link https://wallet-app-g3.netlify.app/verifyEmail/?token=${verificationToken}`,
-      html: `Please confirm your email address by clicking <strong><a href="https://wallet-app-g3.netlify.app/verifyEmail/?token=${verificationToken}">Here</a></strong>`,
+      text: `Please confirm your email address by clicking on the link http://wallet-app.mateusz-martin.online/verifyEmail/?token=${verificationToken}`,
+      html: `Please confirm your email address by clicking <strong><a href="http://wallet-app.mateusz-martin.online/verifyEmail/?token=${verificationToken}">Here</a></strong>`,
     };
     await sgMail.send(verificationEmail);
     res.status(201).json({
@@ -85,8 +85,8 @@ export const secondVerifyEmail = async (req, res, next) => {
       to: [myEmail, { email }],
       from: myEmail,
       subject: 'Wallet app verification email',
-      text: `Please confirm your email address by clicking on the link https://wallet-app-g3.netlify.app/verifyEmail/?token=${user.verificationToken}`,
-      html: `Please confirm your email address by clicking <strong><a href="https://wallet-app-g3.netlify.app/verifyEmail/?token=${user.verificationToken}">Here</a></strong>`,
+      text: `Please confirm your email address by clicking on the link http://wallet-app.mateusz-martin.online/verifyEmail/?token=${user.verificationToken}`,
+      html: `Please confirm your email address by clicking <strong><a href="http://wallet-app.mateusz-martin.online/verifyEmail/?token=${user.verificationToken}">Here</a></strong>`,
     };
     await sgMail.send(verificationEmail);
     res.json({ code: 200, message: 'Verification email sent' });
